@@ -1,0 +1,13 @@
+ray==0.8.4
+numpy
+jupyterlab
+jupyter-server-proxy
+ipywidgets
+matplotlib
+bokeh
+psutil
+bs4
+lxml
+setproctitle
+atoma
+pytz
