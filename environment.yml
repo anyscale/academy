@@ -1,0 +1,24 @@
+name: ray-tutorial
+channels:
+    - conda-forge
+dependencies:
+  - python=3.8
+  - bokeh
+  - ipywidgets=6.0.0
+  - tensorflow==2.1.0
+  - psutil
+  - nbserverproxy
+  - flask
+  - flask-cors
+  - jupyterlab
+  - pip:
+    - ray==0.8.4
+    - keras
+    - modin
+    - matplotlib
+    - bs4
+    - lxml
+    - scikit-learn
+    - setproctitle
+    - atoma
+    - numpy
