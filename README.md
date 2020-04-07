@@ -1,6 +1,10 @@
-# Ray Tutorials
+# Anyscale Academy - Ray Tutorials
 
-The second-generation tutorials for the [Ray Project](https://ray.io) ([GitHub](https://github.com/ray-project)).
+© 2019-2020, Anyscale. All Rights Reserved
+
+Welcome to the [Anyscale Academy](https://anyscale.com/academy) tutorials on [Ray](https://ray.io), the system for scaling your applications from a laptop to a cluster.
+
+> **Note:** This is an early release of these tutorials. Please report any issues 
 
 ## Setup
 
@@ -44,7 +48,7 @@ pip install -r requirements.txt
 
 ## Launching the Tutorials
 
-The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start, make sure you are in the same directory as the README and run the following command:
+The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start, make sure you are in the project root directory (i.e., the same directory as this README) and run the following command:
 
 ```
 jupyter lab
