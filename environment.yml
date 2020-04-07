@@ -1,24 +1,21 @@
-name: ray-tutorial
+name: anyscale-academy
 channels:
     - conda-forge
 dependencies:
   - python=3.8
+  - pip
   - bokeh
-  - ipywidgets=6.0.0
-  - tensorflow==2.1.0
+  - ipywidgets
   - psutil
-  - nbserverproxy
-  - flask
-  - flask-cors
   - jupyterlab
+  - jupyter-server-proxy
   - pip:
     - ray==0.8.4
-    - keras
-    - modin
+    - numpy
     - matplotlib
     - bs4
     - lxml
     - scikit-learn
     - setproctitle
     - atoma
-    - numpy
+    - pytz

@@ -8,28 +8,71 @@ The second-generation tutorials for the [Ray Project](https://ray.io) ([GitHub](
 
 The following must be installed on your machine:
 
-* Python 3.8
+* Python 3.6 to 3.8 (3.8 recommended)
+    * The version of Python that comes with your operating system is probably too old. Try `python --version` to see what you have.
 * Pip (recent version)
 
-We recommend using [Anaconda](https://www.anaconda.com/), especially if you do lots of Python development and you need to define different environments for different projects.
+#### Using Anaconda
 
+We recommend using [Anaconda](https://www.anaconda.com/), especially if you do lots of Python development and you need to define different environments for different projects. However, Anaconda isn't required.
+
+To install Anaconda, follow the instructions [here](https://www.anaconda.com/distribution/).
 Then run the following Pip command to install the other dependencies, including Ray:
 
 ```
-pip install -r environment.yml
+conda env create -f environment.yml
 ```
+
+This creates an environment with the name `anyscale-academy`. Use the following command to activate it:
+
+```
+conda activate anyscale-academy
+```
+
+#### Using Pip
+
+If you don't use Anaconda, first install a version of Python 3.6 to 3.8 (3.8 recommended). Instructions are at [python.org](https://www.python.org/downloads/). 
+
+Then install `pip` using the instructions at [pip.pypa.io](https://pip.pypa.io/en/stable/installing/).
+
+
+Now you can run the following `pip` command to install the rest of the libraries required for these tutorials, including Ray:
+
+```
+pip install -r requirements.txt
+```
+
+## Launching the Tutorials
+
+The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start, make sure you are in the same directory as the README and run the following command:
+
+```
+jupyter lab
+```
+
+It should automatically open a browser window with the lab environment, but if not, the console output will show the URL you should use.
 
 ## Tutorial Modules
 
-There are many modules in this project, organized in subdirectories. Lessons are provided as [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/) notebooks. A number is embedded in the name to indicate the sequence you should follow when going through the lessons. In the cases where some notebooks can be studied in an arbitrary order, they are indicated with a letter, such as `A`. For example, `algorithm04A.ipynb` and `algorithm04B.ipynb` would indicate that you can go through either or both of these notebooks in any order, after going through the first through third lessons.
+The rest of this information can also be found in the [Overview](./Overview.ipynb) notebook. 
 
-Here are the modules.
+This directory contains files for setting up your environment (`README.md` - this file, `environment.yml`, and `requirements.txt`), which were discussed above, and the Apache license file (`LICENSE`).
+
+The `util` directory contains library code used in the notebooks and the `images` directory contains images used in the notebooks.
+
+Each tutorial _module_ is contained in a dedicated directory. Each  [Jupyter](https://jupyterlab.readthedocs.io/en/stable/) notebook in a module is a _lesson_. The notebooks follow the naming convention `NN-name.ipynb`, where `NN` is a number that indicates the ordering of lessons. 
+
+> **Note:** If two or more notebooks have the same `NN` number, it indicates they can be studied an arbitrary order.
+
+Let's discuss the modules. in this project, organized in subdirectories. 
 
 ### Ray Core
 
 Directory: `ray-core`
 
 This is the place to start. This module introduces you to Ray, why it was created, what problems it solves, how to use it, and how it works behind the scenes.
+
+Once you've completed the Ray core material, you can explore the rest of the modules in any order.
 
 ### Ray RLlib
 
