@@ -1,16 +1,18 @@
 name: anyscale-academy
 channels:
     - conda-forge
+    - pyviz
 dependencies:
   - python=3.8
   - pip
   - bokeh
   - ipywidgets
+  - holoviz
   - psutil
   - jupyterlab
   - jupyter-server-proxy
   - pip:
-    - ray==0.8.4
+    - ray[rllib]==0.8.4
     - numpy
     - matplotlib
     - bs4

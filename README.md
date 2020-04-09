@@ -4,7 +4,7 @@
 
 Welcome to the [Anyscale Academy](https://anyscale.com/academy) tutorials on [Ray](https://ray.io), the system for scaling your applications from a laptop to a cluster.
 
-> **Note:** This is an early release of these tutorials. Please report any issues 
+> **Note:** This is an early release of these tutorials. Please report any issues
 
 ## Setup
 
@@ -21,10 +21,12 @@ The following must be installed on your machine:
 We recommend using [Anaconda](https://www.anaconda.com/), especially if you do lots of Python development and you need to define different environments for different projects. However, Anaconda isn't required.
 
 To install Anaconda, follow the instructions [here](https://www.anaconda.com/distribution/).
-Then run the following Pip command to install the other dependencies, including Ray:
+Then run the following `conda` command to install the other dependencies, including Ray, followed by the `jupyter` commands to set up graphing libraries in Jupyter Lab. You will need an Internet connection and they will take a while to finish:
 
 ```
 conda env create -f environment.yml
+jupyter labextension install @jupyter-widgets/jupyterlab-manager
+jupyter labextension install @bokeh/jupyter_bokeh
 ```
 
 This creates an environment with the name `anyscale-academy`. Use the following command to activate it:
@@ -35,15 +37,17 @@ conda activate anyscale-academy
 
 #### Using Pip
 
-If you don't use Anaconda, first install a version of Python 3.6 to 3.8 (3.8 recommended). Instructions are at [python.org](https://www.python.org/downloads/). 
+If you don't use Anaconda, first install a version of Python 3.6 to 3.8 (3.8 recommended). Instructions are at [python.org](https://www.python.org/downloads/).
 
 Then install `pip` using the instructions at [pip.pypa.io](https://pip.pypa.io/en/stable/installing/).
 
 
-Now you can run the following `pip` command to install the rest of the libraries required for these tutorials, including Ray:
+Now you can run the following `pip` command to install the rest of the libraries required for these tutorials, including Ray, followed by the `jupyter` commands to set up graphing libraries in Jupyter Lab. You will need an Internet connection and they will take a while to finish:
 
 ```
 pip install -r requirements.txt
+jupyter labextension install @jupyter-widgets/jupyterlab-manager
+jupyter labextension install @bokeh/jupyter_bokeh
 ```
 
 ## Launching the Tutorials
@@ -56,19 +60,21 @@ jupyter lab
 
 It should automatically open a browser window with the lab environment, but if not, the console output will show the URL you should use.
 
+> **Tip:** If you accidentally close this browser window, just use the same link to reopen it.
+
 ## Tutorial Modules
 
-The rest of this information can also be found in the [Overview](./Overview.ipynb) notebook. 
+The rest of this information can also be found in the [Overview](./Overview.ipynb) notebook.
 
 This directory contains files for setting up your environment (`README.md` - this file, `environment.yml`, and `requirements.txt`), which were discussed above, and the Apache license file (`LICENSE`).
 
 The `util` directory contains library code used in the notebooks and the `images` directory contains images used in the notebooks.
 
-Each tutorial _module_ is contained in a dedicated directory. Each  [Jupyter](https://jupyterlab.readthedocs.io/en/stable/) notebook in a module is a _lesson_. The notebooks follow the naming convention `NN-name.ipynb`, where `NN` is a number that indicates the ordering of lessons. 
+Each tutorial _module_ is contained in a dedicated directory. Each  [Jupyter](https://jupyterlab.readthedocs.io/en/stable/) notebook in a module is a _lesson_. The notebooks follow the naming convention `NN-name.ipynb`, where `NN` is a number that indicates the ordering of lessons.
 
 > **Note:** If two or more notebooks have the same `NN` number, it indicates they can be studied an arbitrary order.
 
-Let's discuss the modules. in this project, organized in subdirectories. 
+Let's discuss the modules. in this project, organized in subdirectories.
 
 ### Ray Core
 
@@ -101,6 +107,6 @@ _Ray Serve_ is Ray's system for scalable _model serving_, with capabilities that
 
 When you first start Ray in the very first lesson (i.e., use `ray.init()`), you may run into a few issues:
 
-1. If you get an error like `... INFO services.py:... -- Failed to connect to the redis server, retrying.`, it probably means you are running a VPN on your machine. [At this time](https://github.com/ray-project/ray/issues/6573), you can't use `ray.init()` with a VPN running. You'll have to stop your VPN for now.
+1. If you get an error like `... INFO services.py:... -- Failed to connect to the redis server, retrying.`, it probably means you are running a VPN on your machine. [At this time](https://github.com/ray-project/ray/issues/6573), you can't use `ray.init()` with a VPN running. You'll have to stop your VPN to run `ray.init()`, then once it finishes, you can restart your VPN.
 
-2. If `ray.init()` worked (for example, you see a message like _View the Ray dashboard at localhost:8265_) and you're using a Mac, you may get several annoying dialogs asking you if you want to allow incoming connections for Python and/or Redis. Click "Accept" for each one and they shouldn't appear again during this tutorial. MacOS is trying to verify if these executables have been properly signed. Ray uses Redis. If you installed Python using Anaconda or other mechanism, then it probably isn't properly signed from the point of view of MacOS. To permanently fix this problem, [see this StackExchange post](https://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog). 
+2. If `ray.init()` worked (for example, you see a message like _View the Ray dashboard at localhost:8265_) and you're using a Mac, you may get several annoying dialogs asking you if you want to allow incoming connections for Python and/or Redis. Click "Accept" for each one and they shouldn't appear again during this tutorial. MacOS is trying to verify if these executables have been properly signed. Ray uses Redis. If you installed Python using Anaconda or other mechanism, then it probably isn't properly signed from the point of view of MacOS. To permanently fix this problem, [see this StackExchange post](https://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog).

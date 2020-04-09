@@ -1,9 +1,10 @@
-ray==0.8.4
+ray[rllib]==0.8.4
 numpy
 jupyterlab
 jupyter-server-proxy
 ipywidgets
 matplotlib
+holoviz
 bokeh
 psutil
 bs4
