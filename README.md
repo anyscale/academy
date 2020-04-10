@@ -1,27 +1,30 @@
-# Anyscale Academy - Ray Tutorials
+# Anyscale Academy - Tutorials on Ray and Ray-based Libraries
 
-© 2019-2020, Anyscale. All Rights Reserved
+© 2018-2020, Anyscale. All Rights Reserved
 
 Welcome to the [Anyscale Academy](https://anyscale.com/academy) tutorials on [Ray](https://ray.io), the system for scaling your applications from a laptop to a cluster.
 
-> **Note:** This is an early release of these tutorials. Please report any issues
+This README tells you how to set up the tutorials and it provides a quick overview of its contents.
+
+> **Tips:**
+>
+> 1. This is an early release of these tutorials. Please report any issues:
+>    * [GitHub issues](https://github.com/anyscale/academy/issues)
+>    * The [#tutorial channel](https://ray-distributed.slack.com/archives/C011ML23W5B) on the [Ray Slack](https://ray-distributed.slack.com)
+>    * [Email](mailto:academy@anyscale.com)
+> 2. If you are attending a live tutorial event, please follow the setup instructions well in advance, as some of the downloads and installation processes can take a while.
+> 3. There is a Troubleshooting section at the end of this README.
 
 ## Setup
 
-### Prerequisite Software
-
-The following must be installed on your machine:
-
-* Python 3.6 to 3.8 (3.8 recommended)
-    * The version of Python that comes with your operating system is probably too old. Try `python --version` to see what you have.
-* Pip (recent version)
+Clone the [Academy GitHub repo](https://github.com/anyscale/academy) or [download the latest release](https://github.com/anyscale/academy/releases), which is best if you don't have `git` on your laptop.
 
 #### Using Anaconda
 
 We recommend using [Anaconda](https://www.anaconda.com/), especially if you do lots of Python development and you need to define different environments for different projects. However, Anaconda isn't required.
 
 To install Anaconda, follow the instructions [here](https://www.anaconda.com/distribution/).
-Then run the following `conda` command to install the other dependencies, including Ray, followed by the `jupyter` commands to set up graphing libraries in Jupyter Lab. You will need an Internet connection and they will take a while to finish:
+Then run the following `conda` command in the root directory of this project to install the other dependencies, including Ray, followed by the `jupyter` commands to set up graphing libraries in Jupyter Lab. You will need an Internet connection and the commands will take a while to finish:
 
 ```
 conda env create -f environment.yml
@@ -29,20 +32,25 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 jupyter labextension install @bokeh/jupyter_bokeh
 ```
 
-This creates an environment with the name `anyscale-academy`. Use the following command to activate it:
+This creates a Conda environment with the name `anyscale-academy`. Use the following command to activate it:
 
 ```
 conda activate anyscale-academy
 ```
 
+You are ready to go!
+
 #### Using Pip
 
-If you don't use Anaconda, first install a version of Python 3.6 to 3.8 (3.8 recommended). Instructions are at [python.org](https://www.python.org/downloads/).
+If you don't use Anaconda, you'll have to install prerequisites first:
 
-Then install `pip` using the instructions at [pip.pypa.io](https://pip.pypa.io/en/stable/installing/).
+* Python 3.6 to 3.8 (3.8 recommended)
+    * The version of Python that comes with your operating system is probably too old. Try `python --version` to see what you have.
+    * Installation instructions are at [python.org](https://www.python.org/downloads/).
+* Pip (a recent version)
+	* Installation instructions are at [pip.pypa.io](https://pip.pypa.io/en/stable/installing/).
 
-
-Now you can run the following `pip` command to install the rest of the libraries required for these tutorials, including Ray, followed by the `jupyter` commands to set up graphing libraries in Jupyter Lab. You will need an Internet connection and they will take a while to finish:
+Now you can run the following commands in the root directory of this project to complete the setup. First, you'll run a `pip` command to install the rest of the libraries required for these tutorials, including Ray. Then you'll run  `jupyter` commands to set up graphing libraries in Jupyter Lab. You will need an Internet connection and these commands will take a while to finish:
 
 ```
 pip install -r requirements.txt
@@ -50,9 +58,11 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 jupyter labextension install @bokeh/jupyter_bokeh
 ```
 
+You are ready to go!
+
 ## Launching the Tutorials
 
-The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start, make sure you are in the project root directory (i.e., the same directory as this README) and run the following command:
+The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start, make sure you are in the project root directory and run the following command:
 
 ```
 jupyter lab
@@ -60,7 +70,7 @@ jupyter lab
 
 It should automatically open a browser window with the lab environment, but if not, the console output will show the URL you should use.
 
-> **Tip:** If you accidentally close this browser window, just use the same link to reopen it.
+> **Tip:** If you accidentally close this browser window, just use the same URL to reopen it.
 
 ## Tutorial Modules
 
@@ -90,11 +100,15 @@ Directory: `ray-rllib`
 
 _Ray RLlib_ is Ray's system for _reinforcement learning_. This module begins with a "crash course" in RL concepts. It then explores several of the commonly-used algorithms and approaches for different applications.
 
+This module will be released soon.
+
 ### Ray Tune and Ray SGD
 
 Directory: `ray-tune`
 
 _Ray Tune_ is Ray's system for _hyperparameter tuning_. This module starts with an explanation of what hyperparameter tuning is for and the performances challenges doing it for many applications. Then the module explores how to use _Tune_, how it integrates with several popular ML frameworks, and the algorithms supported in _Tune_. The new _Ray SGD_ module is also covered.
+
+This module will be released soon.
 
 ### Ray Serve
 
@@ -102,6 +116,7 @@ Directory: `ray-serve`
 
 _Ray Serve_ is Ray's system for scalable _model serving_, with capabilities that also make it suitable for other web server applications. This module starts with an explanation of what's required in model serving, followed by a tour of the API with examples.
 
+This module will be released soon.
 
 ## Troubleshooting
 
