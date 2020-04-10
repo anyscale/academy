@@ -1,9 +1,9 @@
+#!/usr/bin/env python
 import numpy as np
 import time
 
-def print_grid(n, grid):
-	print(f'{n}:\n{grid}')
-
+def print_state(n, state):
+	print(f'\nstate #{n}:\n{state}')
 
 class Game:
 	"""
@@ -18,13 +18,17 @@ class Game:
 		self.state = state
 		self.rules = rules
 
-	def run(self, max_steps = 1000, foreach_grid = print_grid, pause=0.0):
+	def step(self):
+		self.state = self.rules.step(self.state)
+		return self.state
+
+	def run(self, max_steps = 1000, foreach_state = print_state, pause=0.0):
 		"""
 		Run the game for max_steps iterations, pausing pause seconds.
 
 		Args:
 			max_steps (int) the number of iterations
-			foreach_grid (function) a function(n,grid) to which each new grid is passed.
+			foreach_state (function) a function(n,state) to which each new state is passed.
 			pause (float) the number of seconds between iterations (default: 0)
 		Returns:
 			A list of all the grids computed during the game. The length is the number of steps.
@@ -36,8 +40,8 @@ class Game:
 				time.sleep(pause)
 			i += 1
 			last_grid = self.state.grid.copy()
-			self.state = self.rules.step(self.state)
-			foreach_grid(i, self.state.grid)
+			self.step()
+			foreach_state(i, self.state)
 			grids.append(self.state.grid)
 			if (self.state.grid == last_grid).all():
 				break
@@ -81,15 +85,18 @@ class State:
 		if size > 0:
 			self.size = size
 			# Seed: random initialization
-			rng = np.random.default_rng()
-			self.grid = rng.integers(2, size=(self.size, self.size))
+			self.grid = np.random.random(size*size).reshape((size, size)).round()
 		else:
 			assert None, "Must specify at least one of size, grid, or live_cells"
-		print(f'Starting grid:\n{self.grid}')
+		print(f'Starting state:\n{self}')
 
 
 	def __eq__(self, obj):
 		return isinstance(obj, State) and self.grid == obj.grid
+
+	def __str__(self):
+		s = ' |\n| '.join([' '.join(map(lambda x: '*' if x else ' ', self.grid[i])) for i in range(self.size)])
+		return '| ' + s + ' |'
 
 	def update(self, born_cells, died_cells):
 		for x,y in born_cells:
@@ -105,22 +112,26 @@ class State:
 
 	def living_cells(self):
 		"""
-		Return (x,y) tuples for living cells
+		Return (x,y) tuples for living cells for the current state.
 		"""
-		return living_cells_from_grid(self.grid)
-
-	def living_cells_from_grid(self, grid):
-		"""
-		Return (x,y) tuples for living cells
-
-		Args:
-			grid (NxN array)  if None, use the state's grid.
-		"""
-		return [(i,j) for i in range(self.size) for j in range(self.size) if grid[i][j] == 1]
+		return [(i,j) for i in range(self.size) for j in range(self.size) if self.grid[i][j] == 1]
 
 class Rules:
 	def step(self, state):
 		pass
+
+	def step(self, state):
+		new_live = []
+		new_dead = []
+		for i in range(state.size):
+			for j in range(state.size):
+				live, die = rule(i, j, state)
+				if live:
+					new_live.append((i,j))
+				if die:
+					new_dead.append((i,j))
+		state.update(new_live, new_dead)
+		return state
 
 class StandardRules(Rules):
 	"""
@@ -133,48 +144,39 @@ class StandardRules(Rules):
 	Any live cell with more than three live neighbours dies, as if by overpopulation.
 	Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 	"""
-	def __init__(self):
-		self.deltas = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
-
 	def step(self, state):
+		"""
+		Perform a game step, starting with the passed-in state and returning
+		the updated state
+		"""
 		new_live = []
 		new_dead = []
-		for i in range(state.size):
-			for j in range(state.size):
-				num_live = self.find_live_neighbours(i, j, state)
-				if state.grid[i][j] == 1:
+		g=state.grid
+		s=state.size
+		for i in range(s):
+			for j in range(s):
+				# We wrap at boundaries: when k-1=-1, that wraps itself;
+				# for k+1=state.size, we mod it (which works for -1, too)
+				# For simplicity, we count the cell itself, then subtact it
+				num_live = sum([state.grid[i2%s][j2%s] for i2 in [i-1,i,i+1] for j2 in [j-1,j,j+1]]) - g[i][j]
+				if g[i][j] == 1:
 					if num_live < 2 or num_live > 3:
 						new_dead.append((i,j))
 				elif num_live == 3:
-						new_live.append((i,j))
+					new_live.append((i,j))
+		# We have to wait until the end to update the state.
 		state.update(new_live, new_dead)
 		return state
 
-	def find_live_neighbours(self, i, j, state):
-		num_live = 0
-		for (idelta, jdelta) in self.deltas:
-			i2 = self.mod(i+idelta, state.size)
-			j2 = self.mod(j+jdelta, state.size)
-			num_live += state.grid[i2][j2]
-		return num_live
-
-	def mod(self, index, size):
-		if index < 0:
-			index = size - 1
-		elif index == size:
-			index = 0
-		return index
-
 def main():
 	import argparse
-
 	parser = argparse.ArgumentParser(description="Conway's Game of Life")
 	parser.add_argument('--size', metavar='N', type=int, default=100, nargs='?',
-	                   help='The size of the square grid for the game')
+	    help='The size of the square grid for the game')
 	parser.add_argument('--steps', metavar='N', type=int, default=500, nargs='?',
-	                   help='The number of steps to run')
+	    help='The number of steps to run')
 	parser.add_argument('--pause', metavar='D', type=float, default=0.0, nargs='?',
-	                   help='The pause between steps, in seconds')
+	    help='The pause between steps, in seconds')
 
 	args = parser.parse_args()
 	print(f"""
@@ -188,9 +190,9 @@ Conway's Game of Life:
 	rules = StandardRules()
 	game  = Game(state=state, rules=rules)
 	grids = game.run(max_steps = args.steps, pause = args.pause)
-	print(f'n = {len(grids)}')
-	print(grids[-1])
-	print(game.state.living_cells())
+	print(f'\nTook {len(grids)-1} steps.')
+	print(game.state)
+	print(f'living cells: {game.state.living_cells()}')
 
 if __name__ == "__main__":
     main()
