@@ -17,6 +17,8 @@ This README tells you how to set up the tutorials and it provides a quick overvi
 
 ## Setup
 
+The setup commands can take a while to finish.
+
 Clone the [Academy GitHub repo](https://github.com/anyscale/academy) or [download the latest release](https://github.com/anyscale/academy/releases), which is best if you don't have `git` on your laptop.
 
 #### Using Anaconda
@@ -24,18 +26,20 @@ Clone the [Academy GitHub repo](https://github.com/anyscale/academy) or [downloa
 We recommend using [Anaconda](https://www.anaconda.com/), especially if you do lots of Python development and you need to define different environments for different projects. However, Anaconda isn't required.
 
 To install Anaconda, follow the instructions [here](https://www.anaconda.com/distribution/).
-Then run the following `conda` command in the root directory of this project to install the other dependencies, including Ray, followed by the `jupyter` commands to set up graphing libraries in Jupyter Lab. You will need an Internet connection and the commands will take a while to finish:
+
+Then run the following commands in the root directory of this project. First, we use `conda` to install the other dependencies, including Ray. Then we "activate" the newly-creatd environment, named `anyscale-academy`. Finally, uwe use the `jupyter` command to set up the graphing libraries in Jupyter Lab that we'll use.
 
 ```
 conda env create -f environment.yml
+conda activate anyscale-academy
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
+jupyter labextension install @pyviz/jupyterlab_pyviz
 jupyter labextension install @bokeh/jupyter_bokeh
 ```
 
-This creates a Conda environment with the name `anyscale-academy`. Use the following command to activate it:
+This creates a Conda environment with the . Use the following command to activate it:
 
 ```
-conda activate anyscale-academy
 ```
 
 You are ready to go!
@@ -55,6 +59,7 @@ Now you can run the following commands in the root directory of this project to 
 ```
 pip install -r requirements.txt
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
+jupyter labextension install @pyviz/jupyterlab_pyviz
 jupyter labextension install @bokeh/jupyter_bokeh
 ```
 
