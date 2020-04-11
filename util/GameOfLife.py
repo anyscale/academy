@@ -2,9 +2,6 @@
 import numpy as np
 import time
 
-def print_state(n, state):
-	print(f'\nstate #{n}:\n{state}')
-
 class Game:
 	"""
 	Conway's Game of Life.
@@ -22,14 +19,14 @@ class Game:
 		self.state = self.rules.step(self.state)
 		return self.state
 
-	def run(self, max_steps = 1000, foreach_state = print_state, pause=0.0):
+	def run(self, max_steps = 1000, pause=0.0, foreach_state = None):
 		"""
 		Run the game for max_steps iterations, pausing pause seconds.
 
 		Args:
 			max_steps (int) the number of iterations
-			foreach_state (function) a function(n,state) to which each new state is passed.
 			pause (float) the number of seconds between iterations (default: 0)
+			foreach_state (function) a function(n,state) to which each new state is passed.
 		Returns:
 			A list of all the grids computed during the game. The length is the number of steps.
 		"""
@@ -41,7 +38,8 @@ class Game:
 			i += 1
 			last_grid = self.state.grid.copy()
 			self.step()
-			foreach_state(i, self.state)
+			if foreach_state:
+				foreach_state(i, self.state)
 			grids.append(self.state.grid)
 			if (self.state.grid == last_grid).all():
 				break
@@ -186,10 +184,13 @@ Conway's Game of Life:
   Pause between steps: {args.pause}
 """)
 
+	def print_state(n, state):
+		print(f'\nstate #{n}:\n{state}')
+
 	state = State(size = args.size)
 	rules = StandardRules()
 	game  = Game(state=state, rules=rules)
-	grids = game.run(max_steps = args.steps, pause = args.pause)
+	grids = game.run(max_steps = args.steps, pause = args.pause, foreach_state=print_state)
 	print(f'\nTook {len(grids)-1} steps.')
 	print(game.state)
 	print(f'living cells: {game.state.living_cells()}')
