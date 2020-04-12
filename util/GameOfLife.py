@@ -2,6 +2,7 @@
 import numpy as np
 import time
 
+# TODO: Write a test suite...
 class Game:
 	"""
 	Conway's Game of Life.
@@ -9,7 +10,6 @@ class Game:
 	Args:
 		state (State) encapsulates the game state
 		rules (Rules) the rules for this game
-
 	"""
 	def __init__(self, state, rules):
 		self.state = state
@@ -46,7 +46,7 @@ class Game:
 		return grids
 
 class State:
-	def __init__(self, grid = None, live_cells = None, size = -1):
+	def __init__(self, grid = None, live_cells = None, size = -1, show_starting_grid=False):
 		"""
 		Construct a Game of Life state object that tracks the grid changes.
 		Specify ONE of the following:
@@ -59,7 +59,8 @@ class State:
 		Args:
 			grid (Numpy matrix): The full square grid for the current state
 			live_cells (list of (x,y) tuples): Just the live grid
-			size (int): Create an square grid of this size.
+			size (int): Create an square grid of this size
+			show_starting_grid (bool): Print the starting grid?
 		"""
 		self.size = size
 		if grid != None:
@@ -86,7 +87,8 @@ class State:
 			self.grid = np.random.random(size*size).reshape((size, size)).round()
 		else:
 			assert None, "Must specify at least one of size, grid, or live_cells"
-		print(f'Starting state:\n{self}')
+		if show_starting_grid:
+			print(f'Starting state:\n{self}')
 
 
 	def __eq__(self, obj):
@@ -96,75 +98,86 @@ class State:
 		s = ' |\n| '.join([' '.join(map(lambda x: '*' if x else ' ', self.grid[i])) for i in range(self.size)])
 		return '| ' + s + ' |'
 
-	def update(self, born_cells, died_cells):
-		for x,y in born_cells:
-			self.grid[x][y] = 1
-		for x,y in died_cells:
-			self.grid[x][y] = 0
-
 	def find_size(self, live_cells):
 		flattened = []
 		for x,y in live_cells:
 			flattened.extend([x,y])
 		return flattened.sort()[-1]
 
-	def living_cells(self):
+	def living_cells(self, unzipped = False):
 		"""
 		Return (x,y) tuples for living cells for the current state.
+		If unzipped is true, returns (xs,ys).
 		"""
-		return [(i,j) for i in range(self.size) for j in range(self.size) if self.grid[i][j] == 1]
+		cells = [(i,j) for i in range(self.size) for j in range(self.size) if self.grid[i][j] == 1]
+		if unzipped:
+			return zip(*cells)
+		else:
+			return cells
 
 class Rules:
-	def step(self, state):
+	"""
+	Encapsulates the process of applying rules using the current state to
+	determine the new state, then it updates the State instance, and returns
+	it.	The actual rules are defined by concrete subclasses and applied using
+	the apply_rules() method.
+	Note that this class is stateless, but using a class allows us to define
+	different games if we choose.
+	"""
+	def apply_rules(self, i, j, live_neighbors, state):
+		"""
+		Abstraction for the rules application for the current cell at (i,j).
+
+		Args:
+			i,j (int) indices of the cell
+			live_neighbors (int) how many nearest neighbors are live?
+			state (State) previous state of the game
+
+		Returns:
+			The new value, which could be unchanged.
+		"""
 		pass
 
 	def step(self, state):
-		new_live = []
-		new_dead = []
+		"""
+		Determine the next values for all the cells, based on the current
+		state. Then updates state with the changes.
+		"""
+		# Don't modify while iterating; only update AFTERWARDS!
+		new_grid=state.grid.copy()
 		for i in range(state.size):
 			for j in range(state.size):
-				live, die = rule(i, j, state)
-				if live:
-					new_live.append((i,j))
-				if die:
-					new_dead.append((i,j))
-		state.update(new_live, new_dead)
+				lns = self.live_neighbors(i, j, state)
+				new_grid[i][j] = self.apply_rules(i, j, lns, state)
+		state.grid = new_grid
 		return state
 
-class StandardRules(Rules):
-	"""
-	Note that this class is stateless, but using a class allows us to define
-	different games if we choose.
+	def live_neighbors(self, i, j, state):
+		"""We wrap at boundaries (a 2-dim "toroid")"""
+		# To wrap at boundaries, when k-1=-1, that wraps itself;
+		# for k+1=state.size, we mod it (which works for -1, too)
+		# For simplicity, we count the cell itself, then subtact it
+		s = state.size
+		g = state.grid
+		return sum([g[i2%s][j2%s] for i2 in [i-1,i,i+1] for j2 in [j-1,j,j+1]]) - g[i][j]
 
-	Rules implemented here:
-	Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-	Any live cell with two or three live neighbours lives on to the next generation.
-	Any live cell with more than three live neighbours dies, as if by overpopulation.
-	Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+
+class ConwaysRules(Rules):
 	"""
-	def step(self, state):
-		"""
-		Perform a game step, starting with the passed-in state and returning
-		the updated state
-		"""
-		new_live = []
-		new_dead = []
-		g=state.grid
-		s=state.size
-		for i in range(s):
-			for j in range(s):
-				# We wrap at boundaries: when k-1=-1, that wraps itself;
-				# for k+1=state.size, we mod it (which works for -1, too)
-				# For simplicity, we count the cell itself, then subtact it
-				num_live = sum([state.grid[i2%s][j2%s] for i2 in [i-1,i,i+1] for j2 in [j-1,j,j+1]]) - g[i][j]
-				if g[i][j] == 1:
-					if num_live < 2 or num_live > 3:
-						new_dead.append((i,j))
-				elif num_live == 3:
-					new_live.append((i,j))
-		# We have to wait until the end to update the state.
-		state.update(new_live, new_dead)
-		return state
+	The class rules for Conway's Game of Life:
+		Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+		Any live cell with two or three live neighbours lives on to the next generation.
+		Any live cell with more than three live neighbours dies, as if by overpopulation.
+		Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+	"""
+	def apply_rules(self, i, j, live_neighbors, state):
+		cell = state.grid[i][j]  # default value; no change!
+		if cell == 1:
+			if live_neighbors < 2 or live_neighbors > 3:
+				cell = 0
+		elif live_neighbors == 3:
+			cell = 1
+		return cell
 
 def main():
 	import argparse
@@ -188,7 +201,7 @@ Conway's Game of Life:
 		print(f'\nstate #{n}:\n{state}')
 
 	state = State(size = args.size)
-	rules = StandardRules()
+	rules = ConwaysRules()
 	game  = Game(state=state, rules=rules)
 	grids = game.run(max_steps = args.steps, pause = args.pause, foreach_state=print_state)
 	print(f'\nTook {len(grids)-1} steps.')
