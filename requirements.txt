@@ -1,6 +1,7 @@
 pandas
 holoviews
 bokeh
+matplotlib
 psutil
 jupyterlab
 jupyter-server-proxy
@@ -10,3 +11,7 @@ setproctitle
 pytz
 ray[rllib]==0.8.4
 atoma
+cffi
+cryptography
+pyOpenSSL
+PySocks
