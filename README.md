@@ -157,6 +157,31 @@ This module will be released soon.
 
 When you first start Ray in a notebook (i.e., use `ray.init()`), you may run into a few issues:
 
-1. If you get an error like `... INFO services.py:... -- Failed to connect to the redis server, retrying.`, it probably means you are running a VPN on your machine. [At this time](https://github.com/ray-project/ray/issues/6573), you can't use `ray.init()` with a VPN running. You'll have to stop your VPN to run `ray.init()`, then once it finishes, you can restart your VPN.
+### Ray.init() Fails
 
-2. If `ray.init()` worked (for example, you see a message like _View the Ray dashboard at localhost:8265_) and you're using a Mac, you may get several annoying dialogs asking you if you want to allow incoming connections for Python and/or Redis (used internally by Ray). Click "Accept" for each one and they shouldn't appear again during this tutorial. For security reasons, MacOS is complaining that it can't verify these executables have been properly signed. If you installed Python using Anaconda or other mechanism, then it probably isn't properly signed from the point of view of MacOS. To permanently fix this problem, [see this StackExchange post](https://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog).
+If you get an error like `... INFO services.py:... -- Failed to connect to the redis server, retrying.`, it probably means you are running a VPN on your machine. [At this time](https://github.com/ray-project/ray/issues/6573), you can't use `ray.init()` with a VPN running. You'll have to stop your VPN to run `ray.init()`, then once it finishes, you can restart your VPN.
+
+### MacOS - Prompts to Allow Python, etc.
+
+If `ray.init()` worked (for example, you see a message like _View the Ray dashboard at localhost:8265_) and you're using a Mac, you may get several annoying dialogs asking you if you want to allow incoming connections for Python and/or Redis (used internally by Ray). Click "Accept" for each one and they shouldn't appear again during this tutorial. For security reasons, MacOS is complaining that it can't verify these executables have been properly signed. If you installed Python using Anaconda or other mechanism, then it probably isn't properly signed from the point of view of MacOS. To permanently fix this problem, [see this StackExchange post](https://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog).
+
+### Profiling Actors with Ray Dashboard - Bug
+
+3. Lesson 4 shows you how to profile actors using the Ray Dashboard, but there is currently a bug in Ray 0.8.4 that prevents Ray from generating valid data. [There is the one line fix](https://github.com/ray-project/ray/pull/8013/files) you can do to your Ray installation.
+
+You need to edit your local copy of `dashboard.py`, `.../lib/python3.X/site-packages/ray/dashboard/dashboard.py`. If you don't know where Ray is installed, start iPython and enter `sys.path`.
+
+Change line 332,
+
+```python
+return aiohttp.web.json_response(self.is_dev, profiling_info)
+```
+
+to this (where the original line is commented out, in case you change your mind later...):
+
+```python
+return aiohttp.web.json_response(profiling_info)
+# return aiohttp.web.json_response(self.is_dev, profiling_info)
+```
+
+If you make this change after starting Jupyter Lab, you'll need to restart.
