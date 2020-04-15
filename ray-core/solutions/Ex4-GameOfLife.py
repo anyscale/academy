@@ -5,7 +5,10 @@ import ray
 
 ray.init()
 
-# Last solution for Exercise 4.
+# One solution for Exercise 4. This one finds that a better implementation of
+# live_neighbors can improve performance about 40%. The alternative
+# implementations are also here. See also micro-perf-tests.py, which was used
+# to more easily test the different implementations.
 class State:
     """
     Represents a grid of game cells.
@@ -24,7 +27,7 @@ class State:
             self.grid = grid.copy()
         else:
             self.size = size
-            self.grid = np.random.randint(2, size = 100*100).reshape((100, 100))
+            self.grid = np.random.randint(2, size = size*size).reshape((size, size))
 
     def living_cells(self):
         """
@@ -39,14 +42,16 @@ class State:
         return '| ' + s + ' |'
 
 @ray.remote
-class RayConwaysRules:
+class RayConwaysRules():
     """
     Apply the rules to a state and return a new state.
     """
+
     def step(self, state):
         """
         Determine the next values for all the cells, based on the current
         state. Creates a new State with the changes.
+        The original implementation.
         """
         new_grid = state.grid.copy()
         for i in range(state.size):
@@ -79,9 +84,11 @@ class RayConwaysRules:
 
     def apply_rules2(self, i, j, state):
         """
-        Instead of conditionals, what about a lookup table?
-        This appears to make no difference, but table lookup is
-        definitely an elegant approach.
+        Instead of conditionals, what about a lookup table? The game
+        rules translate nicely to a lookup table, RayConwaysRules.rules.
+        It appears this change makes no difference in performance, but
+        table lookup is definitely an elegant approach and could be more
+        performant if the conditionals in "apply_rules" were more complex.
         """
         num_live_neighbors = self.live_neighbors(i, j, state)
         cell = state.grid[i][j]  # default value is no change in state
@@ -90,6 +97,7 @@ class RayConwaysRules:
     def live_neighbors(self, i, j, state):
         """
         This is the fastest implementation.
+        Wrap at boundaries (i.e., treat the grid as a 2-dim "toroid")
         """
         s = state.size
         g = state.grid
@@ -101,15 +109,18 @@ class RayConwaysRules:
 
     def live_neighbors2(self, i, j, state):
         """
-        The original implementation.
-        Wrap at boundaries (i.e., treat the grid as a 2-dim "toroid")
+        The original implementation. While more concise, one of several
+        constructs here is a little slower than the implementation above:
+        1. Calling sum
+        2. Doing modulo arithmatic (but live_neighbors3 suggests this isn't an issue)
+        3. The list comprehension
         To wrap at boundaries, when k-1=-1, that wraps itself;
         for k+1=state.size, we mod it (which works for -1, too)
         For simplicity, we count the cell itself, then subtact it
         """
         s = state.size
         g = state.grid
-        return sum([g[i2%s][j2%s] for i2 in [i-1,i,i+1] for j2 in [j-1,j,jp1]]) - g[i][j]
+        return sum([g[i2%s][j2%s] for i2 in [i-1,i,i+1] for j2 in [j-1,j,j+1]]) - g[i][j]
 
     def live_neighbors3(self, i, j, state):
         """
@@ -154,8 +165,6 @@ def main():
         help='The number of steps to run')
     parser.add_argument('--batch_size', metavar='N', type=int, default=1, nargs='?',
         help='Process grid updates in batches of batch_size steps')
-    parser.add_argument('--row_chunks', metavar='N', type=int, default=1, nargs='?',
-        help='Process grid updates in row_chunks parallel groups')
 
     args = parser.parse_args()
     print(f"""
@@ -163,7 +172,6 @@ Conway's Game of Life:
   Grid size:           {args.size}
   Number steps:        {args.steps}
   Batch size:          {args.batch_size}
-  Row chunks:          {args.row_chunks}
 """)
 
     def print_state(n, state):
@@ -172,7 +180,7 @@ Conway's Game of Life:
     def pd(d, prefix=''):
         print('{:s} duration = {:6.3f}'.format(prefix, d))
 
-    def time_ray_games4(num_games = 1, max_steps = args.steps, batch_size = args.batch_size, grid_size = args.size, row_chunks = args.row_chunks):
+    def time_ray_games4(num_games = 1, max_steps = args.steps, batch_size = args.batch_size, grid_size = args.size):
         game_ids = [RayGame2.remote(State(size = grid_size), RayConwaysRules.remote()) for i in range(num_games)]
         start = time.time()
         state_ids = []
@@ -185,7 +193,8 @@ Conway's Game of Life:
 
 
     for _ in range(4):
-        time_ray_games4(num_games = 1, max_steps = args.steps, batch_size=50, grid_size=args.size, row_chunks = args.row_chunks)
+        time_ray_games4(num_games = 1, max_steps = args.steps, batch_size=50, grid_size=args.size)
+
     input("Hit return when finished: ")
 
 if __name__ == "__main__":

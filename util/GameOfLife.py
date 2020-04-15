@@ -36,7 +36,7 @@ class State:
         else:
             self.size = size
             # Seed: random initialization
-            self.grid = np.random.random(size*size).reshape((size, size)).round()
+            self.grid = np.random.randint(2, size = size*size).reshape((size, size))
 
     def living_cells(self):
         """
