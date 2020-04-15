@@ -8,12 +8,13 @@ This README tells you how to set up the tutorials and it provides a quick overvi
 
 > **Tips:**
 >
-> 1. This is an early release of these tutorials. Please report any issues:
+> 1. If you just want to read the tutorials, GitHub renders notebooks. For a little more interactivity, try clicking the Google Colab links below.
+> 2. This is an early release of these tutorials. Please report any issues:
 >    * [GitHub issues](https://github.com/anyscale/academy/issues)
 >    * The [#tutorial channel](https://ray-distributed.slack.com/archives/C011ML23W5B) on the [Ray Slack](https://ray-distributed.slack.com)
 >    * [Email](mailto:academy@anyscale.com)
-> 2. If you are attending a live tutorial event, please follow the setup instructions well in advance, as some of the downloads and installation processes can take a while.
-> 3. There is a Troubleshooting section at the end of this README.
+> 3. If you are attending a live tutorial event, please follow the setup instructions well in advance, as some of the downloads and installation processes can take a while.
+> 4. There is a Troubleshooting section at the end of this README.
 
 ## Setup
 
