@@ -3,8 +3,6 @@ import numpy as np
 import time
 import ray
 
-ray.init()
-
 # One solution for Exercise 4. This one finds that a better implementation of
 # live_neighbors can improve performance about 40%. The alternative
 # implementations are also here. See also micro-perf-tests.py, which was used
@@ -165,14 +163,24 @@ def main():
         help='The number of steps to run')
     parser.add_argument('--batch_size', metavar='N', type=int, default=1, nargs='?',
         help='Process grid updates in batches of batch_size steps')
+    parser.add_argument('--verbose', help="Print invocation parameters",
+        action='store_true')
+    parser.add_argument('--pause', help="Don't exit immediately, wait for user acknowledgement",
+        action='store_true')
 
     args = parser.parse_args()
-    print(f"""
+
+    if args.verbose:
+        print(f"""
 Conway's Game of Life:
-  Grid size:           {args.size}
-  Number steps:        {args.steps}
-  Batch size:          {args.batch_size}
+  Grid size:             {args.size}
+  Number steps:          {args.steps}
+  Batch size:            {args.batch_size}
+  Pause before existing? {args.pause}
 """)
+
+    ray.init()
+    print(f'Ray Dashboard: http://{ray.get_webui_url()}')
 
     def print_state(n, state):
         print(f'\nstate #{n}:\n{state}')
@@ -188,14 +196,15 @@ Conway's Game of Life:
             for i in range(int(max_steps/batch_size)):  # Do a total of max_steps game steps, which is max_steps/delta_steps
                 state_ids.append(game_id.step.remote(batch_size))
         ray.get(state_ids)  # wait for everything to finish! We are ignoring what ray.get() returns, but what will it be??
-        pd(time.time() - start, prefix = f'Total time for {num_games} games (max_steps = {max_steps}, batch_size = {batch_size})')
+        pd(time.time() - start, prefix = f'Total time for {num_games} games (grid size = {grid_size}, max steps = {max_steps}, batch size = {batch_size})')
         return game_ids  # for cleanup afterwards
 
 
     for _ in range(4):
-        time_ray_games4(num_games = 1, max_steps = args.steps, batch_size=50, grid_size=args.size)
+        time_ray_games4(num_games = 1, max_steps = args.steps, batch_size=args.batch_size, grid_size=args.size)
 
-    input("Hit return when finished: ")
+    if args.pause:
+        input("Hit return when finished: ")
 
 if __name__ == "__main__":
     main()
