@@ -4,4 +4,6 @@ __pycache__
 .DS_Store
 tmp/*
 __pycache__/
-ray-core/timeline-04.txt
+ray-core/timeline-*.txt
+ray-core/solutions/*.csv
+ray-core/solutions/*.log
