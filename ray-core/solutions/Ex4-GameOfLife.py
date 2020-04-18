@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import numpy as np
-import time, os, sys
+import time, os, sys, json
 from datetime import datetime
 from queue import Queue
 import ray
@@ -42,6 +42,10 @@ class State:
         cells = [(i,j) for i in range(self.x_dim)
             for j in range(self.y_dim) if self.grid[i][j] == 1]
         return zip(*cells)
+
+    def json(self, indent=2):
+        list = self.grid.tolist()
+        return json.dumps(list, indent=indent)
 
     def __str__(self):
         s = ' |\n| '.join([' '.join(map(lambda x: '*'
@@ -287,7 +291,9 @@ class RayGame:
         return self.current_state
 
 @ray.remote
-def run_game(game_number, runs, old_rules_impl, x_dim, y_dim, step_sizes, batch_sizes, block_sizes, verbose):
+def run_game(game_number, runs, old_rules_impl,
+    x_dim, y_dim, step_sizes, batch_sizes, block_sizes,
+    verbose, write_states):
 
     def now():
         now = datetime.now()
@@ -297,10 +303,33 @@ def run_game(game_number, runs, old_rules_impl, x_dim, y_dim, step_sizes, batch_
     test_dir = os.path.abspath(os.path.dirname(__file__)) + "/test-runs"
     base_name = os.path.splitext(os.path.basename(__file__))[0] # remove .py too!
     os.makedirs(test_dir, exist_ok=True)
-    csv_file = '{:s}-game{:02d}-{:s}-{:s}.csv'.format(base_name, game_number, old_rules_str, now())
+    csv_file  = '{:s}-game{:02d}-{:s}-{:s}.csv'.format(base_name, game_number, old_rules_str, now())
+
+    def write_states_to_json(states, steps, batch, block, run):
+        json_file = '{:s}-states-{:03d}-{:03d}-{:03d}-{:03d}-game{:02d}-{:s}-{:s}.json'.format(
+            base_name, steps, batch, block, run, game_number, old_rules_str, now())
+        if verbose:
+            print(f'Writing JSON data to {test_dir}/{json_file}')
+        with open(f'{test_dir}/{json_file}', 'a') as jfile:
+            metadata = {
+                'steps':      steps,
+                'batch':      batch,
+                'block':      block,
+                'run':        run,
+                'game':       game_number,
+                'old_or_new': 'old_rules_str'
+            }
+            content = {
+                'metadata': metadata,
+                'states': [state.grid.tolist() for state_list in states for state in state_list]
+            }
+            js = json.dumps(content, indent=2)
+            print(js)
+            jfile.write(js+'\n')
+
+
     if verbose:
         print(f'Writing CSV data to {test_dir}/{csv_file}')
-
     game_ids = []
     with open(f'{test_dir}/{csv_file}', 'a') as csv:
         csv.write('x_dim,y_dim,steps,batch_size,row_block_size,time_mean,time_stddev\n')
@@ -323,7 +352,9 @@ def run_game(game_number, runs, old_rules_impl, x_dim, y_dim, step_sizes, batch_
                         state_ids = []
                         for i in range(int(steps/batch)):  # Do a total of steps game steps, which is steps/batch
                             state_ids.append(game_id.step.remote(batch))
-                        ray.get(state_ids)  # wait for everything to finish! We are ignoring what ray.get() returns, but what will it be??
+                        states = ray.get(state_ids)  # wait for everything to finish! We are ignoring what ray.get() returns, but what will it be??
+                        if write_states:
+                            write_states_to_json(states, steps, batch, block, run)
                         durations[run] = time.time() - start
                     mean = np.mean(durations)
                     stddev = np.std(durations)
@@ -350,6 +381,8 @@ def main():
         help='Do runs where grid updates are performed in row blocks. (filtered for <= # rows)')
     parser.add_argument('--verbose', help="Print invocation parameters",
         action='store_true')
+    parser.add_argument('--write_states', help="Print the states to a JSON file (for graphing)",
+        action='store_true')
     parser.add_argument('--pause', help="Don't exit immediately, wait for user acknowledgement",
         action='store_true')
     parser.add_argument('--old_rules_implementation', help='Use the "pre-blockified" version of RaysConwaysRules (for comparison)',
@@ -365,18 +398,23 @@ def main():
     batch_sizes.sort()
     block_sizes.sort()
 
-    ignore_blocks = '(Ignored; using the original Rules implementation.)' if args.old_rules_implementation else ''
-
+    ignore_blocks = ''
+    old_new = 'New'
+    if args.old_rules_implementation:
+        ignore_blocks = '(ignored; using the original Rules implementation.)'
+        old_new = 'Old'
     if args.verbose:
         print(f"""
 Conway's Game of Life:
-  Number of concurrent games:    {args.games}
-  Grid dimensions:               {x_dim} * {y_dim}
-  Number steps:                  {step_sizes}
-  Batch sizes:                   {batch_sizes}
-  Block sizes:                   {block_sizes} {ignore_blocks}
-  Number of runs per param set:  {args.runs}
-  Pause before existing?         {args.pause}
+  Number of concurrent games:          {args.games}
+  Use old or new rules implementation? {old_new}
+  Grid dimensions:                     {x_dim} * {y_dim}
+  Number of runs per param set:        {args.runs}
+  Number steps:                        {step_sizes}
+  Batch sizes:                         {batch_sizes}
+  Block sizes:                         {block_sizes} {ignore_blocks}
+  Write states to JSON file?           {args.write_states}
+  Pause before existing?               {args.pause}
 """)
     if args.old_rules_implementation:
         block_sizes = [1]  # reset in this case
@@ -386,7 +424,8 @@ Conway's Game of Life:
         print(f'Ray Dashboard: http://{ray.get_webui_url()}')
 
     game_ids = [run_game.remote(n, args.runs, args.old_rules_implementation,
-        x_dim, y_dim, step_sizes, batch_sizes, block_sizes, args.verbose)
+        x_dim, y_dim, step_sizes, batch_sizes, block_sizes,
+        args.verbose, args.write_states)
         for n in range(args.games)]
     ray.get(game_ids)  # Force program to not exit before they are done!
 

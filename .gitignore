@@ -3,7 +3,7 @@ __pycache__
 *.h5
 .DS_Store
 tmp/*
+*.log
 __pycache__/
 ray-core/timeline-*.txt
-ray-core/solutions/*.csv
-ray-core/solutions/*.log
+ray-core/solutions/test-runs
