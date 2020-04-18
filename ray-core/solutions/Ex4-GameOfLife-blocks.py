@@ -287,17 +287,22 @@ class RayGame:
         return self.current_state
 
 @ray.remote
-def run_game(game_number, runs, x_dim, y_dim, step_sizes, batch_sizes, block_sizes, verbose):
+def run_game(game_number, runs, old_rules_impl, x_dim, y_dim, step_sizes, batch_sizes, block_sizes, verbose):
 
     def now():
         now = datetime.now()
         return now.strftime("%Y_%m_%d-%H_%M_%S.%f")
 
-    csv_file = '{:s}-game{:02d}-{:s}.csv'.format(__file__, game_number, now())
+    old_rules_str = 'old-rules' if old_rules_impl else 'new-rules'
+    test_dir = os.path.abspath(os.path.dirname(__file__)) + "/test-runs"
+    base_name = os.path.splitext(os.path.basename(__file__))[0] # remove .py too!
+    os.makedirs(test_dir, exist_ok=True)
+    csv_file = '{:s}-game{:02d}-{:s}-{:s}.csv'.format(base_name, game_number, old_rules_str, now())
     if verbose:
-        print(f'Writing CSV data to {csv_file}')
+        print(f'Writing CSV data to {test_dir}/{csv_file}')
+
     game_ids = []
-    with open(f'{csv_file}', 'a') as csv:
+    with open(f'{test_dir}/{csv_file}', 'a') as csv:
         csv.write('x_dim,y_dim,steps,batch_size,row_block_size,time_mean,time_stddev\n')
         for steps in step_sizes:
             for batch in batch_sizes:
@@ -307,7 +312,12 @@ def run_game(game_number, runs, x_dim, y_dim, step_sizes, batch_sizes, block_siz
                 for block in block_sizes:
                     durations = np.zeros(runs)
                     for run in range(runs):
-                        game_id = RayGame.remote(State(dimensions = (x_dim, y_dim)), RayConwaysRulesBlocks.remote(block))
+                        rules_id = None
+                        if old_rules_impl:
+                            rules_id = RayConwaysRules.remote()
+                        else:
+                            rules_id = RayConwaysRulesBlocks.remote(block)
+                        game_id = RayGame.remote(State(dimensions = (x_dim, y_dim)), rules_id)
                         game_ids.append(game_id)
                         start = time.time()
                         state_ids = []
@@ -342,6 +352,8 @@ def main():
         action='store_true')
     parser.add_argument('--pause', help="Don't exit immediately, wait for user acknowledgement",
         action='store_true')
+    parser.add_argument('--old_rules_implementation', help='Use the "pre-blockified" version of RaysConwaysRules (for comparison)',
+        action='store_true')
 
     args = parser.parse_args()
     delim = ',' if args.dimensions.find(',') > 0 else '*'
@@ -353,6 +365,8 @@ def main():
     batch_sizes.sort()
     block_sizes.sort()
 
+    ignore_blocks = '(Ignored; using the original Rules implementation.)' if args.old_rules_implementation else ''
+
     if args.verbose:
         print(f"""
 Conway's Game of Life:
@@ -360,17 +374,19 @@ Conway's Game of Life:
   Grid dimensions:               {x_dim} * {y_dim}
   Number steps:                  {step_sizes}
   Batch sizes:                   {batch_sizes}
-  Block sizes:                   {block_sizes}
+  Block sizes:                   {block_sizes} {ignore_blocks}
   Number of runs per param set:  {args.runs}
   Pause before existing?         {args.pause}
 """)
+    if args.old_rules_implementation:
+        block_sizes = [1]  # reset in this case
 
     ray.init()
     if args.verbose:
         print(f'Ray Dashboard: http://{ray.get_webui_url()}')
 
-    game_ids = [run_game.remote(n,
-        args.runs, x_dim, y_dim, step_sizes, batch_sizes, block_sizes, args.verbose)
+    game_ids = [run_game.remote(n, args.runs, args.old_rules_implementation,
+        x_dim, y_dim, step_sizes, batch_sizes, block_sizes, args.verbose)
         for n in range(args.games)]
     ray.get(game_ids)  # Force program to not exit before they are done!
 
