@@ -65,7 +65,7 @@ def means_stddevs_plot(ns, means, stddevs, title=''):
 	    ("name", "$name"),
 	    ("array size", "$x"),
 	    ("time", "$y")]
-	plot = figure(x_axis_type="log", title=title, tooltips=tooltips)
+	plot = figure(x_axis_type="log", title=title, tooltips=tooltips, sizing_mode='stretch_both')
 	plot.grid.grid_line_alpha=0.5
 	plot.xaxis.axis_label = 'N'
 	plot.yaxis.axis_label = ''

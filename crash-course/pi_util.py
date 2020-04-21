@@ -10,21 +10,27 @@ def monte_carlo_pi(num_samples, return_points=False):
 		num_samples: How many samples to take
 		return_points: Return all the sample points, too
 	Returns:
-		The Pi approximation, xs and ys for all points. If return_points is
+		The Pi approximation, xs and ys for all points inside or on the circle
+		and xs and ys for all points outside the circle. If return_points is
 		false, then the returned xs and ys lists are empty.
 	"""
-	in_circle = 0
-	xs = []
-	ys = []
+	in_circle_count = 0
+	xs_in  = []
+	ys_in  = []
+	xs_out = []
+	ys_out = []
 	for _ in range(num_samples):
 		x = random.uniform(-1, 1)
 		y = random.uniform(-1, 1)
-		if return_points:
-			xs.append(x)
-			ys.append(y)
-		if x**2 + y**2 < 1:
-			in_circle += 1
-	return 4*in_circle/num_samples, xs, ys
+		if x**2 + y**2 <= 1:
+			in_circle_count += 1
+			if return_points:
+				xs_in.append(x)
+				ys_in.append(y)
+		elif return_points:
+			xs_out.append(x)
+			ys_out.append(y)
+	return 4*in_circle_count/num_samples, xs_in, ys_in, xs_out, ys_out
 
 def compute_pi_for(Ns, compute_pi_loop):
     ns = []
@@ -46,7 +52,7 @@ def compute_pi_for(Ns, compute_pi_loop):
     return ns, means, stddevs, errors, durations
 
 def just_pi(N):
-    approx_pi, xs, ys = monte_carlo_pi(N, return_points=False)
+    approx_pi, xs_in, ys_in, xs_out, ys_out = monte_carlo_pi(N, return_points=False)
     return approx_pi
 
 def compute_pi_loop(N):
@@ -58,6 +64,9 @@ def main():
 
 	Ns = [500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000] #,  5000000, 10000000] # for a LONG wait!
 
+	pi1000,  xs1000_in,  ys1000_in,  xs1000_out,  ys1000_out  = monte_carlo_pi(1000,  return_points=False) # return the Pi estimate and the points.
+	pi10000, xs10000_in, ys10000_in, xs10000_out, ys10000_out = monte_carlo_pi(10000, return_points=False) # return the Pi estimate and the points.
+	print('π for 1000: {:8.6f}, 10000: {:8.6f}'.format(pi1000, pi10000))
 
 if __name__ == '__main__':
 	main()
