@@ -1,4 +1,4 @@
-# Convenience utilities for the Monte Carlo computation of Pi
+# Tools for the Monte Carlo computation of Pi.
 
 import math, statistics, random, time, sys, ray
 
