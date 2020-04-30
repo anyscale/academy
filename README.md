@@ -166,12 +166,12 @@ This is the place to start. This tutorial introduces you to Ray, why it was crea
 | #  | Lesson | Description |
 | :- | :----- | :---------- |
 | 00 | [Overview](advanced-ray/00-Overview.ipynb) | A _table of contents_ for this tutorial. |
-| 01 | [Introduction](advanced-ray/01-Introduction.ipynb) | Start in this notebook if you want an explanation of the origin and motivations for Ray. |
-| 02 | [Task Parallelism - Part1](advanced-ray/02-TaskParallelism-Part1.ipynb) | Part 1 of the introduction to several of the Ray API calls and how to use them to turn synchronous python _functions_ into asynchronous Ray _tasks_. |
-| 03 | [Task Parallelism - Part2](advanced-ray/03-TaskParallelism-Part2.ipynb) | Part 2 of the exploration of Ray _tasks_. |
-| 04 | [Distributed State with Actors](advanced-ray/04-DistributedStateWithActors.ipynb) | Ray _actors_ are the asynchronous analog of Python classes, used to extend the concept of a _task_ to support management of distributed state. |
-| 05 | [Exploring Ray API Calls](advanced-ray/05-ExploringRayAPICalls.ipynb) | The Ray API has other API calls for more advanced scenarios, which are surveyed in this optional lesson. We'll also look at options you can pass to the API calls we've already learned. |
-| 06 | [Recap Tips and Tricks](advanced-ray/06-RecapAndTipsTricks.ipynb) | The final lesson recaps what we've learned and summarizes the tips and tricks we've covered, plus adds a few more. |
+| 01 | [Why Ray?](advanced-ray/01-Why-Ray.ipynb) | Start in this notebook if you want an explanation of the origin and motivations for Ray. |
+| 02 | [Task Parallelism - Part1](advanced-ray/02-Task-Parallelism-Part1.ipynb) | Part 1 of the introduction to several of the Ray API calls and how to use them to turn synchronous python _functions_ into asynchronous Ray _tasks_. |
+| 03 | [Task Parallelism - Part2](advanced-ray/03-Task-Parallelism-Part2.ipynb) | Part 2 of the exploration of Ray _tasks_. |
+| 04 | [Distributed State with Actors](advanced-ray/04-Distributed-State-with-Actors.ipynb) | Ray _actors_ are the asynchronous analog of Python classes, used to extend the concept of a _task_ to support management of distributed state. |
+| 05 | [Exploring Ray API Calls](advanced-ray/05-Exploring-Ray-API-Calls.ipynb) | The Ray API has other API calls for more advanced scenarios, which are surveyed in this optional lesson. We'll also look at options you can pass to the API calls we've already learned. |
+| 06 | [Recap Tips and Tricks](advanced-ray/06-Recap-And-Tips-Tricks.ipynb) | The final lesson recaps what we've learned and summarizes the tips and tricks we've covered, plus adds a few more. |
 
 Once you've completed the Ray core material, you can explore the rest of the tutorials in any order.
 
