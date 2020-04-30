@@ -40,12 +40,12 @@ def square_circle_plot(radius=1.0, title=''):
 	return plot
 
 def two_lines_plot(title, x_label, y_label, line_one_label, line_two_label,
-		ns, durations, ray_ns, ray_durations):
+		ns, durations, ray_ns, ray_durations, x_axis_type='log', y_axis_type='log'):
 	tooltips = [
 	    ("name", "$name"),
 	    ("array size", "$x"),
 	    ("time", "$y")]
-	plot = figure(x_axis_type="log", y_axis_type="log", title=title, tooltips=tooltips)
+	plot = figure(x_axis_type=x_axis_type, y_axis_type=y_axis_type, title=title, tooltips=tooltips)
 	plot.grid.grid_line_alpha=0.3
 	plot.xaxis.axis_label = x_label
 	plot.yaxis.axis_label = y_label
@@ -88,8 +88,8 @@ def means_stddevs_plot(ns, means, stddevs, title=''):
 	# "Whiskers" at the end of the std. dev. lines
 	# (almost-0 height rects simpler than segments)
 	widths = list(map(lambda x: x/10.0, ns.copy()))
-	plot.rect(x=ns, y=minus_stddevs, width=widths, height=0.001, fill_color="black")
-	plot.rect(x=ns, y=plus_stddevs, width=widths, height=0.001, fill_color="black")
+	plot.rect(x=ns, y=minus_stddevs, width=widths, height=0.0001, fill_color="black")
+	plot.rect(x=ns, y=plus_stddevs, width=widths, height=0.0001, fill_color="black")
 
 	plot.legend.location = "bottom_right"
 

@@ -1,38 +1,82 @@
+#!/usr/bin/env python
+
 # Tools for the Monte Carlo computation of Pi.
 
-import math, statistics, random, time, sys, ray
+import math, statistics, random, time, sys, locale
+import ray
+import numpy as np
 
-def monte_carlo_pi(num_samples, return_points=False):
+def estimate_pi(num_samples, return_points=False):
     """
-    Calculate Pi using "Monte Carlo" random sampling.
+    Monte Carlo estimation of Pi, using ``num_samples`` random points.
 
     Args:
-        num_samples: How many samples to take
-        return_points: Return all the sample points, too
+        num_samples: How many points to sample. Larger N yield better Pi estimates.
+        return_points: Return the points, which increases the overhead.
     Returns:
-        The Pi approximation, xs and ys for all points inside or on the circle
-        and xs and ys for all points outside the circle. If return_points is
-        false, then the returned xs and ys lists are empty.
+        Estimated Pi, the number of points that were in the circle (for convenience,
+        even though it could be re-calculated from Pi), and if return_points == True,
+        the points sampled.
     """
-    in_circle_count = 0
-    xs_in  = []
-    ys_in  = []
-    xs_out = []
-    ys_out = []
-    for _ in range(num_samples):
-        x = random.uniform(-1, 1)
-        y = random.uniform(-1, 1)
-        if x**2 + y**2 <= 1:
-            in_circle_count += 1
-            if return_points:
-                xs_in.append(x)
-                ys_in.append(y)
-        elif return_points:
-            xs_out.append(x)
-            ys_out.append(y)
-    return 4*in_circle_count/num_samples, xs_in, ys_in, xs_out, ys_out
+    xs = np.random.uniform(low=-1.0, high=1.0, size=num_samples)
+    ys = np.random.uniform(low=-1.0, high=1.0, size=num_samples)
+    xys = np.stack((xs, ys), axis=-1)
+    inside = xs*xs + ys*ys <= 1.0
+    in_circle = xys[inside].shape[0]
+    approx_pi = 4.0*in_circle/num_samples
+    if return_points == False:
+        return approx_pi, in_circle  # just return the estimate
+    else:
+        xys_in=xys[inside]
+        xys_out=xys[~inside]
+        return approx_pi, in_circle, xys_in, xys_out
+
+class MonteCarloPi():
+    """
+    This class is used for the initial demonstration of the Monte Carlo Pi calculation,
+    where it is convenient to have the running state (e.g., ``total_count`` and
+    ``in_circle_count``). It uses the standalone function ``estimate_pi``.
+    """
+    def __init__(self):
+        self.in_circle_count = 0
+        self.total_count = 0
+
+    def sample(self, num_samples):
+        """
+        Calculate Pi using "Monte Carlo" random sampling. It's much
+        faster to use several smaller num_samples calls rather than
+        one big num_samples call, because of the matrix algebra done.
+
+        Args:
+            num_samples: How many samples to take
+        Returns:
+            The first three returned values are cummulative for ALL
+            calls so far to this function so far, including this call:
+                The cummulative Pi approximation
+                The cummulative count inside the circle
+                The cummulative total count
+            Also returns the NumPy arrays [[x,y]] for the new points
+            inside the circle and outside the circle calculated during
+            this call to sample, for plotting purposes.
+        """
+        # Ignore the returned Pi, because we want to calculate it using accumulated values.
+        _, in_circle, xys_in, xys_out = estimate_pi(num_samples, return_points=True)
+        self.in_circle_count += in_circle
+        self.total_count += num_samples
+        return self.pi(), self.in_circle_count, self.total_count, xys_in, xys_out
+
+    def pi(self):
+        """Return the cummulative estimate for pi"""
+        return 4.0*self.in_circle_count/self.total_count
+
+locale.setlocale(locale.LC_ALL, locale.getlocale())
+def str_large_n(n, padding=None):
+    if padding == None:
+        padding=len(str(n))
+    return locale.format_string(f'%{padding}d', n, grouping=True)
 
 def compute_pi_for(Ns, compute_pi_loop):
+    result_fmt = '~pi = {:8.6f} (stddev = {:7.6f}, error = {:7.6f}%), duration = {:9.5f} seconds'
     ns = []
     means = []
     stddevs = []
@@ -40,42 +84,46 @@ def compute_pi_for(Ns, compute_pi_loop):
     durations = []
     for N in Ns:
         ns.append(N)
-        print('# samples = {:9d}: '.format(N), end='', flush=True)
+        print(f'# samples = {str_large_n(N)}: ', end='', flush=True)
         start = time.time()
+
         pis = compute_pi_loop(N)
         durations.append(time.time() - start)
         means.append(statistics.mean(pis))
         stddevs.append(statistics.stdev(pis))
-        errors.append(abs(means[-1] - math.pi)*100/math.pi)
-        print('~pi = %8.6f (stddev = %7.6f), error = %7.6f%%, duration = %9.5f seconds' %
-            (means[-1], stddevs[-1], errors[-1], durations[-1]))
+        errors.append(abs(means[-1] - math.pi)*100.0/math.pi)
+        print(result_fmt.format(means[-1], stddevs[-1], errors[-1], durations[-1]))
     return ns, means, stddevs, errors, durations
 
-def just_pi(N):
-    approx_pi, xs_in, ys_in, xs_out, ys_out = monte_carlo_pi(N, return_points=False)
-    return approx_pi
+
+repeat=10  # We'll do this many calculations for a given N and average the results.
 
 def compute_pi_loop(N):
-    return [just_pi(N) for i in range(N)]
+    values = [MonteCarloPi().sample(N) for i in range(repeat)]
+    return [approx_pi for approx_pi, inside_count, total_count, xys_in, xys_out in values]
 
 @ray.remote
-def ray_just_pi(N):
-    return just_pi(N)   # No need to redefine, just call just_pi.
+class RayMonteCarloPi(MonteCarloPi):
+    @ray.method(num_return_vals=5)
+    def sample(self, num_samples):
+        return super().sample(num_samples)
+
 
 # No @ray.remote needed here, at least for our first optimizations.
 def ray_compute_pi_loop(N):
-    ids = [ray_just_pi.remote(N) for i in range(N)]  # ids = [...remote(N)... is new
-    return ray.get(ids)       # Blocks until all the tasks for the ids are finished.
+    actors = [RayMonteCarloPi.remote() for _ in range(repeat)]
+    pi_ids = [actor.sample.remote(N)[0] for actor in actors]  # only return the id for Pi values
+    # ray.get blocks until all the tasks for the ids are finished.
+    return ray.get(pi_ids)
 
 def main():
-    num_workers = 16  # We'll do this many calculations for a given N and average the results.
 
-    Ns = [500, 1000, 5000, 10000] #, 50000, 100000, 500000, 1000000] #,  5000000, 10000000] # for a LONG wait!
+    Ns = [500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000,  5000000, 10000000]
 
     print("Results without Ray:")
     ns, means, stddevs, errors, durations = compute_pi_for(Ns, compute_pi_loop)
 
-    ray.init()
+    ray.init(num_cpus=repeat)
     print("Results with Ray:")
     ray_ns, ray_means, ray_stddevs, ray_errors, ray_durations = compute_pi_for(Ns, ray_compute_pi_loop)
 
