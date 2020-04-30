@@ -169,10 +169,9 @@ This is the place to start. This tutorial introduces you to Ray, why it was crea
 | :- | :----- | :---------- |
 | 00 | [Overview](advanced-ray/00-Overview.ipynb) | A _table of contents_ for this tutorial. |
 | 01 | [Why Ray?](advanced-ray/01-Why-Ray.ipynb) | Start in this notebook if you want an explanation of the origin and motivations for Ray. |
-| 02 | [Task Parallelism - Part1](advanced-ray/02-Task-Parallelism-Part1.ipynb) | Part 1 of the introduction to several of the Ray API calls and how to use them to turn synchronous python _functions_ into asynchronous Ray _tasks_. |
-| 03 | [Task Parallelism - Part2](advanced-ray/03-Task-Parallelism-Part2.ipynb) | Part 2 of the exploration of Ray _tasks_. |
-| 04 | [Distributed State with Actors](advanced-ray/04-Distributed-State-with-Actors.ipynb) | Ray _actors_ are the asynchronous analog of Python classes, used to extend the concept of a _task_ to support management of distributed state. |
-| 05 | [Exploring Ray API Calls](advanced-ray/05-Exploring-Ray-API-Calls.ipynb) | The Ray API has other API calls for more advanced scenarios, which are surveyed in this optional lesson. We'll also look at options you can pass to the API calls we've already learned. |
+| 02 | [Ray Tasks Revisited](advanced-ray/02-Ray-Tasks-Revisited.ipynb) | More exploration of `ray.wait()` usage patterns, task dependencies and their management, task profiling techniques, and task scheduling. |
+| 03 | [Ray Actors Revisited](advanced-ray/03-Ray-Actors-Revisited.ipynb) | A more in-depth look at Actor scheduling under the hood and profiling performance using the _Ray Dashboard_. |
+| 04 | [Exploring Ray API Calls](advanced-ray/04-Exploring-Ray-API-Calls.ipynb) | The Ray API has other API calls for more advanced scenarios, which are surveyed in this optional lesson. Options you can pass to the API calls already learned are explored. |
 
 Once you've completed the Ray core material, you can explore the rest of the tutorials in any order.
 
