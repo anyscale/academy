@@ -152,6 +152,8 @@ The _crash course_ is intended to focus on learning the core API as quickly as p
 | 00 | [Overview](ray-crash-course/00-Ray-Crash-Course-Overview.ipynb) | A _table of contents_ for this tutorial. |
 | 01 | [Ray Crash Course: Tasks](ray-crash-course/01-Ray-Crash-Course-Tasks.ipynb) | Understanding how Ray converts normal Python functions into distributed _stateless tasks_. |
 | 02 | [Ray Crash Course: Actors](ray-crash-course/02-Ray-Crash-Course-Actors.ipynb) | Understanding how Ray converts normal Python classes into distributed, _stateful actors_. |
+| 03 | [Adopting Ray](03-Adopting-Ray.ipynb)             | Ray drop-in replacements for common parallelism APIs, about the Ray community, etc. |
+| 04 | [Running Ray Clusters](04-Running-Ray-Clusters.ipynb) | How to run Ray in a clustered environment, submit your work to it, and integrate with your local development process. |
 
 Once you've completed this tutorial, go through [_Advanced Ray_](#user-content-advanced-ray) or explore one of the ML-related library tutorials, in any order.
 
@@ -171,7 +173,6 @@ This is the place to start. This tutorial introduces you to Ray, why it was crea
 | 03 | [Task Parallelism - Part2](advanced-ray/03-Task-Parallelism-Part2.ipynb) | Part 2 of the exploration of Ray _tasks_. |
 | 04 | [Distributed State with Actors](advanced-ray/04-Distributed-State-with-Actors.ipynb) | Ray _actors_ are the asynchronous analog of Python classes, used to extend the concept of a _task_ to support management of distributed state. |
 | 05 | [Exploring Ray API Calls](advanced-ray/05-Exploring-Ray-API-Calls.ipynb) | The Ray API has other API calls for more advanced scenarios, which are surveyed in this optional lesson. We'll also look at options you can pass to the API calls we've already learned. |
-| 06 | [Recap Tips and Tricks](advanced-ray/06-Recap-And-Tips-Tricks.ipynb) | The final lesson recaps what we've learned and summarizes the tips and tricks we've covered, plus adds a few more. |
 
 Once you've completed the Ray core material, you can explore the rest of the tutorials in any order.
 
