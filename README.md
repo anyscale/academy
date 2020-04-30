@@ -4,11 +4,11 @@
 
 Welcome to the [Anyscale Academy](https://anyscale.com/academy) tutorials on [Ray](https://ray.io), the system for scaling your applications from a laptop to a cluster.
 
-This README tells you how to set up the tutorials and it provides a quick overview of its contents.
+This README tells you how to set up the tutorials, it provides a quick overview of its contents, and it recommends which tutorials to go through depending on your interests.
 
 > **Tips:**
 >
-> 1. If you just want to read the tutorials, GitHub renders notebooks. For a little more interactivity, try clicking the Google Colab links below.
+> 1. If you just want to read the tutorials, GitHub renders notebooks.
 > 2. This is an early release of these tutorials. Please report any issues:
 >    * [GitHub issues](https://github.com/anyscale/academy/issues)
 >    * The [#tutorial channel](https://ray-distributed.slack.com/archives/C011ML23W5B) on the [Ray Slack](https://ray-distributed.slack.com)
@@ -18,14 +18,14 @@ This README tells you how to set up the tutorials and it provides a quick overvi
 
 ## Setup
 
-> **WARNING:** Ray does not currently run on Windows (we're close...). You have two alternative options:
+> **WARNING:** Ray does not currently run on Windows (we're close...). We're working on a hosted option, but for now, you have two alternative options:
 >
-> 1. Click the _run on Colab_ links shown below in the descriptions of each tutorial. However, some of the graphics used in the notebooks may not work.
+> 1. Use a virtual machine environment like VMWare with Linux, a cloud instance in AWS, etc., or a local Docker image.
 > 2. Read the notebooks as rendered by GitHub: https://github.com/anyscale/academy
 
-> **Tip:** If you use Colab, make sure you download your notebooks to save any changes.
+> **Tip:** If you use option #1, make sure you download your notebooks to save any changes. Most local options, like VMWare and Docker allow you to mount a local directory, which is where you could keep the tutorial materials.
 
-If you aren't installing the tutorials and the Python dependencies, skip ahead to _Tutorial Modules_.
+If you aren't installing the tutorials and the Python dependencies, skip ahead to [**Tutorial Descriptions**](#tutorial-descriptions).
 
 If you are using MacOS or Linux, follow these instructions. Note that the setup commands can take a while to finish.
 
@@ -90,65 +90,122 @@ jupyter lab
 
 It should automatically open a browser window with the lab environment, but if not, the console output will show the URL you should use.
 
-> **Tips:**
->
-> 1. If you get an error that `jupyter` can't be found and you are using the Anaconda setup, make sure you activated the `anyscale-academy` environment, as shown above.
-> 2. If you accidentally close the lab browser window, just use the same URL to reopen it.
+> **Tip:** If you get an error that `jupyter` can't be found and you are using the Anaconda setup, make sure you activated the `anyscale-academy` environment, as shown above.
 
-## Tutorial Modules
+The rest of the information in this README can also be found in the [Overview](./Overview.ipynb) notebook.
 
-The rest of this information can also be found in the [Overview](./Overview.ipynb) notebook.
+## Which Tutorials Are Right for Me?
 
-This directory contains files for setting up your environment (`README.md` - this file, `environment.yml`, and `requirements.txt`), which were discussed above, and the Apache license file (`LICENSE`).
+Here is a recommended reading list, based on your interests:
 
-The `util` directory contains library code used in the notebooks and the `images` directory contains images used in the notebooks.
+| You Are... | Best Tutorials |
+| :--------- | :------------- |
+| A developer who is new to Ray | First, [_Ray Crash Course_](#user-content-ray-crash-course), then [_Advanced Ray_](#user-content-advanced-ray) |
+| A developer who is experienced with Ray | [_Advanced Ray_](#user-content-advanced-ray) |
+| A developer or data scientist interested in Reinforcement Learning | [_Ray RLlib_](#user-content-ray-rllib) |
+| A developer or data scientist interested in Hyperparameter Tuning  | [_Ray Tune_](#user-content-ray-tune) |
+| A developer or data scientist interested in accelerated model training with PyTorch  | [_Ray SGD_](#user-content-ray-sgd) |
+| A developer or data scientist interested in model serving | [_Ray Serve_](#user-content-ray-serve) |
 
-Each tutorial _module_ is contained in a dedicated directory. Each  [Jupyter](https://jupyterlab.readthedocs.io/en/stable/) notebook in a module is a _lesson_. The notebooks follow the naming convention `NN-name.ipynb`, where `NN` is a number that indicates the ordering of lessons.
+See also the [_Troubleshooting, Tips, and Tricks notebook_](reference/Troubleshooting-Tips-Tricks.ipynb). For the details of the Ray API and the ML libraries, see the [Ray Docs](https://docs.ray.io/en/latest/).
+
+> **Note:** Older Ray tutorials can be found in the [this repo](https://github.com/ray-project/tutorial). They cover topics not yet covered by the Anyscale Academy.
+
+## Tutorial Descriptions
+
+Let's explore each tutorial.
+
+### This Directory
+
+First, the root directory contains files for setting up your environment (`README.md` - this file, `environment.yml`, and `requirements.txt`), as discussed previoiusly, and the Apache license file (`LICENSE`). The `util` and the `images` directories contain library code and images used in the notebooks, respectively. (Each tutorial directory discussed below may also have supporting code files.) There is also a `reference` directory with notebooks and other materials you might find useful.
+
+Each tutorial is contained in a dedicated directory. Each [Jupyter](https://jupyterlab.readthedocs.io/en/stable/) notebook is a _lesson_. The notebooks follow the naming convention `NN-name.ipynb`, where `NN` is a number that indicates the ordering of the lessons.
 
 > **Note:** If two or more notebooks have the same `NN` number, it indicates they can be studied in arbitrary order.
 
-Let's discuss the modules in this project, organized in subdirectories.
+The tutorials are organized in subdirectories.
 
-### Ray Core
+### Reference
 
-Directory: `ray-core`
+Directory: `reference`
 
-This is the place to start. This module introduces you to Ray, why it was created, what problems it solves, how to use it, and how it works behind the scenes.
+The notebooks here provide reference material, like general tips and tricks, how to get help, and troubleshooting issues.
 
-| Lesson | Open in Colab | Description |
-| :----- | :------------ | :---------- |
-| [01 Introduction](ray-core/01-Introduction.ipynb) | <a href="https://colab.research.google.com/github/anyscale/academy/blob/master/ray-core/01-Introduction.ipynb" target="_01-Introduction"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Ray Tutorial - 01-Introduction"/></a> | Start in this notebook, which introduces Ray. |
-| [02 Task Parallelism - Part1](ray-core/02-TaskParallelism-Part1.ipynb) | <a href="https://colab.research.google.com/github/anyscale/academy/blob/master/ray-core/02-TaskParallelism-Part1.ipynb" target="_02-TaskParallelism-Part1"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Ray Tutorial - 02-TaskParallelism-Part1"/></a> | Part 1 of the introduction to several of the Ray API calls and how to use them to turn synchronous python _functions_ into asynchronous Ray _tasks_. |
-| [03 Task Parallelism - Part2](ray-core/03-TaskParallelism-Part2.ipynb) | <a href="https://colab.research.google.com/github/anyscale/academy/blob/master/ray-core/03-TaskParallelism-Part2.ipynb" target="_03-TaskParallelism-Part2"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Ray Tutorial - 03-TaskParallelism-Part2"/></a> | Part 2 of the exploration of Ray _tasks_. |
-| [04 Distributed State with Actors](ray-core/04-DistributedStateWithActors.ipynb) | <a href="https://colab.research.google.com/github/anyscale/academy/blob/master/ray-core/04-DistributedStateWithActors.ipynb" target="_04-DistributedStateWithActors"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Ray Tutorial - 04-DistributedStateWithActors"/></a> | Ray _actors_ are the asynchronous analog of Python classes, used to extend the concept of a _task_ to support management of distributed state. |
-| [05 Exploring Ray API Calls](ray-core/05-ExploringRayAPICalls.ipynb) | <a href="https://colab.research.google.com/github/anyscale/academy/blob/master/ray-core/05-ExploringRayAPICalls.ipynb" target="_05-ExploringRayAPICalls"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Ray Tutorial - 05-ExploringRayAPICalls"/></a> | The Ray API has other API calls for more advanced scenarios, which are surveyed in this optional module. We'll also look at options you can pass to the API calls we've already learned. |
-| [06-Recap Tips and Tricks](ray-core/06-RecapAndTipsTricks.ipynb) | <a href="https://colab.research.google.com/github/anyscale/academy/blob/master/ray-core/06-RecapAndTipsTricks.ipynb" target="_06-RecapAndTipsTricks"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Ray Tutorial - 06-RecapAndTipsTricks"/></a> | The final lesson recaps what we've learned and summarizes the tips and tricks we've covered, plus adds a few more. |
+| Lesson (Notebook) | Description |
+| :---------------- | :---------- |
+| [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) | How to troubleshoot common problems and other useful tips and tricks. |
 
-Once you've completed the Ray core material, you can explore the rest of the modules in any order.
+### Ray Crash Course
+
+| About | Details |
+| :----- | :------------ |
+| _Directory:_ | `ray-crash-course` |
+| _Audience:_ | You are a developer who wants a fast introduction to the core Ray API. Experienced developers should go to [_Advanced Ray_](#user-content-advanced-ray). Data scientists may wish to skip to [_Ray RLlib_](#user-content-ray-rllib), [_Ray Tune_](#user-content-ray-tune), [_Ray SGD_](#user-content-ray-sgd), or [_Ray Serve_](#user-content-ray-serve). |
+
+
+This is the place to start if you are new to Ray and you plan to use it to scale Python applications to a cluster. Data scientists working with Ray-based toolkits, like _RLlib_, don't need this knowledge to get started.
+
+The _crash course_ is intended to focus on learning the core API as quickly as possible, but using nontrivial examples. In contrast, the [_Advanced Ray_](#user-content-advanced-ray) tutorial begins with an explanation of why Ray was created, what problems it solves, and then dives into more advanced API usage, profiling and debugging applications, and how Ray works behind the scenes.
+
+| #  | Lesson | Description |
+| :- | :----- | :---------- |
+| 00 | [Overview](ray-crash-course/00-Ray-Crash-Course-Overview.ipynb) | A _table of contents_ for this tutorial. |
+| 01 | [Ray Crash Course: Tasks](ray-crash-course/01-Ray-Crash-Course-Tasks.ipynb) | Understanding how Ray converts normal Python functions into distributed _stateless tasks_. |
+| 02 | [Ray Crash Course: Actors](ray-crash-course/02-Ray-Crash-Course-Actors.ipynb) | Understanding how Ray converts normal Python classes into distributed, _stateful actors_. |
+
+Once you've completed this tutorial, go through [_Advanced Ray_](#user-content-advanced-ray) or explore one of the ML-related library tutorials, in any order.
+
+### Advanced Ray
+
+Directory: `advanced-ray`
+
+Go through the [_Crash Course_](#ray-crash-course) first if you are new to Ray. Then return to this tutorial, which begins with an explanation of why Ray was created, what problems it solves, and then dives into more advanced API usage, profiling and debugging applications, and how Ray works behind the scenes.
+
+This is the place to start. This tutorial introduces you to Ray, why it was created, what problems it solves, how to use it, and how it works behind the scenes.
+
+| #  | Lesson | Description |
+| :- | :----- | :---------- |
+| 00 | [Overview](advanced-ray/00-Overview.ipynb) | A _table of contents_ for this tutorial. |
+| 01 | [Introduction](advanced-ray/01-Introduction.ipynb) | Start in this notebook if you want an explanation of the origin and motivations for Ray. |
+| 02 | [Task Parallelism - Part1](advanced-ray/02-TaskParallelism-Part1.ipynb) | Part 1 of the introduction to several of the Ray API calls and how to use them to turn synchronous python _functions_ into asynchronous Ray _tasks_. |
+| 03 | [Task Parallelism - Part2](advanced-ray/03-TaskParallelism-Part2.ipynb) | Part 2 of the exploration of Ray _tasks_. |
+| 04 | [Distributed State with Actors](advanced-ray/04-DistributedStateWithActors.ipynb) | Ray _actors_ are the asynchronous analog of Python classes, used to extend the concept of a _task_ to support management of distributed state. |
+| 05 | [Exploring Ray API Calls](advanced-ray/05-ExploringRayAPICalls.ipynb) | The Ray API has other API calls for more advanced scenarios, which are surveyed in this optional lesson. We'll also look at options you can pass to the API calls we've already learned. |
+| 06 | [Recap Tips and Tricks](advanced-ray/06-RecapAndTipsTricks.ipynb) | The final lesson recaps what we've learned and summarizes the tips and tricks we've covered, plus adds a few more. |
+
+Once you've completed the Ray core material, you can explore the rest of the tutorials in any order.
 
 ### Ray RLlib
 
 Directory: `ray-rllib`
 
-_Ray RLlib_ is Ray's system for _reinforcement learning_. This module begins with a "crash course" in RL concepts. It then explores several of the commonly-used algorithms and approaches for different applications.
+_Ray RLlib_ is Ray's system for _reinforcement learning_. This tutorial begins with a "crash course" in RL concepts. It then explores several of the commonly-used algorithms and approaches for different applications.
 
-This module will be released soon.
+This tutorial will be released soon.
 
-### Ray Tune and Ray SGD
+### Ray Tune
 
 Directory: `ray-tune`
 
-_Ray Tune_ is Ray's system for _hyperparameter tuning_. This module starts with an explanation of what hyperparameter tuning is for and the performances challenges doing it for many applications. Then the module explores how to use _Tune_, how it integrates with several popular ML frameworks, and the algorithms supported in _Tune_. The new _Ray SGD_ module is also covered.
+_Ray Tune_ is Ray's system for _hyperparameter tuning_. This tutorial starts with an explanation of what hyperparameter tuning is for and the performances challenges doing it for many applications. Then the tutorial explores how to use _Tune_, how it integrates with several popular ML frameworks, and the algorithms supported in _Tune_.
 
-This module will be released soon.
+This tutorial will be released soon.
+
+### Ray SGD
+
+Directory: `ray-sgd`
+
+_Ray SGD_ is a tool to more easily exploit a cluster to perform training with _Stochastic Gradient Descent_ using PyTorch (TensorFlow support forthcoming).
+
+This tutorial will be released soon.
 
 ### Ray Serve
 
 Directory: `ray-serve`
 
-_Ray Serve_ is Ray's system for scalable _model serving_, with capabilities that also make it suitable for other web server applications. This module starts with an explanation of what's required in model serving, followed by a tour of the API with examples.
+_Ray Serve_ is Ray's system for scalable _model serving_, with capabilities that also make it suitable for other web server applications. This tutorial starts with an explanation of what's required in model serving, followed by a tour of the API with examples.
 
-This module will be released soon.
+This tutorial will be released soon.
 
 ## Notes
 
@@ -168,7 +225,7 @@ If `ray.init()` worked (for example, you see a message like _View the Ray dashbo
 
 ### Profiling Actors with Ray Dashboard - Bug
 
-3. Lesson 4 shows you how to profile actors using the Ray Dashboard, but there is currently a bug in Ray 0.8.4 that prevents Ray from generating valid data. [There is the one line fix](https://github.com/ray-project/ray/pull/8013/files) you can do to your Ray installation.
+3. A lesson in [_Advanced Ray_](#user-content-advanced-ray) shows you how to profile actors using the Ray Dashboard, but there is currently a bug in Ray 0.8.4 that prevents Ray from generating valid data. [There is the one line fix](https://github.com/ray-project/ray/pull/8013/files) you can do to your Ray installation.
 
 You need to edit your local copy of `dashboard.py`, `.../lib/python3.X/site-packages/ray/dashboard/dashboard.py`. If you don't know where Ray is installed, start iPython and enter `sys.path`.
 
@@ -186,3 +243,5 @@ return aiohttp.web.json_response(profiling_info)
 ```
 
 If you make this change after starting Jupyter Lab, you'll need to restart.
+
+This bug is fixed in the forthcoming Ray 0.8.5 release.
