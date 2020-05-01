@@ -181,7 +181,17 @@ Directory: `ray-rllib`
 
 _Ray RLlib_ is Ray's system for _reinforcement learning_. This tutorial begins with a "crash course" in RL concepts. It then explores several of the commonly-used algorithms and approaches for different applications.
 
-This tutorial will be released soon.
+Here are the lessons. Note that the `04a-04c` lessons can be studied in any order.
+
+| #   | Lesson | Description |
+| :-- | :----- | :---------- |
+| 00 | Ray RLlib Overview](rllib/00-Ray-RLlib-Overview.iypnb) | Overview of this tutorial. |
+| 01 | Introduction to Reinforcement Learning](rllib/01-Introduction-to-Reinforcement-Learning.ipynb) | A quick introduction to the concepts of reinforcement learning, adapted from [`rllib_exercises`](https://github.com/ray-project/tutorial/blob/master/rllib_exercises/rllib_colab.ipynb) by @edoakes. You can skim or skip this lesson if you already understand RL concepts. |
+| 02 | About RLlib](rllib/02-About-RLlib.ipynb) | An introduction to RLlib, its goals and the capabilities it provides. |
+| 03 | Application Cart Pole](rllib/03-Application-Cart-Pole.ipynb) | The best starting place for learning how to use RL, in this case to train a moving car to balance a vertical pole. Based on the `CartPole-v0` environment from OpenAI Gym, combined with RLlib. |
+| 04a | Application Mountain Car](rllib/04a-Application-Mountain-Car.ipynb) | Based on the `MountainCar-v0` environment from OpenAI Gym. |
+| 04b | Application Taxi](rllib/04b-Application-Taxi.ipynb) | Based on the `Taxi-v3` environment from OpenAI Gym. |
+| 04c | Application Frozen Lake](rllib/04c-Application-Frozen-Lake.ipynb) | Based on the `FrozenLake-v0` environment from OpenAI Gym. |
 
 ### Ray Tune
 

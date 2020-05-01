@@ -6,6 +6,8 @@ dependencies:
   - python=3.7
   - pip
   - pandas
+  - requests
+  - tensorflow
   - holoviews
   - bokeh
   - psutil
@@ -17,4 +19,7 @@ dependencies:
   - pytz
   - pip:
     - ray[rllib]==0.8.4
+    - ray[tune]==0.8.4
+    - ray[debug]==0.8.4
     - atoma
+
