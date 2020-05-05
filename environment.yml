@@ -8,6 +8,7 @@ dependencies:
   - pandas
   - requests
   - tensorflow
+  - keras
   - holoviews
   - bokeh
   - psutil

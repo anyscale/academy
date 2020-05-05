@@ -1,6 +1,7 @@
 pandas
 requests
 tensorflow
+keras
 holoviews
 bokeh
 matplotlib
