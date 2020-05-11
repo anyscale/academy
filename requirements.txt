@@ -4,7 +4,7 @@ tensorflow
 keras
 holoviews
 bokeh
-matplotlib
+ipywidgets
 psutil
 jupyterlab
 jupyter-server-proxy
