@@ -62,11 +62,13 @@ You are ready to go!
 
 If you don't use Anaconda, you'll have to install these prerequisites first:
 
-* Python 3.6 or 3.7. While Ray supports Python 3.8, some dependencies used in `RLlib` (the Ray reinforcement library) are not yet supported for 3.8.
+* Python 3.6 or 3.7: While Ray supports Python 3.8, some dependencies used in `RLlib` (the Ray reinforcement library) and other dependencies are not yet supported for 3.8.
     * The version of Python that comes with your operating system is probably too old. Try `python --version` to see what you have.
     * Installation instructions are at [python.org](https://www.python.org/downloads/).
-* Pip (a recent version - consider upgrading if it's not the latest version)
+* Pip: A recent version - consider upgrading if it's not the latest version.
 	* Installation instructions are at [pip.pypa.io](https://pip.pypa.io/en/stable/installing/).
+* Node.js: Required for some of the Jupyter Lab graphics extensions we use.
+	* Installation instructions are [here](https://nodejs.org/en/).
 
 Now run the following commands in the root directory of this project to complete the setup. First, run a `pip` command to install the rest of the libraries required for these tutorials, including Ray. Then, use the `jupyter` commands to set up the graphing library extensions in Jupyter Lab that we'll use. The last command just lists the extensions.
 

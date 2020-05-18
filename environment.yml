@@ -19,6 +19,7 @@ dependencies:
   - lxml
   - setproctitle
   - pytz
+  - nodejs
   - pip:
     - ray[rllib]==0.8.4
     - ray[tune]==0.8.4
