@@ -20,3 +20,4 @@ cffi
 cryptography
 pyOpenSSL
 PySocks
+anyscale

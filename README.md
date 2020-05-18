@@ -20,10 +20,10 @@ This README tells you how to set up the tutorials, it provides a quick overview 
 
 > **WARNING:** Ray does not currently run on Windows (we're close...). We're working on a hosted option, but for now, you have two alternative options:
 >
-> 1. Use a virtual machine environment like VMWare with Linux, a cloud instance in AWS, etc., or a local Docker image.
+> 1. Use a virtual machine environment like VMWare running a Linux OS, a cloud instance in AWS, etc., or a local Docker image.
 > 2. Read the notebooks as rendered by GitHub: https://github.com/anyscale/academy
 
-> **Tip:** If you use option #1, make sure you download your notebooks to save any changes. Most local options, like VMWare and Docker allow you to mount a local directory, which is where you could keep the tutorial materials.
+> **Tip:** If you use option #1, make sure you download your notebooks to save any changes. Alternatively, VMWare and Docker allow you to mount a local directory, which is where you could keep the tutorial materials.
 
 If you aren't installing the tutorials and the Python dependencies, skip ahead to [**Tutorial Descriptions**](#tutorial-descriptions).
 
@@ -31,13 +31,13 @@ If you are using MacOS or Linux, follow these instructions. Note that the setup 
 
 Clone the [Academy GitHub repo](https://github.com/anyscale/academy) or [download the latest release](https://github.com/anyscale/academy/releases).
 
-#### Using Anaconda
+Now install the dependencies using either [Anaconda](https://www.anaconda.com/) or `pip` in your Python environment. We recommend using Anaconda.
 
-We recommend using [Anaconda](https://www.anaconda.com/), especially if you do lots of Python development and you need to define different environments for different projects. However, Anaconda isn't required.
+#### Using Anaconda
 
 To install Anaconda, follow the instructions [here](https://www.anaconda.com/distribution/). If you already have Anaconda installed, consider running `conda upgrade --all`.
 
-Then run the following commands in the root directory of this project. First,  use `conda` to install the other dependencies, including Ray. Then "activate" the newly-created environment, named `anyscale-academy`. Finally, use the `jupyter` commands to set up the graphing library extensions in Jupyter Lab that we'll use. The last command just lists the extensions.
+Then run the following commands in the root directory of this project. First,  use `conda` to install the other dependencies, including Ray. Then activate the newly-created environment, named `anyscale-academy`. Finally, use the `jupyter` commands to set up the graphing library extensions in Jupyter Lab that we'll use. The last command just lists the extensions.
 
 ```
 conda env create -f environment.yml
@@ -60,7 +60,7 @@ You are ready to go!
 
 #### Using Pip
 
-If you don't use Anaconda, you'll have to install prerequisites first:
+If you don't use Anaconda, you'll have to install these prerequisites first:
 
 * Python 3.6 or 3.7. While Ray supports Python 3.8, some dependencies used in `RLlib` (the Ray reinforcement library) are not yet supported for 3.8.
     * The version of Python that comes with your operating system is probably too old. Try `python --version` to see what you have.
@@ -233,25 +233,3 @@ If you get an error like `... INFO services.py:... -- Failed to connect to the r
 
 If `ray.init()` worked (for example, you see a message like _View the Ray dashboard at localhost:8265_) and you're using a Mac, you may get several annoying dialogs asking you if you want to allow incoming connections for Python and/or Redis (used internally by Ray). Click "Accept" for each one and they shouldn't appear again during this tutorial. For security reasons, MacOS is complaining that it can't verify these executables have been properly signed. If you installed Python using Anaconda or other mechanism, then it probably isn't properly signed from the point of view of MacOS. To permanently fix this problem, [see this StackExchange post](https://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog).
 
-### Profiling Actors with Ray Dashboard - Bug
-
-3. A lesson in [_Advanced Ray_](#user-content-advanced-ray) shows you how to profile actors using the Ray Dashboard, but there is currently a bug in Ray 0.8.4 that prevents Ray from generating valid data. [There is the one line fix](https://github.com/ray-project/ray/pull/8013/files) you can do to your Ray installation.
-
-You need to edit your local copy of `dashboard.py`, `.../lib/python3.X/site-packages/ray/dashboard/dashboard.py`. If you don't know where Ray is installed, start iPython and enter `sys.path`.
-
-Change line 332,
-
-```python
-return aiohttp.web.json_response(self.is_dev, profiling_info)
-```
-
-to this (where the original line is commented out, in case you change your mind later...):
-
-```python
-return aiohttp.web.json_response(profiling_info)
-# return aiohttp.web.json_response(self.is_dev, profiling_info)
-```
-
-If you make this change after starting Jupyter Lab, you'll need to restart.
-
-This bug is fixed in the forthcoming Ray 0.8.5 release.

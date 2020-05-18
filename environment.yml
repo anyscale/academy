@@ -24,4 +24,5 @@ dependencies:
     - ray[tune]==0.8.4
     - ray[debug]==0.8.4
     - atoma
+    - anyscale
 
