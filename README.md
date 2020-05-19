@@ -37,14 +37,12 @@ Now install the dependencies using either [Anaconda](https://www.anaconda.com/) 
 
 To install Anaconda, follow the instructions [here](https://www.anaconda.com/distribution/). If you already have Anaconda installed, consider running `conda upgrade --all`.
 
-Then run the following commands in the root directory of this project. First,  use `conda` to install the other dependencies, including Ray. Then activate the newly-created environment, named `anyscale-academy`. Finally, use the `jupyter` commands to set up the graphing library extensions in Jupyter Lab that we'll use. The last command just lists the extensions.
+Then run the following commands in the root directory of this project. First,  use `conda` to install the other dependencies, including Ray. Then activate the newly-created environment, named `anyscale-academy`. Finally, use the `jupyter` command to add a graphing library extension in Jupyter Lab that we'll use and to list the installed extensions.
 
 ```
 conda env create -f environment.yml
 conda activate anyscale-academy
-jupyter labextension install @jupyter-widgets/jupyterlab-manager
 jupyter labextension install @pyviz/jupyterlab_pyviz
-jupyter labextension install @bokeh/jupyter_bokeh
 jupyter labextension list
 ```
 
@@ -70,13 +68,11 @@ If you don't use Anaconda, you'll have to install these prerequisites first:
 * Node.js: Required for some of the Jupyter Lab graphics extensions we use.
 	* Installation instructions are [here](https://nodejs.org/en/).
 
-Now run the following commands in the root directory of this project to complete the setup. First, run a `pip` command to install the rest of the libraries required for these tutorials, including Ray. Then, use the `jupyter` commands to set up the graphing library extensions in Jupyter Lab that we'll use. The last command just lists the extensions.
+Now run the following commands in the root directory of this project to complete the setup. First, run a `pip` command to install the rest of the libraries required for these tutorials, including Ray. Then use the `jupyter` command to add a graphing library extension in Jupyter Lab that we'll use and to list the installed extensions.
 
 ```
 pip install -r requirements.txt
-jupyter labextension install @jupyter-widgets/jupyterlab-manager
 jupyter labextension install @pyviz/jupyterlab_pyviz
-jupyter labextension install @bokeh/jupyter_bokeh
 jupyter labextension list
 ```
 
