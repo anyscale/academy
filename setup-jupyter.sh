@@ -30,7 +30,3 @@ do
 done
 echo "All extensions:"
 jupyter labextension list
-
-# Should be redundant:
-# echo "Running jupyter lab build:"
-# jupyter lab build
