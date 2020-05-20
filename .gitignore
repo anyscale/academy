@@ -8,3 +8,4 @@ rllib/tmp/*
 __pycache__/
 ray-core/timeline-*.txt
 ray-core/solutions/test-runs
+ray-project/project-id
