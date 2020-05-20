@@ -12,9 +12,9 @@ beautifulsoup4
 lxml
 setproctitle
 pytz
-ray[rllib]=0.8.4
-ray[tune]=0.8.4
-ray[debug]=0.8.4
+ray[rllib]=0.8.5
+ray[tune]=0.8.5
+ray[debug]=0.8.5
 atoma
 cffi
 cryptography
