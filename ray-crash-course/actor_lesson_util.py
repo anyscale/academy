@@ -52,8 +52,10 @@ def run_games(games, graphs, steps, batch_size=1, pause_between_batches=0.0):
                 xs, ys = state.living_cells() # Do this work even if we don't graph it.
                 if pipe != None:
                     pipe.send((xs, ys))
-    message = timing_fmt.format(num_games, steps, batch_size, time.time()-start)
+    duration = time.time()-start
+    message = timing_fmt.format(num_games, steps, batch_size, duration)
     print(message)
+    return num_games, steps, batch_size, duration
 
 # Lots of duplication with run_games, but it's hard to remove if we
 # want to use ray.wait().
@@ -80,5 +82,7 @@ def run_ray_games(game_actors, graphs, steps, batch_size=1, pause_between_batche
                     xs, ys = state.living_cells() # Do this work even if we don't graph it.
                     if pipe != None:
                         pipe.send((xs, ys))
-    message = timing_fmt.format(num_games, steps, batch_size, time.time()-start)
+    duration = time.time()-start
+    message = timing_fmt.format(num_games, steps, batch_size, duration)
     print(message)
+    return num_games, steps, batch_size, duration
