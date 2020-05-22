@@ -39,4 +39,5 @@ setup_commands:
     - pip install -U https://s3-us-west-2.amazonaws.com/ray-wheels/latest/ray-0.9.0.dev0-cp36-cp36m-manylinux1_x86_64.whl
     - conda install -y nodejs
     - /home/ubuntu/anaconda3/bin/jupyter labextension check --installed "@pyviz/jupyterlab_pyviz" || /home/ubuntu/anaconda3/bin/jupyter labextension install "@pyviz/jupyterlab_pyviz"
+    - /home/ubuntu/anyscale-academy/tools/fix-jupyter.sh
 
