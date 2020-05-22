@@ -13,17 +13,22 @@ This README tells you how to set up the tutorials, it provides a quick overview 
 >    * [GitHub issues](https://github.com/anyscale/academy/issues)
 >    * The [#tutorial channel](https://ray-distributed.slack.com/archives/C011ML23W5B) on the [Ray Slack](https://ray-distributed.slack.com)
 >    * [Email](mailto:academy@anyscale.com)
-> 3. If you are attending a live tutorial event, please follow the setup instructions well in advance, as some of the downloads and installation processes can take a while.
-> 4. There is a Troubleshooting section at the end of this README.
+> 3. If you are attending a live tutorial event, please follow the setup instructions provided well in advance.
+> 4. There is a Troubleshooting section at the end of this README and also in this [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) notebook.
 
-## Setup
+## Setup for Anyscale Academy Hosted Sessions
 
-> **WARNING:** Ray does not currently run on Windows (we're close...). We're working on a hosted option, but for now, you have two alternative options:
->
-> 1. Use a virtual machine environment like VMWare running a Linux OS, a cloud instance in AWS, etc., or a local Docker image.
-> 2. Read the notebooks as rendered by GitHub: https://github.com/anyscale/academy
+There is nothing you need to setup, as the hosted environment will provide everything.
 
-> **Tip:** If you use option #1, make sure you download your notebooks to save any changes. Alternatively, VMWare and Docker allow you to mount a local directory, which is where you could keep the tutorial materials.
+However, consider cloning or downloading a release of the tutorial notebooks and supporting software from the [Academy repo](https://github.com/anyscale/academy), so you have a local copy of everything. The `README` provides instruction for local setup, if desired.
+
+> **Tip:** Make sure you download the notebooks you modified during the session to save those changes.
+
+Skip ahead to [**Tutorial Descriptions**](#tutorial-descriptions).
+
+## Setup for a Local Machine
+
+> **WARNING:** Ray does not currently run on Windows (we're close...). [Contact Anyscale](mailto:academy@anyscale.com) for a free hosted option.
 
 If you aren't installing the tutorials and the Python dependencies, skip ahead to [**Tutorial Descriptions**](#tutorial-descriptions).
 
@@ -35,15 +40,14 @@ Now install the dependencies using either [Anaconda](https://www.anaconda.com/) 
 
 #### Using Anaconda
 
-To install Anaconda, follow the instructions [here](https://www.anaconda.com/distribution/). If you already have Anaconda installed, consider running `conda upgrade --all`.
+If you need to install Anaconda, follow the instructions [here](https://www.anaconda.com/distribution/). If you already have Anaconda installed, consider running `conda upgrade --all`.
 
-Then run the following commands in the root directory of this project. First,  use `conda` to install the other dependencies, including Ray. Then activate the newly-created environment, named `anyscale-academy`. Finally, use the `jupyter` command to add a graphing library extension in Jupyter Lab that we'll use and to list the installed extensions.
+Run the following commands in the root directory of this project. First,  use `conda` to install the other dependencies, including Ray. Then activate the newly-created environment, named `anyscale-academy`. Finally, run a provided script to install a graphing library extension in Jupyter Lab and perform other tasks.
 
 ```
 conda env create -f environment.yml
 conda activate anyscale-academy
-jupyter labextension install @pyviz/jupyterlab_pyviz
-jupyter labextension list
+tools/fix-jupyter.sh
 ```
 
 Note that Python 3.7 is used. While Ray supports Python 3.8, some dependencies used in `RLlib` (the Ray reinforcement library) are not yet supported for 3.8.
@@ -68,19 +72,18 @@ If you don't use Anaconda, you'll have to install these prerequisites first:
 * Node.js: Required for some of the Jupyter Lab graphics extensions we use.
 	* Installation instructions are [here](https://nodejs.org/en/).
 
-Now run the following commands in the root directory of this project to complete the setup. First, run a `pip` command to install the rest of the libraries required for these tutorials, including Ray. Then use the `jupyter` command to add a graphing library extension in Jupyter Lab that we'll use and to list the installed extensions.
+Now run the following commands in the root directory of this project to complete the setup. First, run a `pip` command to install the rest of the libraries required for these tutorials, including Ray. Then, run a provided script to install a graphing library extension in Jupyter Lab and perform other tasks.
 
 ```
 pip install -r requirements.txt
-jupyter labextension install @pyviz/jupyterlab_pyviz
-jupyter labextension list
+tools/fix-jupyter.sh
 ```
 
 You are ready to go!
 
 ## Launching the Tutorials
 
-The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start, make sure you are in the project root directory and run the following command:
+The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start run the following command in the project root directory:
 
 ```
 jupyter lab
@@ -111,109 +114,7 @@ See also the [_Troubleshooting, Tips, and Tricks notebook_](reference/Troublesho
 
 ## Tutorial Descriptions
 
-Let's explore each tutorial.
-
-### This Directory
-
-First, the root directory contains files for setting up your environment (`README.md` - this file, `environment.yml`, and `requirements.txt`), as discussed previoiusly, and the Apache license file (`LICENSE`). The `util` and the `images` directories contain library code and images used in the notebooks, respectively. (Each tutorial directory discussed below may also have supporting code files.) There is also a `reference` directory with notebooks and other materials you might find useful.
-
-Each tutorial is contained in a dedicated directory. Each [Jupyter](https://jupyterlab.readthedocs.io/en/stable/) notebook is a _lesson_. The notebooks follow the naming convention `NN-name.ipynb`, where `NN` is a number that indicates the ordering of the lessons.
-
-> **Note:** If two or more notebooks have the same `NN` number, it indicates they can be studied in arbitrary order.
-
-The tutorials are organized in subdirectories.
-
-### Reference
-
-Directory: `reference`
-
-The notebooks here provide reference material, like general tips and tricks, how to get help, and troubleshooting issues.
-
-| Lesson (Notebook) | Description |
-| :---------------- | :---------- |
-| [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) | How to troubleshoot common problems and other useful tips and tricks. |
-
-### Ray Crash Course
-
-| About | Details |
-| :----- | :------------ |
-| _Directory:_ | `ray-crash-course` |
-| _Audience:_ | You are a developer who wants a fast introduction to the core Ray API. Experienced developers should go to [_Advanced Ray_](#user-content-advanced-ray). Data scientists may wish to skip to [_Ray RLlib_](#user-content-ray-rllib), [_Ray Tune_](#user-content-ray-tune), [_Ray SGD_](#user-content-ray-sgd), or [_Ray Serve_](#user-content-ray-serve). |
-
-
-This is the place to start if you are new to Ray and you plan to use it to scale Python applications to a cluster. Data scientists working with Ray-based toolkits, like _RLlib_, don't need this knowledge to get started.
-
-The _crash course_ is intended to focus on learning the core API as quickly as possible, but using nontrivial examples. In contrast, the [_Advanced Ray_](#user-content-advanced-ray) tutorial begins with an explanation of why Ray was created, what problems it solves, and then dives into more advanced API usage, profiling and debugging applications, and how Ray works behind the scenes.
-
-| #  | Lesson | Description |
-| :- | :----- | :---------- |
-| 00 | [Overview](ray-crash-course/00-Ray-Crash-Course-Overview.ipynb) | A _table of contents_ for this tutorial. |
-| 01 | [Ray Crash Course: Tasks](ray-crash-course/01-Ray-Crash-Course-Tasks.ipynb) | Understanding how Ray converts normal Python functions into distributed _stateless tasks_. |
-| 02 | [Ray Crash Course: Actors](ray-crash-course/02-Ray-Crash-Course-Actors.ipynb) | Understanding how Ray converts normal Python classes into distributed, _stateful actors_. |
-| 03 | [Adopting Ray](03-Adopting-Ray.ipynb)             | Ray drop-in replacements for common parallelism APIs, about the Ray community, etc. |
-| 04 | [Running Ray Clusters](04-Running-Ray-Clusters.ipynb) | How to run Ray in a clustered environment, submit your work to it, and integrate with your local development process. |
-
-Once you've completed this tutorial, go through [_Advanced Ray_](#user-content-advanced-ray) or explore one of the ML-related library tutorials, in any order.
-
-### Advanced Ray
-
-Directory: `advanced-ray`
-
-Go through the [_Crash Course_](#ray-crash-course) first if you are new to Ray. Then return to this tutorial, which begins with an explanation of why Ray was created, what problems it solves, and then dives into more advanced API usage, profiling and debugging applications, and how Ray works behind the scenes.
-
-This is the place to start. This tutorial introduces you to Ray, why it was created, what problems it solves, how to use it, and how it works behind the scenes.
-
-| #  | Lesson | Description |
-| :- | :----- | :---------- |
-| 00 | [Overview](advanced-ray/00-Overview.ipynb) | A _table of contents_ for this tutorial. |
-| 01 | [Why Ray?](advanced-ray/01-Why-Ray.ipynb) | Start in this notebook if you want an explanation of the origin and motivations for Ray. |
-| 02 | [Ray Tasks Revisited](advanced-ray/02-Ray-Tasks-Revisited.ipynb) | More exploration of `ray.wait()` usage patterns, task dependencies and their management, task profiling techniques, and task scheduling. |
-| 03 | [Ray Actors Revisited](advanced-ray/03-Ray-Actors-Revisited.ipynb) | A more in-depth look at Actor scheduling under the hood and profiling performance using the _Ray Dashboard_. |
-| 04 | [Exploring Ray API Calls](advanced-ray/04-Exploring-Ray-API-Calls.ipynb) | The Ray API has other API calls for more advanced scenarios, which are surveyed in this optional lesson. Options you can pass to the API calls already learned are explored. |
-
-Once you've completed the Ray core material, you can explore the rest of the tutorials in any order.
-
-### Ray RLlib
-
-Directory: `ray-rllib`
-
-_Ray RLlib_ is Ray's system for _reinforcement learning_. This tutorial begins with a "crash course" in RL concepts. It then explores several of the commonly-used algorithms and approaches for different applications.
-
-Here are the lessons. Note that the `04a-04c` lessons can be studied in any order.
-
-| #   | Lesson | Description |
-| :-- | :----- | :---------- |
-| 00 | Ray RLlib Overview](rllib/00-Ray-RLlib-Overview.iypnb) | Overview of this tutorial. |
-| 01 | Introduction to Reinforcement Learning](rllib/01-Introduction-to-Reinforcement-Learning.ipynb) | A quick introduction to the concepts of reinforcement learning, adapted from [`rllib_exercises`](https://github.com/ray-project/tutorial/blob/master/rllib_exercises/rllib_colab.ipynb) by @edoakes. You can skim or skip this lesson if you already understand RL concepts. |
-| 02 | About RLlib](rllib/02-About-RLlib.ipynb) | An introduction to RLlib, its goals and the capabilities it provides. |
-| 03 | Application Cart Pole](rllib/03-Application-Cart-Pole.ipynb) | The best starting place for learning how to use RL, in this case to train a moving car to balance a vertical pole. Based on the `CartPole-v0` environment from OpenAI Gym, combined with RLlib. |
-| 04a | Application Mountain Car](rllib/04a-Application-Mountain-Car.ipynb) | Based on the `MountainCar-v0` environment from OpenAI Gym. |
-| 04b | Application Taxi](rllib/04b-Application-Taxi.ipynb) | Based on the `Taxi-v3` environment from OpenAI Gym. |
-| 04c | Application Frozen Lake](rllib/04c-Application-Frozen-Lake.ipynb) | Based on the `FrozenLake-v0` environment from OpenAI Gym. |
-
-### Ray Tune
-
-Directory: `ray-tune`
-
-_Ray Tune_ is Ray's system for _hyperparameter tuning_. This tutorial starts with an explanation of what hyperparameter tuning is for and the performances challenges doing it for many applications. Then the tutorial explores how to use _Tune_, how it integrates with several popular ML frameworks, and the algorithms supported in _Tune_.
-
-This tutorial will be released soon.
-
-### Ray SGD
-
-Directory: `ray-sgd`
-
-_Ray SGD_ is a tool to more easily exploit a cluster to perform training with _Stochastic Gradient Descent_ using PyTorch (TensorFlow support forthcoming).
-
-This tutorial will be released soon.
-
-### Ray Serve
-
-Directory: `ray-serve`
-
-_Ray Serve_ is Ray's system for scalable _model serving_, with capabilities that also make it suitable for other web server applications. This tutorial starts with an explanation of what's required in model serving, followed by a tour of the API with examples.
-
-This tutorial will be released soon.
+The [Overview notebook](Overview.ipynb) provides detailed, up-to-date descriptions for each tutorial and the lessons it contains.
 
 ## Notes
 
