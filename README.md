@@ -8,7 +8,7 @@ This README tells you how to set up the tutorials, it provides a quick overview 
 
 > **Tips:**
 >
-> 1. If you just want to read the tutorials, GitHub renders notebooks.
+> 1. Anyscale is developing a free, hosted version of these tutorials. [Contact us](mailto:academy@anyscale.com) for more information.
 > 2. This is an early release of these tutorials. Please report any issues:
 >    * [GitHub issues](https://github.com/anyscale/academy/issues)
 >    * The [#tutorial channel](https://ray-distributed.slack.com/archives/C011ML23W5B) on the [Ray Slack](https://ray-distributed.slack.com)
