@@ -16,6 +16,8 @@ This README tells you how to set up the tutorials, it provides a quick overview 
 > 3. If you are attending a live tutorial event, please follow the setup instructions provided well in advance.
 > 4. There is a Troubleshooting section at the end of this README and also in this [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) notebook.
 
+Read one of the following setup sections, as appropriate, then jump to [**Launching the Tutorials**](#user-content-launching-the-tutorials).
+
 ## Setup for Anyscale Academy Hosted Sessions
 
 There is nothing you need to setup, as the hosted environment will provide everything.
@@ -24,13 +26,9 @@ However, consider cloning or downloading a release of the tutorial notebooks and
 
 > **Tip:** Make sure you download the notebooks you modified during the session to save those changes.
 
-Skip ahead to [**Tutorial Descriptions**](#tutorial-descriptions).
-
 ## Setup for a Local Machine
 
 > **WARNING:** Ray does not currently run on Windows (we're close...). [Contact Anyscale](mailto:academy@anyscale.com) for a free hosted option.
-
-If you aren't installing the tutorials and the Python dependencies, skip ahead to [**Tutorial Descriptions**](#tutorial-descriptions).
 
 If you are using MacOS or Linux, follow these instructions. Note that the setup commands can take a while to finish.
 
@@ -38,7 +36,7 @@ Clone the [Academy GitHub repo](https://github.com/anyscale/academy) or [downloa
 
 Now install the dependencies using either [Anaconda](https://www.anaconda.com/) or `pip` in your Python environment. We recommend using Anaconda.
 
-#### Using Anaconda
+### Using Anaconda
 
 If you need to install Anaconda, follow the instructions [here](https://www.anaconda.com/distribution/). If you already have Anaconda installed, consider running `conda upgrade --all`.
 
@@ -58,9 +56,7 @@ You can delete the environment later with the following command:
 conda env remove --name anyscale-academy
 ```
 
-You are ready to go!
-
-#### Using Pip
+### Using Pip
 
 If you don't use Anaconda, you'll have to install these prerequisites first:
 
@@ -79,8 +75,6 @@ pip install -r requirements.txt
 tools/fix-jupyter.sh
 ```
 
-You are ready to go!
-
 ## Launching the Tutorials
 
 The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start run the following command in the project root directory:
@@ -93,32 +87,30 @@ It should automatically open a browser window with the lab environment, but if n
 
 > **Tip:** If you get an error that `jupyter` can't be found and you are using the Anaconda setup, make sure you activated the `anyscale-academy` environment, as shown above.
 
-The rest of the information in this README can also be found in the [Overview](./Overview.ipynb) notebook.
-
 ## Which Tutorials Are Right for Me?
 
 Here is a recommended reading list, based on your interests:
 
 | You Are... | Best Tutorials |
 | :--------- | :------------- |
-| A developer who is new to Ray | First, [_Ray Crash Course_](#user-content-ray-crash-course), then [_Advanced Ray_](#user-content-advanced-ray) |
-| A developer who is experienced with Ray | [_Advanced Ray_](#user-content-advanced-ray) |
-| A developer or data scientist interested in Reinforcement Learning | [_Ray RLlib_](#user-content-ray-rllib) |
-| A developer or data scientist interested in Hyperparameter Tuning  | [_Ray Tune_](#user-content-ray-tune) |
-| A developer or data scientist interested in accelerated model training with PyTorch  | [_Ray SGD_](#user-content-ray-sgd) |
-| A developer or data scientist interested in model serving | [_Ray Serve_](#user-content-ray-serve) |
+| A developer who is new to Ray | First, [_Ray Crash Course_](ray-crash-course/00-Ray-Crash-Course-Overview.ipynb), then [_Advanced Ray_](advanced-ray/00-Advanced-Ray-Overview.ipynb) |
+| A developer who is experienced with Ray | [_Advanced Ray_](advanced-ray/00-Advanced-Ray-Overview.ipynb) (_alpha_ release) |
+| A developer or data scientist interested in Reinforcement Learning | [_Ray RLlib_](rllib/00-Ray-RLlib-Overview.ipynb) (_alpha_ release) |
+| A developer or data scientist interested in Hyperparameter Tuning  | _Ray Tune_ (forthcoming) |
+| A developer or data scientist interested in accelerated model training with PyTorch  | _Ray SGD_ (forthcoming) |
+| A developer or data scientist interested in model serving | _Ray Serve_ (forthcoming) |
 
 See also the [_Troubleshooting, Tips, and Tricks notebook_](reference/Troubleshooting-Tips-Tricks.ipynb). For the details of the Ray API and the ML libraries, see the [Ray Docs](https://docs.ray.io/en/latest/).
 
 > **Note:** Older Ray tutorials can be found in the [this repo](https://github.com/ray-project/tutorial). They cover topics not yet covered by the Anyscale Academy.
 
-## Tutorial Descriptions
+### Tutorial Descriptions
 
 The [Overview notebook](Overview.ipynb) provides detailed, up-to-date descriptions for each tutorial and the lessons it contains.
 
 ## Notes
 
-* We're currently using Python 3.7, because a dependency of `RLlib`, `atari-py`, doesn't have a wheel available for Python 3.8.
+* We use Python 3.7, because a dependency of `RLlib`, `atari-py`, doesn't have a wheel available for Python 3.8 at this time.
 
 ## Troubleshooting
 
