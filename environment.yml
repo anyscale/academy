@@ -9,6 +9,7 @@ dependencies:
   - requests
   - tensorflow
   - keras
+  - scikit-learn
   - holoviews
   - bokeh
   - ipywidgets
