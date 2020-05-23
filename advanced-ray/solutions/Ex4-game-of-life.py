@@ -367,25 +367,25 @@ def run_game(game_number, runs, old_rules_impl,
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Conway's Game of Life. The number of games is len(games)*len(steps)*len(batch_sizes)*len(num_blocks)*")
-    parser.add_argument('--games', metavar='N', type=int, default=1, nargs='?',
+    parser.add_argument('-g', '--games', metavar='N', type=int, default=1, nargs='?',
         help='The number of concurrent games to run. Defaults to 1.')
-    parser.add_argument('--runs', metavar='N', type=int,
+    parser.add_argument('-r', '--runs', metavar='N', type=int,
         help="How many runs for each parameter set")
-    parser.add_argument('--dimensions', metavar='X*Y', type=str, default='100*100', nargs='?',
+    parser.add_argument('-d', '--dimensions', metavar='X*Y', type=str, default='100*100', nargs='?',
         help='The 2D grid dimensions. Use "X,Y" or "X*Y". Only one pair can be specified, because the other arguments really need to be "sensible" for this value.')
-    parser.add_argument('--steps', metavar='n1,n2,...', type=str, default='500', nargs='?',
+    parser.add_argument('-s', '--steps', metavar='n1,n2,...', type=str, default='500', nargs='?',
         help='Comma-separated list of the numbers of steps to take per game.')
-    parser.add_argument('--batches', metavar='n1,n2,...', type=str, default='1', nargs='?',
-        help='Comma-separated list of batch sizes for processing steps in batches per game (filtered for values <= # steps)')
-    parser.add_argument('--blocks', metavar='n1,n2,...', type=str, default='1', nargs='?',
+    parser.add_argument('-b', '--blocks', metavar='n1,n2,...', type=str, default='1', nargs='?',
         help='Do runs where grid updates are performed in row blocks. (filtered for <= # rows)')
-    parser.add_argument('--verbose', help="Print invocation parameters",
+    parser.add_argument('--batches', metavar='n1,n2,...', type=str, default='1', nargs='?',
+    parser.add_argument('-v', '--verbose', help="Print invocation parameters",
+        help='Comma-separated list of batch sizes for processing steps in batches per game (filtered for values <= # steps)')
         action='store_true')
-    parser.add_argument('--write_states', help="Print the states to a JSON file (for graphing)",
+    parser.add_argument('-w', '--write_states', help="Print the states to a JSON file (for graphing)",
         action='store_true')
-    parser.add_argument('--pause', help="Don't exit immediately, wait for user acknowledgement",
+    parser.add_argument('-p', '--pause', help="Don't exit immediately, wait for user acknowledgement",
         action='store_true')
-    parser.add_argument('--old_rules_implementation', help='Use the "pre-blockified" version of RaysConwaysRules (for comparison)',
+    parser.add_argument('-o', '--old_rules_implementation', help='Use the "pre-blockified" version of RaysConwaysRules (for comparison)',
         action='store_true')
 
     args = parser.parse_args()

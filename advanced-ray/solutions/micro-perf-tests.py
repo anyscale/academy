@@ -56,11 +56,11 @@ def trial(num_runs, grid_size, print_values = False):
 def main():
 	import argparse
 	parser = argparse.ArgumentParser(description="Micro Perf Tests")
-	parser.add_argument('--runs', metavar='N', type=int, default=100, nargs='?',
+	parser.add_argument('-r', '--runs', metavar='N', type=int, default=100, nargs='?',
 		help='The number of runs (100 or more recommended)')
-	parser.add_argument('--size', metavar='N', type=int, default=100, nargs='?',
+	parser.add_argument('-s', '--size', metavar='N', type=int, default=100, nargs='?',
 		help='The size of the square grid')
-	parser.add_argument('--values', help='Print the values for each run',
+	parser.add_argument('-v', '--values', help='Print the values for each run',
     	action='store_true')
 
 	args = parser.parse_args()

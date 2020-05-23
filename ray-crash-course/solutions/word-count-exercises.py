@@ -82,11 +82,11 @@ def main():
     parser = argparse.ArgumentParser(description="Word Count using Ray Parallel Iterators")
     parser.add_argument('files', metavar='file', type=str, nargs='+',
                         help='file globs to process')
-    parser.add_argument('--top-n', metavar='N', type=int, default=100, nargs='?',
+    parser.add_argument('-n', '--top-n', metavar='N', type=int, default=100, nargs='?',
         help='How many of the most frequently-occurring words to print')
-    parser.add_argument('--batch', metavar='N', type=int, default=1024, nargs='?',
+    parser.add_argument('-b', '--batch', metavar='N', type=int, default=1024, nargs='?',
         help='Size of the streaming batch window')
-    parser.add_argument('--local', help="Run Ray locally. Default is to join a cluster",
+    parser.add_argument('-l', '--local', help="Run Ray locally. Default is to join a cluster",
         action='store_true')
 
     args = parser.parse_args()
