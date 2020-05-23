@@ -42,7 +42,7 @@ If you need to install Anaconda, follow the instructions [here](https://www.anac
 
 Run the following commands in the root directory of this project. First,  use `conda` to install the other dependencies, including Ray. Then activate the newly-created environment, named `anyscale-academy`. Finally, run a provided script to install a graphing library extension in Jupyter Lab and perform other tasks.
 
-```
+```shell
 conda env create -f environment.yml
 conda activate anyscale-academy
 tools/fix-jupyter.sh
@@ -70,16 +70,24 @@ If you don't use Anaconda, you'll have to install these prerequisites first:
 
 Now run the following commands in the root directory of this project to complete the setup. First, run a `pip` command to install the rest of the libraries required for these tutorials, including Ray. Then, run a provided script to install a graphing library extension in Jupyter Lab and perform other tasks.
 
-```
+```shell
 pip install -r requirements.txt
 tools/fix-jupyter.sh
+```
+
+## Final Notes for Local Installation
+
+The lessons will start a local Ray "cluster" (one node) on your machine. When you are finished with the tutorials, run the following command to shut down Ray:
+
+```shell
+ray stop
 ```
 
 ## Launching the Tutorials
 
 The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start run the following command in the project root directory:
 
-```
+```shell
 jupyter lab
 ```
 
@@ -106,7 +114,7 @@ See also the [_Troubleshooting, Tips, and Tricks notebook_](reference/Troublesho
 
 ### Tutorial Descriptions
 
-The [Overview notebook](Overview.ipynb) provides detailed, up-to-date descriptions for each tutorial and the lessons it contains.
+See the [Overview notebook](Overview.ipynb) for detailed, up-to-date descriptions for each tutorial and the lessons it contains.
 
 ## Notes
 
