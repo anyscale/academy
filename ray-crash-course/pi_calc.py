@@ -117,15 +117,37 @@ def ray_compute_pi_loop(N):
     return ray.get(pi_ids)
 
 def main():
+    global repeat
 
-    Ns = [500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000,  5000000, 10000000]
+    Ns = [500, 1000, 5000, 10000, 50000, 100000]
 
-    print("Results without Ray:")
-    ns, means, stddevs, errors, durations = compute_pi_for(Ns, compute_pi_loop)
+    import argparse
+    parser = argparse.ArgumentParser(description="Monte Carlo Pi Calculator")
+    parser.add_argument('Ns', metavar='N', type=int, default=Ns, nargs='*',
+        help='Runs with the specified number of samples')
+    parser.add_argument('-r', '--repeat', metavar='M', type=int, default=repeat, nargs='?',
+        help='Repeat for each N, then compute average, stdev, etc.')
+    parser.add_argument('-l', '--local', help="Run Ray locally. Default is to join a cluster",
+        action='store_true')
 
-    ray.init(num_cpus=repeat)
-    print("Results with Ray:")
-    ray_ns, ray_means, ray_stddevs, ray_errors, ray_durations = compute_pi_for(Ns, ray_compute_pi_loop)
+    args = parser.parse_args()
+    print(f"""
+        {parser.description}
+        Ns:           {args.Ns}
+        Repeat per N: {args.repeat}
+        Run locally?  {args.local}
+        """)
+    repeat = args.repeat
+
+    print("\nResults without Ray:")
+    ns, means, stddevs, errors, durations = compute_pi_for(args.Ns, compute_pi_loop)
+
+    print("\nResults with Ray:")
+    if args.local:
+        ray.init(num_cpus=repeat)
+    else:
+        ray.init(address='auto')
+    ray_ns, ray_means, ray_stddevs, ray_errors, ray_durations = compute_pi_for(args.Ns, ray_compute_pi_loop)
 
 if __name__ == '__main__':
     main()
