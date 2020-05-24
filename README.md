@@ -101,9 +101,9 @@ Here is a recommended reading list, based on your interests:
 
 | You Are... | Best Tutorials |
 | :--------- | :------------- |
-| A developer who is new to Ray | First, [_Ray Crash Course_](ray-crash-course/00-Ray-Crash-Course-Overview.ipynb), then [_Advanced Ray_](advanced-ray/00-Advanced-Ray-Overview.ipynb) |
-| A developer who is experienced with Ray | [_Advanced Ray_](advanced-ray/00-Advanced-Ray-Overview.ipynb) (_alpha_ release) |
-| A developer or data scientist interested in Reinforcement Learning | [_Ray RLlib_](rllib/00-Ray-RLlib-Overview.ipynb) (_alpha_ release) |
+| A developer who is new to Ray | First, [_Ray Crash Course_](ray-crash-course/00-Overview-Ray-Crash-Course.ipynb), then [_Advanced Ray_](advanced-ray/00-Overview-Advanced-Ray.ipynb) |
+| A developer who is experienced with Ray | [_Advanced Ray_](advanced-ray/00-Overview-Advanced-Ray.ipynb) (_alpha_ release) |
+| A developer or data scientist interested in Reinforcement Learning | [_Ray RLlib_](rllib/00-Overview-Ray-RLlib.ipynb) (_alpha_ release) |
 | A developer or data scientist interested in Hyperparameter Tuning  | _Ray Tune_ (forthcoming) |
 | A developer or data scientist interested in accelerated model training with PyTorch  | _Ray SGD_ (forthcoming) |
 | A developer or data scientist interested in model serving | _Ray Serve_ (forthcoming) |
