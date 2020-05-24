@@ -126,7 +126,33 @@ When you first start Ray in a notebook (i.e., use `ray.init()`), you may run int
 
 ### Ray.init() Fails
 
-If you get an error like `... INFO services.py:... -- Failed to connect to the redis server, retrying.`, it probably means you are running a VPN on your machine. [At this time](https://github.com/ray-project/ray/issues/6573), you can't use `ray.init()` with a VPN running. You'll have to stop your VPN to run `ray.init()`, then once it finishes, you can restart your VPN.
+Suppose you get an error like this:
+
+```
+... INFO services.py:... -- Failed to connect to the redis server, retrying.
+```
+
+It probably means you are running a VPN on your machine. [At this time](https://github.com/ray-project/ray/issues/6573), you can't use `ray.init()` with a VPN running. You'll have to stop your VPN to run `ray.init()`, then once it finishes, you can restart your VPN.
+
+Suppose you successfully executed `!../tools/start-ray.sh` in a notebook, but then when you run `ray.init(adress='auto', ...)` you get the following error for some `IP` address and `PORT`:
+
+```
+ConnectionError: Error 61 connecting to IP:PORT. Connection refused.
+```
+
+If the output of `../tools/start-ray.sh` includes instructions for passing a Redis password, e.g., `redis_password='5241590000000000'`, add this argument to the `ray.init()` call and try again.
+
+If that fails, it may be necessary to kill any old Redis processes that are running. On MacOS and Linux systems, use a terminal window and run the following command, shown with example output:
+
+```shell
+$ ps -ef | grep redis
+501 36029     1   0  1:53PM ??         0:00.03 .../lib/python3.7/site-packages/ray/core/src/ray/thirdparty/redis/src/redis-server *:48044
+501 36030     1   0  1:53PM ??         0:00.02 .../lib/python3.7/site-packages/ray/core/src/ray/thirdparty/redis/src/redis-server *:42902
+
+$ kill 36029 36039
+```
+
+Then try again.
 
 ### MacOS - Prompts to Allow Python, etc.
 
