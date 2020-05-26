@@ -32,9 +32,9 @@ done
 
 if [[ -n $check_only ]]
 then
-	ray stat > /dev/null 2>&1
+	$NOOP ray stat > /dev/null 2>&1
 else
-	ray stat > /dev/null 2>&1 || ray start --head
+	$NOOP ray stat > /dev/null 2>&1 || $NOOP ray start --head
 	if [[ $? -eq 0 ]]
 	then
 		echo
