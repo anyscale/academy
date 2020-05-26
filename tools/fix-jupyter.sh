@@ -45,7 +45,6 @@ done
 echo "jupyter: $JUPYTER"
 [[ -n "$JUPYTER" ]] || JUPYTER=$(which jupyter) || error "command 'which jupyter' failed! Is it installed?"
 [[ -x "$JUPYTER" ]] || error "Jupyter not found or not executable: $JUPYTER"
-exit 0
 
 extensions=( @pyviz/jupyterlab_pyviz )
 
@@ -56,8 +55,8 @@ do
 	$NOOP $JUPYTER labextension check --installed "$ext" || $JUPYTER labextension install "$ext"
 done
 
-$JUPYTER labextension update --all
-$JUPYTER lab build
+$NOOP $JUPYTER labextension update --all
+$NOOP $JUPYTER lab build
 
 echo "All extensions:"
 $NOOP $JUPYTER labextension list
