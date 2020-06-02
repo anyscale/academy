@@ -40,30 +40,48 @@ do
 	shift
 done
 
+verbose_running() {
+	cat <<EOF
+Ray already running.
+EOF
+}
+
 verbose_check() {
 	cat <<EOF
 
 Ray is not running. Run $0 with no options in a terminal window to start Ray.
 
 EOF
-	return 1
 }
 
-if [[ $check_only -eq 0 ]]
-then
-	$NOOP ray stat > /dev/null 2>&1
-	[[ $? -eq 0 ]] && exit 0
-	[[ $verbose -eq 0 ]] && verbose_check
-else
-	$NOOP ray stat > /dev/null 2>&1 || $NOOP ray start --head
-	if [[ $? -eq 0 ]]
-	then
-		echo
-		echo "Ray already running or successfully started"
-	else
-		echo
-		echo "ERROR: Ray failed to start. Please report this issue to academy@anyscale.com."
-		echo "ERROR: Provide as much information as you can about your setup, any error messages shown, etc."
-	fi
-fi
+verbose_started() {
+	cat <<EOF
+Ray successfully started.
+EOF
+}
 
+verbose_failed() {
+	cat <<EOF
+
+ERROR: Ray failed to start. Please report this issue to academy@anyscale.com."
+ERROR: Provide as much information as you can about your setup, any error messages shown, etc."
+
+EOF
+}
+
+
+$NOOP ray stat > /dev/null 2>&1
+let status=$?
+if [[ $status -eq 0 ]]
+then
+	[[ $verbose -eq 0 ]] && verbose_running
+elif [[ $check_only -eq 0 ]]
+then
+	 [[ $verbose -eq 0 ]] && verbose_check
+else
+	$NOOP ray start --head
+	let status=$?
+	[[ $status -eq 0 ]] && [[ $verbose -eq 0 ]] && verbose_started
+	[[ $status -ne 0 ]] && [[ $verbose -eq 0 ]] && verbose_failed
+fi
+exit $status
