@@ -50,6 +50,7 @@ verbose_check() {
 	cat <<EOF
 
 Ray is not running. Run $0 with no options in a terminal window to start Ray.
+You can start a terminal in Jupyter. Click the "+" under the "Edit" menu.
 
 EOF
 }
