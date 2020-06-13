@@ -12,3 +12,4 @@ ray-project/project-id
 notes/
 advanced-ray/task-timeline.txt
 ray-rllib/tmp/
+ray-rllib/extras/tmp/
