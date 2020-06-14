@@ -17,30 +17,30 @@ from bokeh.plotting import figure, output_file, show
 from pi_calc import MonteCarloPi, compute_pi_for
 
 
-default_Ns = [1000, 10000, 100000]
-default_radius = 1.0
-default_bounds = (-default_radius, -default_radius, default_radius, default_radius)
-default_minN = 100
-default_maxN = 100000
-default_n_per_pi_calc = default_minN
-default_plot_size = 1200
-default_image_size = round(default_plot_size/2)
-default_cmap = 'Spectral'
-default_image_color_idx = 2
-default_point_color_idx = 125
-default_pi_update_format = 'Pi ~= {:8.7f}\nerror = {:6.3f}%\nn = {:d}\n(N ~ {:d})'
+DEFAULT_NS = [1000, 10000, 100000]
+DEFAULT_RADIUS = 1.0
+DEFAULT_BOUNDS = (-DEFAULT_RADIUS, -DEFAULT_RADIUS, DEFAULT_RADIUS, DEFAULT_RADIUS)
+DEFAULT_MIN_N = 100
+DEFAULT_MAX_N = 100000
+DEFAULT_N_PER_PI_CALC = DEFAULT_MIN_N
+DEFAULT_PLOT_SIZE = 1200
+DEFAULT_IMAGE_SIZE = round(DEFAULT_PLOT_SIZE/2)
+DEFAULT_CMAP = 'Spectral'
+DEFAULT_IMAGE_COLOR_IDX = 2
+DEFAULT_POINT_COLOR_IDX = 125
+DEFAULT_PI_UPDATE_FORMAT = 'Pi ~= {:8.7f}\nerror = {:6.3f}%\nn = {:d}\n(N ~ {:d})'
 
-img_opts = opts.Image(cmap=default_cmap, toolbar=None,
-                    height=default_plot_size, width=default_plot_size,
+img_opts = opts.Image(cmap=DEFAULT_CMAP, toolbar=None,
+                    height=DEFAULT_PLOT_SIZE, width=DEFAULT_PLOT_SIZE,
                     xaxis=None, yaxis=None)
 
-def make_circle(radius=default_radius):
+def make_circle(radius=DEFAULT_RADIUS):
     def circle(t):
         return (radius*np.sin(t), radius*np.cos(t), t)
     lin = np.linspace(-np.pi, np.pi, 200)
     return hv.Path([circle(lin)]).opts(img_opts).opts(line_width=2, color='red')
 
-def make_rect(bounds=default_bounds, color='blue'):
+def make_rect(bounds=DEFAULT_BOUNDS, color='blue'):
     minX, minY, maxX, maxY = bounds
     return hv.Path([(minX, minY), (maxX, minY), (maxX, maxY), (minX, maxY), (minX, minY)]).opts(
         img_opts).opts(line_width=2, color='blue')
@@ -50,12 +50,12 @@ def make_text(content):
         toolbar=None, height=100, width=150, xaxis=None, yaxis=None,
         text_alpha=1.0, bgcolor='lightgrey')
 
-def make_image(data=None, image_size=default_image_size, bounds=default_bounds, color_idx=default_image_color_idx, label='Pi:'):
+def make_image(data=None, image_size=DEFAULT_IMAGE_SIZE, bounds=DEFAULT_BOUNDS, color_idx=DEFAULT_IMAGE_COLOR_IDX, label='Pi:'):
     if data == None:
         data = np.full((image_size, image_size), color_idx, dtype=np.uint8)
     return hv.Image(data, label=label, bounds=bounds).opts(img_opts)
 
-def to_pixel(array, image_size=default_image_size):
+def to_pixel(array, image_size=DEFAULT_IMAGE_SIZE):
     """
     NumPy array input for real coordinates. Returns image pixel index.
     To keep indices between 0, inclusize, and image_size, exclusive, we set the upper bound to image_size - 1
@@ -63,12 +63,12 @@ def to_pixel(array, image_size=default_image_size):
     array2 = (array+1.0)/2.0 # Shift to origin range between (0-1,0-1)
     return np.rint((image_size-1)*array2).astype(int)  # Scale to pixels
 
-def make_overlay(items, width=default_plot_size, height=default_plot_size):
+def make_overlay(items, width=DEFAULT_PLOT_SIZE, height=DEFAULT_PLOT_SIZE):
     return hv.Overlay(items=items).opts(width=width, height=height)
 
 
 def make_update(k, N, counter_instance,
-    n_per_pi_calc=default_n_per_pi_calc, pi_update_format=default_pi_update_format):
+    n_per_pi_calc=DEFAULT_N_PER_PI_CALC, pi_update_format=DEFAULT_PI_UPDATE_FORMAT):
     """Returns a closure used as the update function for a dmap."""
     pi_calc = MonteCarloPi()
     image = make_image()
@@ -107,19 +107,19 @@ def make_update(k, N, counter_instance,
         return overlay
     return update
 
-def make_dmaps(Ns = default_Ns):
+def make_dmaps(Ns = DEFAULT_NS):
     dmaps = []
     for k in range(len(Ns)):
         N = Ns[k]
         counter = Counter(transient=True)
-        psize = int(default_plot_size/len(Ns))
+        psize = int(DEFAULT_PLOT_SIZE/len(Ns))
         dmap_update = make_update(k, N, counter)
         dmap = hv.DynamicMap(dmap_update, streams=[counter]).opts(height=psize, width=psize)
-        # We fetch default_n_per_pi_calc points each pass through "update", so only count up to N/...
+        # We fetch DEFAULT_N_PER_PI_CALC points each pass through "update", so only count up to N/...
         dmaps.append(dmap)
     return dmaps
 
-def run_simulations(dmaps, Ns = default_Ns, n_per_pi_calc=default_n_per_pi_calc):
+def run_simulations(dmaps, Ns = DEFAULT_NS, n_per_pi_calc=DEFAULT_N_PER_PI_CALC):
     for i in range(len(dmaps)):
         dmaps[i].periodic(0.01, count=int(Ns[i]/n_per_pi_calc)-1, block=False)
 
@@ -128,7 +128,7 @@ def stop_simulations(dmaps):
 
 if __name__ == '__main__':
 
-    dmaps = make_dmaps(default_Ns)
+    dmaps = make_dmaps(DEFAULT_NS)
     show(dmaps[0] + dmaps[1] + dmaps[2])
     run_simulations(dmaps)
 
