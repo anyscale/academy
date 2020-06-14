@@ -77,29 +77,27 @@ verbose_multiple() {
 
 ERROR: Multiple instances of Ray are running:
 ERROR:   $@
-ERROR: This probably means that one or more notebooks started Ray incorrectly, in addition
-ERROR: to running this $0 script that should be used instead.
+ERROR: This probably means that one or more notebooks or shell scripts we started Ray incorrectly.
 ERROR:
 ERROR:    **** Please report this bug to academy@anyscale.com ****
 ERROR:
-ERROR: To clean up now, go to the other notebook tabs. For each one, add and run a new code
-ERROR: cell with the following statement:
-
-	ray.shutdown()
-
-ERROR: Then try running this cell again. If it now prints the following, everything is okay:
+ERROR: To fix this issue, use the following steps:
+ERROR:
+ERROR: 1. Run "ray stop" SEVERAL TIMES in a terminal window.
+ERROR:    ($start_terminal)
+ERROR: 2. Run "ray start --head" in the terminal window.
+ERROR: 3. Try rerunning the cell that ran this script. If it now prints the following,
+ERROR:    everything is okay:
 
 	INFO: Ray is already running.
 
-ERROR: However, if it still prints that multiple instances of ray are running (this message!),
-ERROR: then do the following steps:
-ERROR: 1. Run "ray stop" SEVERAL TIMES in a terminal window.
-ERROR:    ($start_terminal)
+ERROR: If it still throws the same error, then do these steps and try again:
+ERROR:
+ERROR: 1. Save your work in any other open notebooks.
 ERROR: 2. Close all the other notebooks.
-ERROR: 3. Shutdown their kernels using the Jupyter tab on the left-hand side that shows the
+ERROR: 3. Shut down their kernels using the Jupyter tab on the left-hand side that shows the
 ERROR:    running kernels.
-ERROR: Once these steps are done, then rerun the previous cell to check again. Follow
-ERROR: the instructions that will be printed to start Ray.
+ERROR: 4. Rerun the "ray stop" and "ray start --head" commands.
 
 EOF
 }
