@@ -3,7 +3,7 @@
 # It turns out that running this script with no options in a Jupyter notebook cell
 # does not properly start Ray. Therefore, notebook cells should use
 #   !.../tools/start-ray.sh --check --verbose
-# It will
+# It will tell you what to do if Ray isn't running.
 help() {
 	cat <<EOF
 Check if Ray is already running on the current node. If not start it as the head node.

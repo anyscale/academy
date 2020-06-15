@@ -18,7 +18,7 @@ provider:
 # For more documentation on available fields, see:
 # http://boto3.readthedocs.io/en/latest/reference/services/ec2.html#EC2.ServiceResource.create_instances
 head_node:
-    InstanceType: m5.large
+    InstanceType: m5.xlarge
     ImageId: latest_dlami
 
     # You can provision additional disk space with a conf as follows
