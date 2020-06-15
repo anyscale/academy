@@ -34,7 +34,7 @@ done
 
 script=$0
 info() {
-	[[ $verbose -eq 0 ]] && echo && echo "$script: $@"
+	[[ $verbose -eq 0 ]] && echo && echo "INFO: $script: $@"
 }
 
 info "Directories and files you might want to delete:"
@@ -42,12 +42,15 @@ info "Directories and files you might want to delete:"
 info "'Temporary' directories:"
 find . -type d \( -name 'tmp*' -o -name '*notes*' \)
 
-info "Checkpoint and cache directories:"
+info "Checkpoint, cache, and test-run directories:"
 for d in *checkpoint* .*checkpoint* *pycache*
 do
 	[[ -d $d ]] && echo $d
 done 2> /dev/null
 
-find [a-z]* -type d \( -name '*checkpoint*' -o -name '*cache' \) | \
-egrep -v '(mountain-car|bipedal-walker)-checkpoint'
+find [a-z]* -type d \( -name '*checkpoint*' -o -name '*cache' -o -name 'test-run*' \) | \
+grep -v '/tmp/' | egrep -v '(mountain-car|bipedal-walker)-checkpoint'
 
+info "*.txt or *.text (e.g., notes), *.csv, *.tsv, *.json, and other files that you might not want:"
+find [a-z]* -type f \( -name '*.txt' -o -name '*.text' -o -name '*.csv' -o -name '*.tsv' -o -name '*.json' \) | \
+egrep -v '(tmp/|.ipynb_checkpoints/|images/.*.meta.json|requirements.txt|multi-armed-bandits/market.tsv)'
