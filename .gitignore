@@ -4,6 +4,7 @@ __pycache__
 .DS_Store
 tmp/*
 rllib/tmp/*
+log/
 *.log
 __pycache__/
 ray-core/timeline-*.txt
