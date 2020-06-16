@@ -40,6 +40,7 @@ setup_commands:
     - /home/ubuntu/anaconda3/bin/pip list | grep jupyter
     - /home/ubuntu/anaconda3/bin/pip install -U jupyterlab
     - /home/ubuntu/anaconda3/bin/pip install -U jupyter-server-proxy
+    - /home/ubuntu/anaconda3/bin/pip install -U notebook
     - /home/ubuntu/anaconda3/bin/pip list | grep jupyter
     - /home/ubuntu/anaconda3/bin/jupyter labextension install "@pyviz/jupyterlab_pyviz"
     - /home/ubuntu/anaconda3/bin/jupyter labextension update --all
