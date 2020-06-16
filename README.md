@@ -14,7 +14,7 @@ This README tells you how to set up the tutorials, it provides a quick overview 
 >    * The [#tutorial channel](https://ray-distributed.slack.com/archives/C011ML23W5B) on the [Ray Slack](https://ray-distributed.slack.com)
 >    * [Email](mailto:academy@anyscale.com)
 > 3. If you are attending a live tutorial event, please follow the setup instructions provided well in advance.
-> 4. There is a Troubleshooting section at the end of this README and also in this [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) notebook.
+> 4. For troubleshooting help, see the [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) notebook.
 
 Read one of the following setup sections, as appropriate, then jump to [**Launching the Tutorials**](#user-content-launching-the-tutorials).
 
@@ -116,10 +116,6 @@ Here is a recommended reading list, based on your interests:
 | A developer or data scientist interested in accelerated model training with PyTorch  | _Ray SGD_ (forthcoming) |
 | A developer or data scientist interested in model serving | _Ray Serve_ (forthcoming) |
 
-See also the [_Troubleshooting, Tips, and Tricks notebook_](reference/Troubleshooting-Tips-Tricks.ipynb). For the details of the Ray API and the ML libraries, see the [Ray Docs](https://docs.ray.io/en/latest/).
-
-> **Note:** Older Ray tutorials can be found in the [this repo](https://github.com/ray-project/tutorial). They cover topics not yet covered by the Anyscale Academy.
-
 ### Tutorial Descriptions
 
 See the [Overview notebook](Overview.ipynb) for detailed, up-to-date descriptions for each tutorial and the lessons it contains.
@@ -130,73 +126,7 @@ See the [Overview notebook](Overview.ipynb) for detailed, up-to-date description
 
 ## Troubleshooting
 
-When you first start Ray in a notebook through one of several means, you may run into a few issues:
+See the [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) notebook.
 
-### Ray.init() Fails - "Failed to Connect to Redis..."
-
-Suppose you get an error like this:
-
-```
-... INFO services.py:... -- Failed to connect to the redis server, retrying.
-```
-
-It probably means you are running a VPN on your machine. [At this time](https://github.com/ray-project/ray/issues/6573), you can't use `ray.init()` with a VPN running. You'll have to stop your VPN to run `ray.init()`, then once it finishes, you can restart your VPN.
-
-Suppose you successfully executed one of the notebook cells with this shell command: `!../tools/start-ray.sh`, but then when you execute `ray.init(adress='auto', ...)` you get the following error for some `IP` address and `PORT`:
-
-```
-ConnectionError: Error 61 connecting to IP:PORT. Connection refused.
-```
-
-If the output of `../tools/start-ray.sh` includes instructions for passing a Redis password, e.g., `redis_password='5241590000000000'`, add this argument to the `ray.init()` call and try again.
-
-If that fails, it may be necessary to use a terminal to kill any old Redis processes that are running. You can start a terminal in Jupyter by clicking the "+" under the _Edit_ menu.
-
-On MacOS and Linux systems, try the following commands, shown with some of the possible output:
-
-```shell
-$ ray stop
-$ ray stop  # repeated
-
-$ ps -ef | grep redis
-501 36029     1   0  1:53PM ??         0:00.03 .../lib/python3.7/site-packages/ray/core/src/ray/thirdparty/redis/src/redis-server *:48044
-501 36030     1   0  1:53PM ??         0:00.02 .../lib/python3.7/site-packages/ray/core/src/ray/thirdparty/redis/src/redis-server *:42902
-
-$ kill 36029 36039
-
-$ ray start --head
-```
-
-### tools/start-ray.sh or Other Shell Script Fails - "Multiple Ray Clusters Running..."
-
-Several notebook cells run `bash` shell scripts, .e.g., to verify the Ray cluster is running, we use a cell like this:
-
-|  |
-|:-|
-|`tools/start-ray.sh --check --verbose`|
-
-Other cells run commands like `rllib rollout ...`
-
-It's possible that some of these commands will fail with an error that multiple Ray clusters are running. You'll be asked to specify which one to use.
-
-Please report this issue to academy@anyscale.com. We are trying to ensure this never happens. Tell us which notebook you were using when it happened.
-
-Here's how to fix the issue if it does happen.
-
-1. Run `ray stop` **several times** in a terminal window. You can start a terminal in Jupyter by clicking the "+" under the _Edit_ menu.
-2. Run `ray start --head` in the terminal window to restart Ray.
-2. Try rerunning the cell that ran the command that failed. It should now work without reporting the same error.
-
-If it still throws the same error, then do these additional steps and try again:
-
-1. Save your work in any other open notebooks.
-2. Close all the other notebooks.
-3. Shutdown their kernels using the Jupyter tab on the left-hand side that shows the
-   running kernels.
-4. Repeat the `ray stop` and `ray start --head` commands again.
-
-
-### MacOS - Prompts to Allow Python, etc.
-
-If `ray.init()` worked (for example, you see a message like _View the Ray dashboard at localhost:8265_) and you're using a Mac, you may get several annoying dialogs asking you if you want to allow incoming connections for Python and/or Redis (used internally by Ray). Click "Accept" for each one and they shouldn't appear again during this tutorial. For security reasons, MacOS is complaining that it can't verify these executables have been properly signed. If you installed Python using Anaconda or other mechanism, then it probably isn't properly signed from the point of view of MacOS. To permanently fix this problem, [see this StackExchange post](https://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog).
+For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs.ray.io/en/latest/).
 

@@ -7,7 +7,7 @@ dependencies:
   - pip
   - pandas
   - requests
-  - pytorch
+  - torch
   - tensorflow
   - keras
   - scikit-learn

@@ -1,7 +1,7 @@
 pandas
 requests
 tensorflow
-pytorch
+torch
 keras
 scikit-learn
 holoviews
