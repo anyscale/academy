@@ -35,7 +35,14 @@ auth:
 # List of shell commands to run to set up nodes.
 setup_commands:
     - echo '. /home/ubuntu/anaconda3/etc/profile.d/conda.sh' >> ~/.bashrc
-    - echo 'conda activate tensorflow_p36' >> ~/.bashrc
+    - echo "conda deactivate; conda activate tensorflow2_p36" >> ~/.bashrc
     - conda install -y nodejs
-    - /home/ubuntu/anaconda3/bin/jupyter labextension check --installed "@pyviz/jupyterlab_pyviz" || /home/ubuntu/anaconda3/bin/jupyter labextension install "@pyviz/jupyterlab_pyviz"
+    - /home/ubuntu/anaconda3/bin/pip list | grep jupyter
+    - /home/ubuntu/anaconda3/bin/pip install -U jupyterlab
+    - /home/ubuntu/anaconda3/bin/pip install -U jupyter-server-proxy
+    - /home/ubuntu/anaconda3/bin/pip list | grep jupyter
+    - /home/ubuntu/anaconda3/bin/jupyter labextension install "@pyviz/jupyterlab_pyviz"
+    - /home/ubuntu/anaconda3/bin/jupyter labextension update --all
+    - /home/ubuntu/anaconda3/bin/jupyter lab build
+    - /home/ubuntu/anaconda3/bin/jupyter labextension list
 
