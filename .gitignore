@@ -14,3 +14,4 @@ notes/
 advanced-ray/task-timeline.txt
 ray-rllib/tmp/
 ray-rllib/extras/tmp/
+explore-rllib/tmp
