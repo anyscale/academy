@@ -50,11 +50,11 @@ class MonteCarloPi():
         Args:
             num_samples: How many samples to take
         Returns:
-            The first three returned values are cummulative for ALL
+            The first three returned values are cumulative for ALL
             calls so far to this function so far, including this call:
-                The cummulative Pi approximation
-                The cummulative count inside the circle
-                The cummulative total count
+                The cumulative Pi approximation
+                The cumulative count inside the circle
+                The cumulative total count
             Also returns the NumPy arrays [[x,y]] for the new points
             inside the circle and outside the circle calculated during
             this call to sample, for plotting purposes.
@@ -66,7 +66,7 @@ class MonteCarloPi():
         return self.pi(), self.in_circle_count, self.total_count, xys_in, xys_out
 
     def pi(self):
-        """Return the cummulative estimate for pi"""
+        """Return the cumulative estimate for pi"""
         return 4.0*self.in_circle_count/self.total_count
 
 locale.setlocale(locale.LC_ALL, locale.getlocale())
