@@ -9,7 +9,7 @@ from util.line_plots import plot_line_with_stddev
 
 def plot_cumulative_regret(df):
     plot_line_with_stddev(df,
-        x_col='num_steps_trained', y_col='mean', stddev_col='std',
+        x_col='info/num_steps_trained', y_col='mean', stddev_col='std',
         title='Cumulative Regret', x_axis_label='step', y_axis_label='cumulative regret')
 
 def plot_wheel_bandit_model_weights(means, covs):
