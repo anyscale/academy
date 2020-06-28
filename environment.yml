@@ -23,9 +23,7 @@ dependencies:
   - pytz
   - nodejs
   - pip:
-    - ray[rllib]==0.8.5
-    - ray[tune]==0.8.5
-    - ray[debug]==0.8.5
+    - ray[all]==0.8.6
     - atoma
     - box2d-py
     - anyscale
