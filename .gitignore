@@ -16,3 +16,4 @@ ray-rllib/tmp/
 ray-rllib/extras/tmp/
 explore-rllib/tmp
 ray-rllib/explore-rllib/tmp
+data
