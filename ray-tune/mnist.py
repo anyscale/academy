@@ -156,9 +156,12 @@ if __name__ == '__main__':
         TrainMNIST,
         config=config,
         stop={"training_iteration": 10},
-        verbose=1,                                # Change to 0 or 1 to reduce the output.
-        ray_auto_init=False                       # Don't allow Tune to initialize Ray.
+        verbose=1
     )
+
+    stats = analysis.stats()
+    secs = stats["timestamp"] - stats["start_time"]
+    print(f'Duration: {secs:7.2f} seconds, {secs/60.0:7.2f} minutes')
     print("Best config: ", analysis.get_best_config(metric="mean_accuracy"))
     print("Best performing trials:")
     print(analysis.dataframe().sort_values('mean_accuracy', ascending=False).head())
