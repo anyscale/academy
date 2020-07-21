@@ -19,7 +19,7 @@ provider:
 # http://boto3.readthedocs.io/en/latest/reference/services/ec2.html#EC2.ServiceResource.create_instances
 head_node:
     InstanceType: m5.xlarge
-    ImageId: latest_dlami
+    ImageId: ami-0e8271975f6af5c8d # 20.04 on 2020-07-01
 
     # You can provision additional disk space with a conf as follows
     BlockDeviceMappings:
@@ -34,16 +34,22 @@ auth:
 
 # List of shell commands to run to set up nodes.
 setup_commands:
+    # Setup Anaconda.
+    - curl -sLo miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    - bash miniconda.sh -b -u -p $HOME/anaconda3
+    - $HOME/anaconda3/bin/conda init
+    - conda env create --file /home/ubuntu/anyscale-academy/environment.yml || true
+    - conda activate anyscale-academy
     - echo '. /home/ubuntu/anaconda3/etc/profile.d/conda.sh' >> ~/.bashrc
-    - echo "conda deactivate; conda activate tensorflow2_p36" >> ~/.bashrc
+    - echo "conda deactivate; conda activate anyscale-academy" >> ~/.bashrc
     - conda install -y nodejs
-    - /home/ubuntu/anaconda3/bin/pip list | grep jupyter
-    - /home/ubuntu/anaconda3/bin/pip install -U jupyterlab
-    - /home/ubuntu/anaconda3/bin/pip install -U jupyter-server-proxy
-    - /home/ubuntu/anaconda3/bin/pip install -U notebook
-    - /home/ubuntu/anaconda3/bin/pip list | grep jupyter
-    - /home/ubuntu/anaconda3/bin/jupyter labextension install "@pyviz/jupyterlab_pyviz"
-    - /home/ubuntu/anaconda3/bin/jupyter labextension update --all
-    - /home/ubuntu/anaconda3/bin/jupyter lab build
-    - /home/ubuntu/anaconda3/bin/jupyter labextension list
+    - pip list | grep jupyter
+    - pip install -U jupyterlab
+    - pip install -U jupyter-server-proxy
+    - pip install -U notebook
+    - pip list | grep jupyter
+    - jupyter labextension install "@pyviz/jupyterlab_pyviz"
+    - jupyter labextension update --all
+    - jupyter lab build
+    - jupyter labextension list
 
