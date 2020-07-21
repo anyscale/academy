@@ -5,7 +5,7 @@ channels:
 dependencies:
   - python=3.7
   - pip
-  - opencv-python-headless
+  - opencv
   - pandas
   - requests
   - pytorch
