@@ -77,7 +77,7 @@ verbose_multiple() {
 
 ERROR: Multiple instances of Ray are running:
 ERROR:   $@
-ERROR: This probably means that one or more notebooks or shell scripts we started Ray incorrectly.
+ERROR: This probably means that a notebook or shell script started Ray incorrectly.
 ERROR:
 ERROR:    **** Please report this bug to academy@anyscale.com ****
 ERROR:
@@ -93,7 +93,7 @@ ERROR:    everything is okay:
 
 ERROR: If it still throws the same error, then do these steps and try again:
 ERROR:
-ERROR: 1. Save your work in any other open notebooks.
+ERROR: 1. Save your modifications to any open notebooks.
 ERROR: 2. Close all the other notebooks.
 ERROR: 3. Shut down their kernels using the Jupyter tab on the left-hand side that shows the
 ERROR:    running kernels.
