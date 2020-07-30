@@ -2,8 +2,7 @@
 import numpy as np
 import time
 
-# A Conway's Game of Life implementation. Used in
-# ../ray-core/04-DistributedStateWithActors.ipynb.
+# A Conway's Game of Life implementation.
 
 class Game:
     # TODO: Game memory grows unbounded; trim older states?
@@ -25,9 +24,9 @@ class State:
     """
     def __init__(self, grid = None, size = 10):
         """
-        Create a State. Specify either a grid of cells or a size, for
-        which an size x size grid will be computed with random values.
-        (For simplicity, only use square grids.)
+        Create a State. Specify either a grid of cells or a size, for which a size x size
+        grid will be computed with random values.
+        (For simplicity, we only use square grids.)
         """
         if type(grid) != type(None): # avoid annoying AttributeError
             assert grid.shape[0] == grid.shape[1]
@@ -40,22 +39,34 @@ class State:
 
     def living_cells(self):
         """
-        Returns ([x1, x2, ...], [y1, y2, ...]) for all living cells.
+        Returns ([x1, x2, ...], [y1, y2, ...], [z1, z2, ...]) for all living cells,
+        where z is the number of generations the cell has lived.
         Simplifies graphing.
         """
-        cells = [(i,j) for i in range(self.size) for j in range(self.size) if self.grid[i][j] == 1]
+        cells = [(i,j,self.grid[i][j]) for i in range(self.size) for j in range(self.size) if self.grid[i][j] != 0]
         return zip(*cells)
 
     def __str__(self):
-        s = ' |\n| '.join([' '.join(map(lambda x: '*' if x else ' ', self.grid[i])) for i in range(self.size)])
+        def cell_str(cell):
+            s = str(cell)
+            if cell == 0:
+                s = ' '
+            if cell > 9:
+                s = '*'
+            return s
+
+        s = ' |\n| '.join([' '.join(map(cell_str, self.grid[i])) for i in range(self.size)])
         return '| ' + s + ' |'
+
 
 class ConwaysRules:
     """
-    Apply the rules to a state and return a new state.
+    The cell lifetime is tracked, starting at 0 for dead.
     """
+
     def step(self, state):
         """
+        Apply the rules to a state and return a new state.
         Determine the next values for all the cells, based on the current
         state. Creates a new State with the changes.
         """
@@ -77,10 +88,12 @@ class ConwaysRules:
             Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
         """
         cell = state.grid[i][j]  # default value is no change in state
-        if cell == 1:
-            if live_neighbors < 2 or live_neighbors > 3:
+        if cell > 0:
+            if live_neighbors < 2 or live_neighbors > 3:  # time to die?
                 cell = 0
-        elif live_neighbors == 3:
+            else:
+                cell += 1
+        elif live_neighbors == 3:   # then let it be born (again)
             cell = 1
         return cell
 
@@ -89,15 +102,24 @@ class ConwaysRules:
         Wrap at boundaries (i.e., treat the grid as a 2-dim "toroid")
         To wrap at boundaries, when k-1=-1, that wraps itself;
         for k+1=state.size, we mod it (which works for -1, too)
-        For simplicity, we count the cell itself, then subtact it
+        Note that the cell values can be any nonnegative number,
+        not just 0-1, so we can't just sum the values.
         """
         s = state.size
         g = state.grid
-        return sum([g[i2%s][j2%s] for i2 in [i-1,i,i+1] for j2 in [j-1,j,j+1]]) - g[i][j]
+        sum = 0
+        for i2 in [i-1,i,i+1]:
+            for j2 in [j-1,j,j+1]:
+                # Skip the cell in question itself:
+                if i2 == i and j2 == j:
+                    continue
+                if g[i2%s][j2%s] > 0:
+                    sum += 1
+        return sum
 
 
 def new_game(grid_size):
-    initial_state = State(size = grid_size)
+    initial_state = State(size=grid_size)
     rules = ConwaysRules()
     game  = Game(initial_state=initial_state, rules=rules)
     return game
@@ -113,14 +135,14 @@ def main():
     args = parser.parse_args()
     print(f"""
 Conway's Game of Life:
-  Grid size:           {args.size}
-  Number steps:        {args.steps}
+  Grid size:     {args.size:3d}
+  Number steps:  {args.steps:3d}
 """)
 
     def print_state(n, state):
         print(f'\nstate #{n}:\n{state}')
 
-    game  = new_game(size = args.size)
+    game  = new_game(grid_size = args.size)
     for step in range(args.steps):
         new_states = game.step()
         print_state(step, new_states[0])
