@@ -18,9 +18,19 @@ from holoviews.plotting.util import process_cmap
 
 hv.extension('bokeh')
 
+# A custom color map created at https://projects.susielu.com/viz-palette
+default_cmap=["#ffd700",
+"#ffb14e",
+"#fa8775",
+"#ea5f94",
+"#cd34b5",
+"#9d02d7",
+"#0000ff"]
+# Alternative, built-in choices from Bokeh:
+# default_cmap = 'RdYlBu' # 'Turbo' 'YlOrBr'
+
 default_max_cell_age = 8
 default_use_fixed_cell_sizes = True
-default_cmap = 'RdYlBu' # 'Turbo' 'YlOrBr'
 default_bgcolor = 'white' # '#f6f7dc'
 default_game_size = 100
 default_plot_size = 800
