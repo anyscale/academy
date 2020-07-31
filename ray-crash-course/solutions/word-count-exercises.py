@@ -29,10 +29,15 @@ def unzip(f):
         return open(f, 'r')
 
 # Exercise 3: Remove stop words. Edit this set to taste!
-stop_words = {
+stop_words1 = {
     'that', 'the', 'this', 'an',
     'and', 'or', 'but', 'of'
 }
+## All the single digits and ASCII letters:
+l=[str(i) for i in range(10)]
+l.extend([chr(i) for i in range(ord('a'), ord('z')+1)])
+
+stop_words = stop_words1.union(set(l))
 
 def is_stop_word(word):
     """
