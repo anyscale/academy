@@ -4,27 +4,37 @@
 
 Welcome to the [Anyscale Academy](https://anyscale.com/academy) tutorials on [Ray](https://ray.io), the system for scaling your applications from a laptop to a cluster.
 
-This README tells you how to set up the tutorials, it provides a quick overview of its contents, and it recommends which tutorials to go through depending on your interests.
+This README tells you how to set up the tutorials, view live Academy event videos, and decide which content is best for your interests.
 
 > **Tips:**
 >
 > 1. Anyscale is developing a free, hosted version of these tutorials. [Contact us](mailto:academy@anyscale.com) for more information.
-> 2. This is an early release of these tutorials. Please report any issues:
+> 2. Please report any issues or suggestions:
 >    * [GitHub issues](https://github.com/anyscale/academy/issues)
->    * The [#tutorial channel](https://ray-distributed.slack.com/archives/C011ML23W5B) on the [Ray Slack](https://ray-distributed.slack.com)
+>    * The [#tutorial channel](https://ray-distributed.slack.com/archives/C011ML23W5B) on the [Ray Slack](https://ray-distributed.slack.com) [Click here](https://forms.gle/9TSdDYUgxYs8SA9e8) to join.
 >    * [Email](mailto:academy@anyscale.com)
-> 3. If you are attending a live tutorial event, please follow the setup instructions provided well in advance.
+> 3. If you are attending a live tutorial event, please follow the setup instructions provided in advance.
 > 4. For troubleshooting help, see the [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) notebook.
 
-Read one of the following setup sections, as appropriate, then jump to [**Launching the Tutorials**](#user-content-launching-the-tutorials).
+## Videos of Previous Live Sessions
+
+To see videos of live sessions covering most of this material, visit the [Anyscale YouTube! channel](https://www.youtube.com/channel/UC7L1tZw52rtgmIB4fr_f40w/playlists) or click the following links for specific sessions:
+
+* [Ray _Crash Course_](https://youtu.be/2dgIEwkGYGI)
+* [Ray RLlib](https://youtu.be/y2KjC7W9nsI)
+* [Ray Tune and Ray Serve](https://youtu.be/7-DlqvaPrTE)
+
+# Tutorial Setup
+
+Read the appropriate setup section that follows, then jump to [**Launching the Tutorials**](#user-content-launching-the-tutorials).
 
 ## Setup for Anyscale Academy Hosted Sessions
 
 There is nothing you need to setup, as the hosted environment will provide everything.
 
-However, consider cloning or downloading a release of the tutorial notebooks and supporting software from the [Academy repo](https://github.com/anyscale/academy), so you have a local copy of everything. The `README` provides instruction for local setup, if desired.
+However, consider cloning or downloading a release of the tutorial notebooks and supporting software from the [Academy repo](https://github.com/anyscale/academy), so you have a local copy of everything.
 
-> **Tip:** Make sure you download the notebooks you modified during the session to save those changes.
+> **Tip:** If you modify any notebooks during the hosted session, make sure you download them to save those changes.
 
 ## Setup for a Local Machine
 
@@ -38,17 +48,16 @@ Now install the dependencies using either [Anaconda](https://www.anaconda.com/) 
 
 ### Which Python Version?
 
-Python 3.7 is recommended. While Ray supports Python 3.6, a user reported a problem using _locales_. Specifically, the following code throws an error:
+Python 3.7 is recommended. While Ray supports Python 3.6, there are known problem using _locales_ in that version and these tutorials. Specifically, the following code throws an error:
 
 ```python
 import locale
 locale.setlocale(locale.LC_ALL, locale.getlocale())
 ```
 
-This tutorial doesn't use _locales_ specifically, but you may run into problems with your default locale.
+This tutorial doesn't manipulate _locales_ explicitly, but you may run into problems with your default locale.
 
 While Ray supports Python 3.8, some dependencies used in `RLlib` (the Ray reinforcement library) are not yet supported for 3.8, at the time of this writing.
-
 
 ### Using Anaconda
 
@@ -130,7 +139,7 @@ Also, when you have finished working through the tutorials, run the script `tool
 
 > **Note:** A Windows version of this script is TBD.
 
-## Launching the Tutorials
+# Launching the Tutorials
 
 The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start run the following command in the project root directory:
 
@@ -150,19 +159,22 @@ Here is a recommended reading list, based on your interests:
 | :--------- | :------------- |
 | A developer who is new to Ray | First, [_Ray Crash Course_](ray-crash-course/00-Ray-Crash-Course-Overview.ipynb), then [_Advanced Ray_](advanced-ray/00-Advanced-Ray-Overview.ipynb) |
 | A developer who is experienced with Ray | [_Advanced Ray_](advanced-ray/00-Advanced-Ray-Overview.ipynb) (_alpha_ release) |
-| A developer or data scientist interested in Reinforcement Learning | [_Ray RLlib_](rllib/00-Ray-RLlib-Overview.ipynb) |
-| A developer or data scientist interested in Hyperparameter Tuning  | _Ray Tune_ |
-| A developer or data scientist interested in accelerated model training with PyTorch  |See the _Ray SGD_ lesson in the _Ray Tune_ tutorial |
-| A developer or data scientist interested in model serving | _Ray Serve_ |
+| A developer or data scientist interested in Reinforcement Learning | [_Ray RLlib_](ray-rllib/00-Ray-RLlib-Overview.ipynb) |
+| A developer or data scientist interested in Hyperparameter Tuning  | [_Ray Tune_](ray-tune/00-Ray-Tune-Overview.ipynb) |
+| A developer or data scientist interested in accelerated model training with PyTorch  |See the [_Ray SGD_](ray-tune/04-Ray-SGD.ipynb) lesson in the [_Ray Tune_](ray-tune/00-Ray-Tune-Overview.ipynb) tutorial |
+| A developer or data scientist interested in model serving | [_Ray Serve_](ray-serve/00-Ray-Serve-Overview.ipynb) |
 | A _DevOps_ engineer interested in managing Ray clusters | _Ray Cluster Launcher_ (forthcoming) |
 
 ### Tutorial Descriptions
 
 See the [Overview notebook](Overview.ipynb) for detailed, up-to-date descriptions for each tutorial and the lessons it contains.
 
-## Troubleshooting
+## Troubleshooting and Further Information
 
 See the [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) notebook.
 
-For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs.ray.io/en/latest/).
+For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs.ray.io/en/latest/). For other information, see [ray.io](https://ray.io), including the [Ray blog](https://medium.com/distributed-computing-with-ray).
+
+[Ray](https://ray.io) started at [U.C. Berkeley RISELab](https://rise.cs.berkeley.edu/). It is now developed in artisanal, small batches at [Anyscale](https://anyscale.com).
+
 
