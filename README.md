@@ -128,12 +128,6 @@ ray stop
 
 Also, when you have finished working through the tutorials, run the script `tools/cleanup.sh`, which prints temporary files, checkpoints, etc. that were created during the lessons. You might want to remove these as they can add up to 100s of MBs.
 
-If you decide to delete all the files and directories listed, the following `bash` command will do it:
-
-```shell
-tools/cleanup.sh | while read x; do rm -rf $x; done
-```
-
 > **Note:** A Windows version of this script is TBD.
 
 ## Launching the Tutorials
