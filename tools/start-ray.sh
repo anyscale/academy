@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
-# It turns out that running this script with no options in a Jupyter notebook cell
-# does not properly start Ray. Therefore, notebook cells should use
+# DEPRECATED
+#
+# This script was used to check if Ray is running and tell the user what to do if it
+# isn't running. However, it is no longer needed. Instead, we just use `ray.init()`
+# and in the Anyscale platform, it now properly detects the running cluster, because
+# RAY_ADDRESS is now set. On a laptop, it just runs Ray as a one-node cluster.
+#
+# Usage note: It turns out that running this script with no options in a Jupyter
+# notebook cell does not properly start Ray. Therefore, notebook cells should use
 #   !.../tools/start-ray.sh --check --verbose
 # It will tell you what to do if Ray isn't running.
 help() {

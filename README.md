@@ -129,13 +129,9 @@ jupyter labextension list
 
 ## Final Notes for Local Installation
 
-The tutorials will start a local Ray "cluster" (one node) on your machine. When you are finished with the tutorials, run the following command to shut down Ray:
+If you use Jupyter a lot, consider installing [Kite](https://www.kite.com/) on your machine and the Jupter Lab plugin for Kite. Installation and usage instructions are [here](https://help.kite.com/category/138-jupyterlab-plugin).
 
-```shell
-ray stop
-```
-
-Also, when you have finished working through the tutorials, run the script `tools/cleanup.sh`, which prints temporary files, checkpoints, etc. that were created during the lessons. You might want to remove these as they can add up to 100s of MBs.
+When you have finished working through the tutorials, run the script `tools/cleanup.sh`, which prints temporary files, checkpoint directories, etc. that were created during the lessons. You might want to remove these as they can add up to 100s of MBs.
 
 > **Note:** A Windows version of this script is TBD.
 
