@@ -4,7 +4,7 @@
 
 Welcome to the [Anyscale Academy](https://anyscale.com/academy) tutorials on [Ray](https://ray.io), the system for scaling your applications from a laptop to a cluster.
 
-This README tells you how to set up the tutorials, view live Academy event videos, and decide which content is best for your interests.
+This README tells you how to set up the tutorials, decide which content is best for your interests, and find videos of previous Academy live events.
 
 > **Tips:**
 >
@@ -13,18 +13,24 @@ This README tells you how to set up the tutorials, view live Academy event video
 >    * [GitHub issues](https://github.com/anyscale/academy/issues)
 >    * The [#tutorial channel](https://ray-distributed.slack.com/archives/C011ML23W5B) on the [Ray Slack](https://ray-distributed.slack.com) [Click here](https://forms.gle/9TSdDYUgxYs8SA9e8) to join.
 >    * [Email](mailto:academy@anyscale.com)
-> 3. If you are attending a live tutorial event, please follow the setup instructions provided in advance.
+> 3. If you are attending a live tutorial event, **please** follow the setup instructions provided in advance. It will take too long to do these instructions during the event.
 > 4. For troubleshooting help, see the [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) notebook.
+
+## Join Us at Ray Summit 2020!
+
+Join us for the [_free_ Ray Summit 2020 virtual conference](https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy), September 30 - October 1, 2020. We have an amazing lineup of luminar keynote speakers and breakout sessions on the Ray ecosystem, third-party Ray libraries, and applications of Ray in the real world.
+
+<a href="https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy">
+<img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2020"/>
+</a>
+
+For information about other online events, see [anyscale.com/events](https://anyscale.com/events).
 
 ## Videos of Previous Live Sessions
 
-To see videos of live sessions covering most of this material, visit the [Anyscale YouTube! channel](https://www.youtube.com/channel/UC7L1tZw52rtgmIB4fr_f40w/playlists) or click the following links for specific sessions:
+To see videos of live sessions covering most of this material, see the [Anyscale Academy](https://anyscale.com/academy/) page or visit the [Anyscale YouTube! channel](https://www.youtube.com/channel/UC7L1tZw52rtgmIB4fr_f40w/playlists).
 
-* [Ray _Crash Course_](https://youtu.be/2dgIEwkGYGI)
-* [Ray RLlib](https://youtu.be/y2KjC7W9nsI)
-* [Ray Tune and Ray Serve](https://youtu.be/7-DlqvaPrTE)
-
-# Tutorial Setup
+## Tutorial Setup
 
 Read the appropriate setup section that follows, then jump to [**Launching the Tutorials**](#user-content-launching-the-tutorials).
 
@@ -38,7 +44,7 @@ However, consider cloning or downloading a release of the tutorial notebooks and
 
 ## Setup for a Local Machine
 
-> **Note:** Ray support for Windows is experimental. See [these release notes](https://github.com/ray-project/ray/releases/tag/ray-0.8.6) for details. Alternatively, [Contact Anyscale](mailto:academy@anyscale.com) for a free hosted option for these tutorials.
+> **Note:** Ray support for Windows is new. See [these release notes](https://github.com/ray-project/ray/releases/tag/ray-0.8.7) for details.
 
 Follow these instructions to use the tutorials. Note that some commands can take a while to finish.
 
@@ -71,7 +77,7 @@ conda activate anyscale-academy
 tools/fix-jupyter.sh
 ```
 
-If you are using Windows, see the _Fixing Jupyter Lab on Windows_ section below for an alternative to using `tools/fix-jupyter.sh`.
+If you are using Windows, see the [**Fixing Jupyter Lab on Windows**](#user-content-fixing-jupyter-lab-on-windows) below for an alternative to using `tools/fix-jupyter.sh`.
 
 Note that Python 3.7 is used.
 
@@ -101,7 +107,7 @@ pip install -r requirements.txt
 tools/fix-jupyter.sh
 ```
 
-If you are using Windows, see the _Fixing Jupyter Lab on Windows_ section below for an alternative to using `tools/fix-jupyter.sh`.
+If you are using Windows, see the [**Fixing Jupyter Lab on Windows**](#user-content-fixing-jupyter-lab-on-windows) below for an alternative to using `tools/fix-jupyter.sh`.
 
 ### Fixing Jupyter Lab on Windows
 
@@ -127,7 +133,7 @@ jupyter lab build
 jupyter labextension list
 ```
 
-## Final Notes for Local Installation
+### Final Installation Notes
 
 If you use Jupyter a lot, consider installing [Kite](https://www.kite.com/) on your machine and the Jupter Lab plugin for Kite. Installation and usage instructions are [here](https://help.kite.com/category/138-jupyterlab-plugin).
 
@@ -135,7 +141,7 @@ When you have finished working through the tutorials, run the script `tools/clea
 
 > **Note:** A Windows version of this script is TBD.
 
-# Launching the Tutorials
+## Launching the Tutorials
 
 The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start run the following command in the project root directory:
 
@@ -161,8 +167,6 @@ Here is a recommended reading list, based on your interests:
 | A developer or data scientist interested in model serving | [_Ray Serve_](ray-serve/00-Ray-Serve-Overview.ipynb) |
 | A _DevOps_ engineer interested in managing Ray clusters | _Ray Cluster Launcher_ (forthcoming) |
 
-### Tutorial Descriptions
-
 See the [Overview notebook](Overview.ipynb) for detailed, up-to-date descriptions for each tutorial and the lessons it contains.
 
 ## Troubleshooting and Further Information
@@ -173,4 +177,6 @@ For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs
 
 [Ray](https://ray.io) started at [U.C. Berkeley RISELab](https://rise.cs.berkeley.edu/). It is now developed in artisanal, small batches at [Anyscale](https://anyscale.com).
 
-
+<a href="https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy">
+<img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2020"/>
+</a>
