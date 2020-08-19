@@ -50,4 +50,4 @@ fi
 
 checkpoint_dir="${checkpoint_dirs[${#checkpoint_dirs[@]}-1]}"
 echo "running: rllib rollout $checkpoint_dir --run PPO $@"
-rllib rollout $checkpoint_dir --run PPO "$@"
+$NOOP rllib rollout $checkpoint_dir --run PPO "$@"
