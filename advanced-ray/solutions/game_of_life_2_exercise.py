@@ -18,13 +18,13 @@ from util.printing import pd
 # 5. Relaxed previous requirement for square grids.
 @ray.remote
 class RayGame:
-    def __init__(self, grid_dimensions, rules_id, trim_states_after=0):
+    def __init__(self, grid_dimensions, rules_ref, trim_states_after=0):
         """
         Initialize the game.
 
         Args:
             grid_dimensions: The (M,N) sizes of the game.
-            rules_id: The ``Rules`` actor for rules processing.
+            rules_ref: The ``Rules`` actor for rules processing.
             trim_after: A positive ``int`` for the ``State`` history queue
                 size (default: unbounded, which could exhaust memory!).
         """
@@ -32,7 +32,7 @@ class RayGame:
         initial_state = RayGame.State(dimensions = grid_dimensions)
         self.states.put(initial_state)
         self.current_state = initial_state
-        self.rules_id = rules_id
+        self.rules_ref = rules_ref
 
     def get_states(self):
         return self.states
@@ -51,8 +51,8 @@ class RayGame:
         states_for_these_steps = []   # Return only the new states!
         state = self.current_state
         for _ in range(num_steps):
-            new_state_id = self.rules_id.step.remote(self.current_state)
-            self.current_state = ray.get(new_state_id)
+            new_state_ref = self.rules_ref.step.remote(self.current_state)
+            self.current_state = ray.get(new_state_ref)
             self.states.put(self.current_state)
             states_for_these_steps.append(self.current_state)
         return states_for_these_steps
@@ -195,8 +195,8 @@ class RayGame:
                 return d if d <= xsize else xsize
             indices = [(i,delta(i)) for i in range(0, xsize, bsize)]
 
-            block_ids = [apply_rules_block.remote(i, j, state) for i,j in indices]
-            blocks = ray.get(block_ids)
+            block_refs = [apply_rules_block.remote(i, j, state) for i,j in indices]
+            blocks = ray.get(block_refs)
             new_grid = np.zeros((xsize, state.y_dim), dtype=int)
             for block_index in range(len(blocks)):
                 i,j = indices[block_index]
@@ -285,24 +285,24 @@ def apply_rules_block(start, end, state):
     return block
 
 def time_ray_games(num_games = 1, max_steps = 100, batch_size = 1, grid_dimensions = (100,100), use_block_updates=True, block_size=100):
-    rules_ids = []
-    game_ids = []
+    rules_refs = []
+    game_refs = []
     for i in range(num_games):
         if use_block_updates:
-            rules_id = RayGame.RayConwaysRulesBlocks.remote(block_size)
+            rules_ref = RayGame.RayConwaysRulesBlocks.remote(block_size)
         else:
-            rules_id = RayGame.RayConwaysRules.remote()
-        game_id  = RayGame.remote(grid_dimensions, rules_id)
-        game_ids.append(game_id)
-        rules_ids.append(rules_id)
-    print(f'rules_ids:\n{rules_ids}')  # these will produce more interesting flame graphs!
-    print(f'game_ids:\n{game_ids}')
+            rules_ref = RayGame.RayConwaysRules.remote()
+        game_ref  = RayGame.remote(grid_dimensions, rules_ref)
+        game_refs.append(game_ref)
+        rules_refs.append(rules_ref)
+    print(f'rules_refs:\n{rules_refs}')  # these will produce more interesting flame graphs!
+    print(f'game_refs:\n{game_refs}')
     start = time.time()
-    state_ids = []
-    for game_id in game_ids:
+    state_refs = []
+    for game_ref in game_refs:
         for i in range(int(max_steps/batch_size)):  # Do a total of max_steps game steps, which is max_steps/delta_steps
-            state_ids.append(game_id.step.remote(batch_size))
-    ray.get(state_ids)  # wait for everything to finish! We are ignoring what ray.get() returns, but what will it be??
+            state_refs.append(game_ref.step.remote(batch_size))
+    ray.get(state_refs)  # wait for everything to finish! We are ignoring what ray.get() returns, but what will it be??
     pd(time.time() - start, prefix = f'Total time for {num_games} games (max_steps = {max_steps}, batch_size = {batch_size})')
 
 

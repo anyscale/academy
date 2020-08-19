@@ -10,9 +10,9 @@ from util.printing import pd
 @ray.remote
 class RayGame:
     # TODO: Game memory grows unbounded; trim older states?
-    def __init__(self, grid_size, rules_id):
+    def __init__(self, grid_size, rules_ref):
         self.states = [RayGame.State(size = grid_size)]
-        self.rules_id = rules_id
+        self.rules_ref = rules_ref
 
     def get_states(self):
         return self.states
@@ -21,8 +21,8 @@ class RayGame:
         """Take 1 or more steps, returning a list of new states."""
         start_index = len(self.states)
         for _ in range(num_steps):
-            new_state_id = self.rules_id.step.remote(self.states[-1])
-            self.states.append(ray.get(new_state_id))
+            new_state_ref = self.rules_ref.step.remote(self.states[-1])
+            self.states.append(ray.get(new_state_ref))
         return self.states[start_index:-1]  # return the new states only!
 
     @ray.remote
@@ -106,21 +106,21 @@ class RayGame:
             return '| ' + s + ' |'
 
 def time_ray_games(num_games = 1, max_steps = 100, batch_size = 1, grid_size = 100):
-    rules_ids = []
-    game_ids = []
+    rules_refs = []
+    game_refs = []
     for i in range(num_games):
-        rules_id = RayGame.RayConwaysRules.remote()
-        game_id  = RayGame.remote(grid_size, rules_id)
-        game_ids.append(game_id)
-        rules_ids.append(rules_id)
-    print(f'rules_ids:\n{rules_ids}')  # these will produce more interesting flame graphs!
-    print(f'game_ids:\n{game_ids}')
+        rules_ref = RayGame.RayConwaysRules.remote()
+        game_ref  = RayGame.remote(grid_size, rules_ref)
+        game_refs.append(game_ref)
+        rules_refs.append(rules_ref)
+    print(f'rules_refs:\n{rules_refs}')  # these will produce more interesting flame graphs!
+    print(f'game_refs:\n{game_refs}')
     start = time.time()
-    state_ids = []
-    for game_id in game_ids:
+    state_refs = []
+    for game_ref in game_refs:
         for i in range(int(max_steps/batch_size)):  # Do a total of max_steps game steps, which is max_steps/delta_steps
-            state_ids.append(game_id.step.remote(batch_size))
-    ray.get(state_ids)  # wait for everything to finish! We are ignoring what ray.get() returns, but what will it be??
+            state_refs.append(game_ref.step.remote(batch_size))
+    ray.get(state_refs)  # wait for everything to finish! We are ignoring what ray.get() returns, but what will it be??
     pd(time.time() - start, prefix = f'Total time for {num_games} games (max_steps = {max_steps}, batch_size = {batch_size})')
 
 
