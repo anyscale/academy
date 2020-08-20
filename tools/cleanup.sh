@@ -7,8 +7,7 @@ but doesn't them.
 Usage: $0 [-h|--help] [-v|--verbose]
 Where:
 	-h|--help                 Print this message and exit
-	-v|--verbose              Prints more verbose information, such as how to start Ray if
-	                          -c is specified and Ray isn't running.
+	-v|--verbose              Prints more verbose information.
 EOF
 }
 
