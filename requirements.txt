@@ -22,4 +22,3 @@ cryptography
 pyOpenSSL
 PySocks
 box2d-py
-anyscale

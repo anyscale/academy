@@ -27,5 +27,4 @@ dependencies:
     - ray[all]==0.8.7
     - atoma
     - box2d-py
-    - anyscale
 
