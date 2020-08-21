@@ -72,7 +72,7 @@ If you need to install Anaconda, follow the instructions [here](https://www.anac
 Run the following commands in the root directory of this project. First, use `conda` to install the other dependencies, including Ray. Then activate the newly-created environment, named `anyscale-academy`. Finally, run the provided `tools/fix-jupyter.sh` script to install a graphing library extension in Jupyter Lab and perform other tasks.
 
 ```shell
-conda create -f environment.yml
+conda env create -f environment.yml
 conda activate anyscale-academy
 tools/fix-jupyter.sh
 ```
