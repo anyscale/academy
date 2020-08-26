@@ -1,5 +1,6 @@
 pandas
 requests
+tensorboard
 tensorflow
 torch
 torchvision
@@ -15,10 +16,11 @@ beautifulsoup4
 lxml
 setproctitle
 pytz
-ray[all]==0.8.7
+ray[all]==0.8.6
 atoma
 cffi
 cryptography
 pyOpenSSL
 PySocks
 box2d-py
+anyscale

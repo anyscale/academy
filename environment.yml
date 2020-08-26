@@ -9,6 +9,7 @@ dependencies:
   - requests
   - pytorch
   - torchvision
+  - tensorboard
   - tensorflow
   - keras
   - scikit-learn
@@ -24,7 +25,8 @@ dependencies:
   - pytz
   - nodejs
   - pip:
-    - ray[all]==0.8.7
+    - ray[all]==0.8.6
     - atoma
     - box2d-py
+    - anyscale
 
