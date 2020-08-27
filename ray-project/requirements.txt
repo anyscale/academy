@@ -1,13 +1,13 @@
 pandas
 requests
+pytorch
+torchvision
 tensorboard
 tensorflow
-torch
-torchvision
 keras
 scikit-learn
 holoviews
-bokeh
+bokeh==2.1.1
 ipywidgets
 psutil
 jupyterlab
@@ -18,8 +18,4 @@ setproctitle
 pytz
 ray[all]==0.8.7
 atoma
-cffi
-cryptography
-pyOpenSSL
-PySocks
 box2d-py
