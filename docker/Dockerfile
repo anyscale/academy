@@ -1,17 +1,20 @@
 FROM anyscale/ray:0.8.7
 ARG VERSION
+LABEL maintainer="Anyscale Academy <academy@anyscale.com>"
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ADD academy-$VERSION /root/academy-$VERSION
-# RUN $HOME/anaconda3/bin/conda init bash
-RUN echo '. /root/anaconda3/etc/profile.d/conda.sh' >> $HOME/.bashrc
-RUN echo 'PATH=/root/anaconda3/envs/anyscale-academy/bin:$PATH' >> $HOME/.bashrc
-RUN echo 'conda deactivate; conda activate anyscale-academy' >> $HOME/.bashrc
+# RUN /root/anaconda3/bin/conda init bash
+# RUN echo 'PATH=/root/anaconda3/envs/anyscale-academy/bin:$PATH' >> /root/.bashrc
+RUN echo 'conda deactivate; conda activate anyscale-academy' >> /root/.bashrc
 
-RUN $HOME/anaconda3/bin/conda update -n base -c defaults conda
-RUN $HOME/anaconda3/bin/conda install -y nodejs
-RUN $HOME/anaconda3/bin/conda env create -f /root/academy-$VERSION/environment.yml
-# RUN $HOME/anaconda3/bin/conda clean --all
-RUN $HOME/anaconda3/envs/anyscale-academy/bin/jupyter labextension install "@pyviz/jupyterlab_pyviz"
-RUN $HOME/anaconda3/envs/anyscale-academy/bin/jupyter labextension update --all
-RUN $HOME/anaconda3/envs/anyscale-academy/bin/jupyter lab build
+#RUN /root/anaconda3/bin/conda update -n base -c defaults conda
+RUN conda install -y nodejs
+RUN /root/anaconda3/bin/conda env create -f /root/academy-$VERSION/environment.yml
+RUN /root/anaconda3/envs/anyscale-academy/bin/jupyter labextension install "@pyviz/jupyterlab_pyviz"
+RUN /root/anaconda3/envs/anyscale-academy/bin/jupyter labextension update --all
+RUN /root/anaconda3/envs/anyscale-academy/bin/jupyter lab build
+RUN /root/anaconda3/bin/conda clean --all
 
+WORKDIR /root/academy-$VERSION

@@ -180,3 +180,22 @@ For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs
 <a href="https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy">
 <img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2020"/>
 </a>
+
+## Building Docker Images
+
+Use the script `tools/make-docker-image.sh`. Look at the environment variables it uses and either edit or invoke accordingly. For example, to use a tagged GitHub release of the Academy code, `v1.2.3`, Docker image tag `1.2.3`, and a non-Anyscale organization:
+
+```
+$ tools/make-docker-image.sh GIT_TAG=v1.2.3 ORGANIZATION=myorg docker_make
+```
+
+Note that we didn't specify a Docker image tag; it defaults to `GIT_TAG` without the `v`.
+
+Use `all` or no final argument instead of `docker_make` to build that target and `docker_upload` to your organization. (See the `Makefile`.)
+
+So, this command does everything and also uses a custom Docker image tag:
+
+```
+$ tools/make-docker-image.sh GIT_TAG=v1.2.3 DOCKER_IMAGE_TAG=test1 ORGANIZATION=myorg
+```
+

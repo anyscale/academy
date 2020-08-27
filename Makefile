@@ -10,15 +10,18 @@
 # Several other variable overrides are optional:
 #   DOCKER_IMAGE_TAG      defaults to GIT_TAG with the "v" removed.
 #   ORGANIZATION          defaults to anyscale.
+#   DOCKERFILE            defaults to docker/Dockerfile.
 #
-# WARNING: The Ray version is hard-coded in docker/Dockerfile. Edit as required.
+# WARNING: The Ray version is hard-coded in docker/Dockerfile*. Edit as required.
 
 ACADEMY_VERSION      ?= $(GIT_TAG:v%=%)
 DOCKER_IMAGE_TAG     ?= $(ACADEMY_VERSION)
-
 ORGANIZATION         ?= anyscale
+DOCKERFILE           ?= docker/Dockerfile
 
-all: echo docker_make docker_upload
+staged_name := academy-$(ACADEMY_VERSION)
+
+all: docker_image docker_upload
 
 echo:
 	@echo "Academy Git tag:      $(GIT_TAG)"
@@ -31,24 +34,31 @@ ifndef ACADEMY_VERSION
 	exit 1
 endif
 
-docker_make: check_tag stage_academy
+docker_image: check_tag echo stage_academy
 	docker build \
 		--tag $(ORGANIZATION)/academy:$(DOCKER_IMAGE_TAG) \
 		--tag $(ORGANIZATION)/academy:latest \
 		--build-arg VERSION=$(ACADEMY_VERSION) \
-		-f docker/Dockerfile stage
+		-f $(DOCKERFILE) stage
 
-stage_academy: stage/academy-$(ACADEMY_VERSION)
+stage_academy: stage/$(staged_name)
 
-stage/academy-$(ACADEMY_VERSION):
-	@rm -rf stage
-	@mkdir -p $@
-	@curl -o stage/academy-$(ACADEMY_VERSION).zip --location \
+stage/$(staged_name): stage/$(staged_name).zip
+	@cd stage/; unzip $(staged_name).zip || ( \
+	  echo && echo "***** Invalid Zip file??? *****" && \
+	  echo "Look at the contents of stage/$(staged_name).zip. Did you specify a valid tag, e.g., 'v' in v1.2.3??" && \
+	  rm -rf stage/* && exit 1 )
+	@echo "Staged Academy: stage/$(staged_name)"
+
+stage/$(staged_name).zip:
+	@mkdir -p stage
+	@rm -rf stage/*
+	@curl -o stage/$(staged_name).zip --fail-early --location \
 		https://github.com/anyscale/academy/archive/$(GIT_TAG).zip
-	@cd stage/; unzip academy-$(ACADEMY_VERSION).zip
 
-docker_upload: check_tag docker_login
+docker_upload: check_tag echo docker_login
 	docker push $(ORGANIZATION)/academy:$(DOCKER_IMAGE_TAG)
+	docker push $(ORGANIZATION)/academy:latest
 
 docker_login:
 	docker login --username $(USER)

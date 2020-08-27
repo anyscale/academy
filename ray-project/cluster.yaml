@@ -4,7 +4,7 @@ max_workers: 0
 initial_workers: 0
 autoscaling_mode: default
 docker:
-    image: 'anyscale/academy:1.8.0'
+    image: 'anyscale/academy:1.8.1'
     container_name: AnyscaleAcademy
 target_utilization_fraction: 0.8
 idle_timeout_minutes: 5
@@ -32,7 +32,7 @@ cluster_synced_files: []
 file_mounts_sync_continuously: false
 initialization_commands: []
 setup_commands:
-    - mv /root/academy-1.8.0 /root/anyscale-academy
+    - mv /root/academy-1.8.1 /root/anyscale-academy
 head_setup_commands: []
 worker_setup_commands: []
 head_start_ray_commands:
