@@ -16,11 +16,10 @@ beautifulsoup4
 lxml
 setproctitle
 pytz
-ray[all]==0.8.6
+ray[all]==0.8.7
 atoma
 cffi
 cryptography
 pyOpenSSL
 PySocks
 box2d-py
-anyscale
