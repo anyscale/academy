@@ -69,7 +69,7 @@ class MonteCarloPi():
         """Return the cumulative estimate for pi"""
         return 4.0*self.in_circle_count/self.total_count
 
-locale.setlocale(locale.LC_ALL, locale.getlocale())
+#locale.setlocale(locale.LC_ALL, locale.getlocale())
 def str_large_n(n, padding=None):
     if padding == None:
         padding=len(str(n))
