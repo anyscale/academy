@@ -15,7 +15,6 @@ dependencies:
   - scikit-learn
   - holoviews
   - bokeh
-  - ipywidgets
   - psutil
   - beautifulsoup4
   - lxml
