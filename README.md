@@ -211,4 +211,4 @@ So, the following command does everything and also uses a custom Docker image ta
 $ tools/make-docker-image.sh GIT_TAG=v1.2.3 DOCKER_IMAGE_TAG=test1 ORGANIZATION=myorg
 ```
 
-> **TIP:** If the Docker build errors out with code 137, first try cleaning old images and containers (`docker images; docker rmi ...` and `docker ps -a; docker rm ...`), try restarting Docker. Then try increasing the memory allocated to the Docker process. On MacOS, use the _Preferences_ to do this. If that doesn't work, try increasing the swap and disk image sizes.
+> **TIP:** If the Docker build errors out with code 137, first try cleaning old images and containers (`docker ps -a; docker rm ...` and `docker images; docker rmi ...`), try restarting Docker. Then try increasing the memory allocated to the Docker process. On MacOS, use the _Preferences_ to do this. If that doesn't work, try increasing the swap and disk image sizes.

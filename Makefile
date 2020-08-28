@@ -10,7 +10,6 @@
 # Several other variable overrides are optional:
 #   DOCKER_IMAGE_TAG      defaults to GIT_TAG with the "v" removed.
 #   ORGANIZATION          defaults to anyscale.
-#   DOCKERFILE            defaults to docker/Dockerfile.
 #
 # WARNING: The Ray version is hard-coded in docker/Dockerfile*. Edit as required.
 
