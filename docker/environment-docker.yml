@@ -1,0 +1,30 @@
+name: anyscale-academy
+channels:
+  - conda-forge
+  - pyviz
+dependencies:
+  - pip
+  - pandas
+  - requests
+  - pytorch
+  - torchvision
+  - tensorboard
+  - tensorflow
+  - keras
+  - scikit-learn
+  - holoviews
+  - bokeh
+  - ipywidgets
+  - psutil
+  - jupyterlab
+  - jupyter-server-proxy
+  - beautifulsoup4
+  - lxml
+  - setproctitle
+  - pytz
+  - nodejs
+  - pip:
+    - ray[all]==0.8.7
+    - atoma
+    - box2d-py
+
