@@ -185,30 +185,34 @@ For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs
 
 > **NOTE:** At this time, the Docker image only runs on the Anyscale platform.
 
-Use the script `tools/make-docker-image.sh` to create a Docker image, `academy-all`. Use the `--help` option to see the arguments and environment variables it uses. For example, to use a tagged GitHub release of the Academy code, `v1.2.3`:
+Use the script `tools/make-docker-image.sh` to create two Docker images, `academy-base` and `academy-all`. Use the `--help` option to see the arguments and environment variables it uses. For example, to use a tagged GitHub release of the Academy code, `v1.2.3`:
 
 ```
 $ tools/make-docker-image.sh GIT_TAG=v1.2.3 docker-images
 ```
 
-This creates two Docker images taged `1.2.3` and `latest`. One is `academy-base`, which has everything except the tutorials themselves. It has the required Anaconda environment setup and configured Jupyter Lab environment, etc. The second image is `academy-all`, which is built upon `academy-base`. It has the tutorial materials and builds very quickly compared to `base`. The `base` image should only need to be rebuilt for each Ray release.
+This creates two Docker images and two copies of each one taged `1.2.3` and `latest`. (The copies are identical, so no extra space is used.) They are also uploaded to Docker Hub.
 
-Use `all` or no final argument (`make` target) instead of `docker-images` to build both images and upload them to Docker Hub. _You must run `docker login --username ...` before building the upload targets._
+One image is `academy-base`, which has everything except the tutorials themselves. It has the required Anaconda environment setup and configured Jupyter Lab environment, etc. The `base` image takes a while to build, but it should only need rebuilding for each Ray release. The Docker file used is `docker/Dockerfile-academy-base`.
 
-Here are the "interesting" targets you might specify for this command:
+The second image is `academy-all`, which is built upon `academy-base`. It has the tutorial materials and builds very quickly compared to `base`. The Docker file used is `docker/Dockerfile-academy-all`.
+
+Use `all` or no arguments (the `make` targets) to build both images and upload them to Docker Hub. _You must run `docker login --username ...` before building the upload targets._
+
+Here are the "interesting" targets you might specify to fine tune what's done:
 
 | Target          | Purpose |
 | :-------------- | :------ |
-| `all`           | Build both images and upload them to Docker Hub (default target) |
-| `docker-images` | Build both images |
-| `docker-upload` | Upload both images |
-| `academy-base`  | Build and upload `base` image |
-| `academy-all`   | Build and upload the `all` image |
+| `all`           | Build both images and upload them to Docker Hub (default target). |
+| `docker-images` | Build both images, but don't upload them. |
+| `docker-upload` | Upload both images. Assumes they are already built. |
+| `academy-base`  | Build and upload the `base` image. |
+| `academy-all`   | Build and upload the `all` image. |
 
-So, the following command does everything and also uses a custom Docker image tag and organization:
+You can also use a custom Docker image tag and organization (default: `anyscale`):
 
 ```
 $ tools/make-docker-image.sh GIT_TAG=v1.2.3 DOCKER_IMAGE_TAG=test1 ORGANIZATION=myorg
 ```
 
-> **TIP:** If the Docker build errors out with code 137, first try cleaning old images and containers (`docker ps -a; docker rm ...` and `docker images; docker rmi ...`), try restarting Docker. Then try increasing the memory allocated to the Docker process. On MacOS, use the _Preferences_ to do this. If that doesn't work, try increasing the swap and disk image sizes.
+> **DEBUGGING TIP:** If the Docker build errors out with code 137, first try cleaning old images and containers (`docker ps -a; docker rm ...` and `docker images; docker rmi ...`). Next try restarting Docker. What's most like to work is to increase the memory allocated to the Docker process. On MacOS, use the _Preferences_ to do this. If that doesn't work, try increasing the swap and disk image sizes.

@@ -17,8 +17,6 @@ dependencies:
   - bokeh
   - ipywidgets
   - psutil
-  - jupyterlab
-  - jupyter-server-proxy
   - beautifulsoup4
   - lxml
   - setproctitle
