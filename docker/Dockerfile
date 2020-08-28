@@ -16,5 +16,3 @@ RUN /root/anaconda3/envs/anyscale-academy/bin/jupyter labextension install "@pyv
 RUN /root/anaconda3/envs/anyscale-academy/bin/jupyter labextension update --all
 RUN /root/anaconda3/envs/anyscale-academy/bin/jupyter lab build
 RUN /root/anaconda3/bin/conda clean --all
-
-WORKDIR /root/academy-$VERSION
