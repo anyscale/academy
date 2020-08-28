@@ -7,6 +7,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ADD academy-base /root/academy-base
 RUN ls -al /root/academy-base
 
+RUN apt-get update && apt-get install -y libgtk2.0-dev zlib1g-dev libgl1-mesa-dev
+
 # RUN /root/anaconda3/bin/conda init bash
 # RUN echo 'PATH=/root/anaconda3/envs/anyscale-academy/bin:$PATH' >> /root/.bashrc
 RUN echo 'conda deactivate; conda activate anyscale-academy' >> /root/.bashrc
