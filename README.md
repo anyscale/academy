@@ -181,21 +181,34 @@ For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs
 <img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2020"/>
 </a>
 
-## Building Docker Images
+## Building a Docker Image
 
-Use the script `tools/make-docker-image.sh`. Look at the environment variables it uses and either edit or invoke accordingly. For example, to use a tagged GitHub release of the Academy code, `v1.2.3`, Docker image tag `1.2.3`, and a non-Anyscale organization:
+> **NOTE:** At this time, the Docker image only runs on the Anyscale platform.
+
+Use the script `tools/make-docker-image.sh` to create a Docker image, `academy-all`. Use the `--help` option to see the arguments and environment variables it uses. For example, to use a tagged GitHub release of the Academy code, `v1.2.3`:
 
 ```
-$ tools/make-docker-image.sh GIT_TAG=v1.2.3 ORGANIZATION=myorg docker_make
+$ tools/make-docker-image.sh GIT_TAG=v1.2.3 docker-images
 ```
 
-Note that we didn't specify a Docker image tag; it defaults to `GIT_TAG` without the `v`.
+This creates two Docker images taged `1.2.3` and `latest`. One is `academy-base`, which has everything except the tutorials themselves. It has the required Anaconda environment setup and configured Jupyter Lab environment, etc. The second image is `academy-all`, which is built upon `academy-base`. It has the tutorial materials and builds very quickly compared to `base`. The `base` image should only need to be rebuilt for each Ray release.
 
-Use `all` or no final argument instead of `docker_make` to build that target and `docker_upload` to your organization. (See the `Makefile`.)
+Use `all` or no final argument (`make` target) instead of `docker-images` to build both images and upload them to Docker Hub. _You must run `docker login --username ...` before building the upload targets._
 
-So, this command does everything and also uses a custom Docker image tag:
+Here are the "interesting" targets you might specify for this command:
+
+| Target          | Purpose |
+| :-------------- | :------ |
+| `all`           | Build both images and upload them to Docker Hub (default target) |
+| `docker-images` | Build both images |
+| `docker-upload` | Upload both images |
+| `academy-base`  | Build and upload `base` image |
+| `academy-all`   | Build and upload the `all` image |
+
+So, the following command does everything and also uses a custom Docker image tag and organization:
 
 ```
 $ tools/make-docker-image.sh GIT_TAG=v1.2.3 DOCKER_IMAGE_TAG=test1 ORGANIZATION=myorg
 ```
 
+> **TIP:** If the Docker build errors out with code 137, first try cleaning old images and containers (`docker images; docker rmi ...` and `docker ps -a; docker rm ...`), try restarting Docker. Then try increasing the memory allocated to the Docker process. On MacOS, use the _Preferences_ to do this. If that doesn't work, try increasing the swap and disk image sizes.

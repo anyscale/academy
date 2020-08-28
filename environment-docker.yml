@@ -22,7 +22,6 @@ dependencies:
   - lxml
   - setproctitle
   - pytz
-  - nodejs
   - pip:
     - ray[all]==0.8.7
     - atoma

@@ -1,0 +1,5 @@
+FROM deanwampler/academy-base:latest
+ARG VERSION
+LABEL maintainer="Anyscale Academy <academy@anyscale.com>"
+
+ADD academy-$VERSION       /root/academy-$VERSION

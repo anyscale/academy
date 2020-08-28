@@ -17,48 +17,63 @@
 ACADEMY_VERSION      ?= $(GIT_TAG:v%=%)
 DOCKER_IMAGE_TAG     ?= $(ACADEMY_VERSION)
 ORGANIZATION         ?= anyscale
-DOCKERFILE           ?= docker/Dockerfile
+
+DOCKERFILE_BASE      := docker/Dockerfile
+IMAGE_SUFFIXES       := base all
+IMAGE_NAMES          := $(IMAGE_SUFFIXES:%=academy-%)
 
 staged_name := academy-$(ACADEMY_VERSION)
 
-all: docker_image docker_upload
+all: docker-images docker-upload
+docker-images: academy-base-image  academy-all-image    # build both images
+docker-upload: academy-base-upload academy-all-upload   # upload both images
+academy-base:  academy-base-image  academy-base-upload  # build and upload base image
+academy-all:   academy-all-image   academy-all-upload   # build and upload all image
 
 echo:
 	@echo "Academy Git tag:      $(GIT_TAG)"
-	@echo "Docker image tag:     $(DOCKER_IMAGE_TAG)"
+	@echo "Docker image tags:    $(DOCKER_IMAGE_TAG) and 'latest'"
 	@echo "Organization:         $(ORGANIZATION)"
 
-check_tag:
+check-tag:
 ifndef ACADEMY_VERSION
 	@echo "GIT_TAG (for this repo) must be defined, e.g., GIT_TAG=v1.2.3 make ..."
 	exit 1
 endif
 
-docker_image: check_tag echo stage_academy
+academy-all-image: echo check-tag stage-academy  # check tag and staging only for "all"
+academy-base-image: echo stage-base
+$(IMAGE_NAMES:%=%-image): echo
 	docker build \
-		--tag $(ORGANIZATION)/academy:$(DOCKER_IMAGE_TAG) \
-		--tag $(ORGANIZATION)/academy:latest \
+		--tag $(ORGANIZATION)/${@:%-image=%}:$(DOCKER_IMAGE_TAG) \
+		--tag $(ORGANIZATION)/${@:%-image=%}:latest \
 		--build-arg VERSION=$(ACADEMY_VERSION) \
-		-f $(DOCKERFILE) stage
+		-f $(DOCKERFILE_BASE)-${@:%-image=%} stage
 
-stage_academy: stage/$(staged_name)
+stage-base: stage/academy-base
+	cp environment-docker.yml $<
 
-stage/$(staged_name): stage/$(staged_name).zip
-	@cd stage/; unzip $(staged_name).zip || ( \
-	  echo && echo "***** Invalid Zip file??? *****" && \
-	  echo "Look at the contents of stage/$(staged_name).zip. Did you specify a valid tag, e.g., 'v' in v1.2.3??" && \
-	  rm -rf stage/* && exit 1 )
-	@echo "Staged Academy: stage/$(staged_name)"
+stage-academy: stage/academy-all/$(staged_name).zip stage/academy-all/$(staged_name)
+$(IMAGE_NAMES:%=stage/%):
+	mkdir -p $@
 
-stage/$(staged_name).zip:
-	@mkdir -p stage
-	@rm -rf stage/*
-	@curl -o stage/$(staged_name).zip --fail-early --location \
+stage/academy-all/$(staged_name).zip: stage/academy-all/
+	@rm -rf stage/academy-all/*
+	@curl -o stage/academy-all/$(staged_name).zip --fail-early --location \
 		https://github.com/anyscale/academy/archive/$(GIT_TAG).zip
 
-docker_upload: check_tag echo docker_login
-	docker push $(ORGANIZATION)/academy:$(DOCKER_IMAGE_TAG)
-	docker push $(ORGANIZATION)/academy:latest
+stage/academy-all/$(staged_name):
+	@cd stage/academy-all/; unzip $(staged_name).zip || ( \
+	  echo && echo "***** Invalid Zip file??? *****" && \
+	  echo "Look at the contents of stage/academy-all/$(staged_name).zip. Did you specify a valid tag, e.g., 'v' in v1.2.3??" && \
+	  rm -rf stage/* && exit 1 )
+	@echo "Staged Academy: stage/academy-all/$(staged_name)"
 
-docker_login:
+# Commented out dependency on docker-login, because it prompts you every time, even if
+# you have already logged in.
+$(IMAGE_NAMES:%=%-upload): echo check-tag # docker-login
+	docker push $(ORGANIZATION)/${@:%-upload=%}:$(DOCKER_IMAGE_TAG)
+	docker push $(ORGANIZATION)/${@:%-upload=%}:latest
+
+docker-login:
 	docker login --username $(USER)
