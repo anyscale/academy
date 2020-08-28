@@ -3,7 +3,6 @@ channels:
   - conda-forge
   - pyviz
 dependencies:
-  - python
   - pip
   - pandas
   - requests
