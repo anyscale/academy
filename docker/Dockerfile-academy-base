@@ -20,7 +20,7 @@ RUN conda install -y ipywidgets
 
 # Create the academy environment:
 RUN /root/anaconda3/bin/conda env create -f /root/academy-base/environment-docker.yml
-RUN /root/anaconda3/bin/jupyter labextension install "@pyviz/jupyterlab_pyviz"
-RUN /root/anaconda3/bin/jupyter labextension update --all
-RUN /root/anaconda3/bin/jupyter lab build
-RUN /root/anaconda3/bin/conda clean --all
+RUN /root/anaconda3/envs/anyscale-academy/bin/jupyter labextension install "@pyviz/jupyterlab_pyviz"
+RUN /root/anaconda3/envs/anyscale-academy/bin/jupyter labextension update --all
+RUN /root/anaconda3/envs/anyscale-academy/bin/jupyter lab build
+RUN /root/anaconda3/envs/anyscale-academy/bin/conda clean --all
