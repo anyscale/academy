@@ -17,10 +17,13 @@ dependencies:
   - bokeh
   - ipywidgets
   - psutil
+  - jupyterlab
+  - jupyter-server-proxy
   - beautifulsoup4
   - lxml
   - setproctitle
   - pytz
+  - nodejs
   - pip:
     - ray[all]==0.8.7
     - atoma
