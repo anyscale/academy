@@ -185,17 +185,17 @@ For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs
 
 > **NOTE:** At this time, the Docker images only run on the Anyscale platform!!
 
-Use the script `tools/make-docker-image.sh` to create two Docker images, `academy-base` and `academy-all`. Use the `--help` option to see the arguments and environment variables it uses. For example, to use a tagged GitHub release of the Academy code, `v1.2.3`:
+Use the script `tools/make-docker-images.sh` to create two Docker images, `academy-base` and `academy-all`. Use the `--help` option to see the arguments and environment variables it uses. For example, to use a tagged GitHub release of the Academy code, `v1.2.3`:
 
 ```
-$ tools/make-docker-image.sh GIT_TAG=v1.2.3 docker-images
+$ tools/make-docker-image.sh GIT_TAG=v1.2.3
 ```
 
-This creates two Docker images and two copies of each one taged `1.2.3` and `latest`. (The copies are identical, so no extra space is used.) They are also uploaded to Docker Hub.
+This creates two Docker images with two copies of each one tagged `1.2.3` and `latest`. (The copies are identical, so no extra space is actually used.) They are also uploaded to Anyscale's Docker Hub:
 
-One image is `academy-base`, which has everything except the tutorials themselves. It has the required Anaconda environment setup and configured Jupyter Lab environment, etc. The `base` image takes a while to build, but it should only need rebuilding for each new Ray release. The Docker file used is `docker/Dockerfile-academy-base`. Note that a Conda environment is created in this build using `./environment-docker.yml`.
+One image is `anyscale/academy-base`, which has everything except the tutorials themselves. It has the required Anaconda environment setup and configured Jupyter Lab environment, etc. The `base` image takes a while to build, but it should only need rebuilding for each new Ray release. The Docker file used is `docker/Dockerfile-academy-base`. Note that a Conda environment is created in this build using `./environment-docker.yml`.
 
-The second image is `academy-all`, which is built upon `academy-base`. It has the tutorial materials and builds very quickly compared to `base`. The Docker file used is `docker/Dockerfile-academy-all`.
+The second image is `anyscale/academy-all`, which is built upon `academy-base`. It has the tutorial materials and builds very quickly compared to `base`. The Docker file used is `docker/Dockerfile-academy-all`.
 
 Use `all` or no arguments (the `make` targets) to build both images and upload them to Docker Hub. _You must run `docker login --username ...` before building the upload targets._
 
@@ -209,13 +209,13 @@ Here are the "interesting" targets you might specify to fine tune what's done:
 | `academy-base`  | Build and upload the `base` image. |
 | `academy-all`   | Build and upload the `all` image. |
 
-You can also use a custom Docker image tag and organization (default: `anyscale`):
+You can also use a custom Docker image tag and organization (instead of the default `anyscale`):
 
 ```
 $ tools/make-docker-image.sh GIT_TAG=v1.2.3 DOCKER_IMAGE_TAG=test1 ORGANIZATION=myorg
 ```
 
-> **DEBUGGING TIP:** If the Docker build errors out with code 137, first try cleaning old images and containers (`docker ps -a; docker rm ...` and `docker images; docker rmi ...`). Next try restarting Docker. What's most like to work is to increase the memory allocated to the Docker process. On MacOS, use the _Preferences_ to do this. If that doesn't work, try increasing the swap and disk image sizes.
+> **DEBUGGING TIP:** If the Docker build errors out with code 137, first try cleaning old images and containers (`docker ps -a; docker rm ...` and `docker images; docker rmi ...`). Next try restarting Docker. What's most likely to work is to increase the memory allocated to the Docker process. On MacOS, use the _Preferences_ to do this. If that doesn't work, try increasing the swap and disk image sizes.
 
-> **WARNING:** It took over a week for me to successfully create the first versions of these Docker images. JupyterLab configurations, in particular, are very fragile with regards to some of the animated graphics in _Ray Crash Course_. So, only modify the builds with great caution and test everything carefully!! Note that `environment-docker.yml` hard-codes Python 3.7.7. Using 3.7 causes runtime failures in the Anyscale platform!!!
+> **WARNING:** It took over a week for me to successfully create the first versions of these Docker images. JupyterLab configurations, in particular, are very fragile with regards to some of the animated graphics in _Ray Crash Course_. So, only modify the builds with great caution and test everything carefully!! Also, note that `environment-docker.yml` hard-codes Python 3.7.7. Using 3.7 causes runtime failures in the Anyscale platform!!!
 
