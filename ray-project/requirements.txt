@@ -1,9 +1,13 @@
+gym >= 0.17.2
+paretoset >= 1.1.2
+numpy >= 1.18.5
 pandas
 requests
 pytorch
 torchvision
-tensorboard
-tensorflow
+tensorboard >= 2.3.0
+tensorflow >= 2.3.0
+tqdm >= 4.37.0
 keras
 scikit-learn
 holoviews
