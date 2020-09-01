@@ -177,10 +177,6 @@ For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs
 
 [Ray](https://ray.io) started at [U.C. Berkeley RISELab](https://rise.cs.berkeley.edu/). It is now developed in artisanal, small batches at [Anyscale](https://anyscale.com).
 
-<a href="https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy">
-<img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2020"/>
-</a>
-
 ## Building Docker Images
 
 > **NOTE:** At this time, the Docker images only run on the Anyscale platform!!
@@ -188,10 +184,10 @@ For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs
 Use the script `tools/make-docker-images.sh` to create two Docker images, `academy-base` and `academy-all`. Use the `--help` option to see the arguments and environment variables it uses. For example, to use a tagged GitHub release of the Academy code, `v1.2.3`:
 
 ```
-$ tools/make-docker-image.sh GIT_TAG=v2.0.0-RC1 DOCKER_TAGS="2.0.0.1 latest"
+$ tools/make-docker-image.sh v2.0.0-RC1 --docker-tag 2.0.0.1 --docker-tag latest
 ```
 
-This creates two Docker images, each of which is has two "virtual" copies tagged `2.0.0.1` and `latest`. (The copies are identical, so no extra space is actually used.) They are also uploaded to Anyscale's Docker Hub. If you omit the `DOCKER_TAGS` argument, the `GIT_TAG` is used with the `v` removed as the image tag.
+Using the Academy repo tagged release `v2.0.0-RC1`, this command creates two Docker images, each of which is has two "virtual" copies tagged `2.0.0.1` and `latest`. (The copies are identical, so no extra space is actually used. You specify as many as you want.) They are also uploaded to Anyscale's Docker Hub. If you omit the `--docker-tag` argument, the Git tag is used as the image tag, with the `v` removed.
 
 One image is `anyscale/academy-base`, which has everything except the tutorials themselves. It has the required Anaconda environment setup and configured Jupyter Lab environment, etc. The `base` image takes a while to build, but it should only need rebuilding for each new Ray release. The Docker file used is `docker/Dockerfile-academy-base`. Note that a Conda environment is created in this build using `./environment-docker.yml`.
 
@@ -209,11 +205,7 @@ Here are the "interesting" targets you might specify to fine tune what's done:
 | `academy-base`  | Build and upload the `base` image. |
 | `academy-all`   | Build and upload the `all` image. |
 
-You can also use a custom organization instead of the default `anyscale`:
-
-```
-$ tools/make-docker-image.sh GIT_TAG=v1.2.3 DOCKER_TAGS=test1 ORGANIZATION=myorg
-```
+There are other options you can try to customize what happens. Use the `--help` flag to find out.
 
 > **NOTES:**
 >
@@ -223,3 +215,6 @@ $ tools/make-docker-image.sh GIT_TAG=v1.2.3 DOCKER_TAGS=test1 ORGANIZATION=myorg
 
 > **WARNING:** It took over a week for me to successfully create the first versions of these Docker images. JupyterLab configurations, in particular, are very fragile with regards to some of the animated graphics in _Ray Crash Course_. So, only modify the builds with great caution and test everything carefully!! Also, note that `environment-docker.yml` hard-codes Python 3.7.7. Using 3.7 causes runtime failures in the Anyscale platform!!!
 
+<a href="https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy">
+<img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2020"/>
+</a>
