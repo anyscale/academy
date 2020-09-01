@@ -19,3 +19,4 @@ ray-rllib/explore-rllib/tmp
 data
 ray-rllib/explore-rllib/extras/tmp/
 stage
+ray-rllib/recsys/tmp/
