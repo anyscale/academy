@@ -8,14 +8,16 @@
 # when used as a Docker image tag.
 #
 # Several other variable overrides are optional:
-#   DOCKER_IMAGE_TAG      defaults to GIT_TAG with the "v" removed.
-#   ORGANIZATION          defaults to anyscale.
+#   ORGANIZATION       defaults to anyscale.
+#   DOCKER_TAGS        Defaults to GIT_TAG with the "v" removed.
+#   LATEST_TAG         Defaults to "latest". Define it to be EMPTY
+#                      if you DON'T want an image with tag "latest".
 #
 # WARNING: The Ray version is hard-coded in docker/Dockerfile*. Edit as required.
 
-ACADEMY_VERSION      ?= $(GIT_TAG:v%=%)
-DOCKER_IMAGE_TAG     ?= $(ACADEMY_VERSION)
 ORGANIZATION         ?= anyscale
+ACADEMY_VERSION      ?= $(GIT_TAG:v%=%)
+DOCKER_TAGS          ?= $(ACADEMY_VERSION)
 
 DOCKERFILE_BASE      := docker/Dockerfile
 IMAGE_SUFFIXES       := base all
@@ -30,9 +32,9 @@ academy-base:  academy-base-image  academy-base-upload  # build and upload base 
 academy-all:   academy-all-image   academy-all-upload   # build and upload all image
 
 echo:
-	@echo "Academy Git tag:      $(GIT_TAG)"
-	@echo "Docker image tags:    $(DOCKER_IMAGE_TAG) and 'latest'"
-	@echo "Organization:         $(ORGANIZATION)"
+	@echo "Academy Git tag:    $(GIT_TAG)"
+	@echo "Docker image tags:  $(DOCKER_TAGS)"
+	@echo "Organization:       $(ORGANIZATION)"
 
 check-tag:
 ifndef ACADEMY_VERSION
@@ -44,8 +46,7 @@ academy-all-image: echo check-tag stage-academy  # check tag and staging only fo
 academy-base-image: echo stage-base
 $(IMAGE_NAMES:%=%-image): echo
 	docker build \
-		--tag $(ORGANIZATION)/${@:%-image=%}:$(DOCKER_IMAGE_TAG) \
-		--tag $(ORGANIZATION)/${@:%-image=%}:latest \
+		$(DOCKER_TAGS:%=--tag $(ORGANIZATION)/${@:%-image=%}:%) \
 		--build-arg VERSION=$(ACADEMY_VERSION) \
 		-f $(DOCKERFILE_BASE)-${@:%-image=%} stage
 
@@ -71,8 +72,10 @@ stage/academy-all/$(staged_name):
 # Commented out dependency on docker-login, because it prompts you every time, even if
 # you have already logged in.
 $(IMAGE_NAMES:%=%-upload): echo check-tag # docker-login
-	docker push $(ORGANIZATION)/${@:%-upload=%}:$(DOCKER_IMAGE_TAG)
-	docker push $(ORGANIZATION)/${@:%-upload=%}:latest
+	@for tag in $(DOCKER_TAGS); do \
+	  echo "docker push $(ORGANIZATION)/${@:%-upload=%}:$$tag"; \
+	  docker push $(ORGANIZATION)/${@:%-upload=%}:$$tag; \
+	done
 
 docker-login:
 	docker login --username $(USER)
