@@ -188,7 +188,7 @@ For details on the Ray API and the ML libraries, see the [Ray Docs](https://docs
 Use the script `tools/make-docker-images.sh` to create two Docker images, `academy-base` and `academy-all`. Use the `--help` option to see the arguments and environment variables it uses. For example, to use a tagged GitHub release of the Academy code, `v1.2.3`:
 
 ```
-$ tools/make-docker-image.sh GIT_TAG=v2.0.0-RC1 DOCKER_TAGS="2.0.0.1" latest"
+$ tools/make-docker-image.sh GIT_TAG=v2.0.0-RC1 DOCKER_TAGS="2.0.0.1 latest"
 ```
 
 This creates two Docker images, each of which is has two "virtual" copies tagged `2.0.0.1` and `latest`. (The copies are identical, so no extra space is actually used.) They are also uploaded to Anyscale's Docker Hub. If you omit the `DOCKER_TAGS` argument, the `GIT_TAG` is used with the `v` removed as the image tag.
