@@ -6,14 +6,11 @@ dependencies:
   - python=3.7
   - pip
   - gym >= 0.17.2
-  - paretoset >= 1.1.2
   - numpy >= 1.18.5
   - pandas
   - requests
   - pytorch
   - torchvision
-  - tensorboard >= 2.3.0
-  - tensorflow >= 2.3.0
   - tqdm >= 4.37.0
   - keras
   - scikit-learn
@@ -30,6 +27,9 @@ dependencies:
   - nodejs
   - pip:
     - ray[all]==0.8.7
+    - paretoset >= 1.1.2
+    - tensorboard >= 2.3.0
+    - tensorflow >= 2.3.0
     - atoma
     - box2d-py
 
