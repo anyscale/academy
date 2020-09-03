@@ -482,7 +482,7 @@ def parse_args ():
 
     PARAM["debug"] = args.debug
     PARAM["verbose"] = args.verbose
-    PARAM["k_clusters"] = 12
+    PARAM["k_clusters"] = 7
     PARAM["dataset"] = "jester-data-1.csv"
     PARAM["checkpoint_root"] = "tmp/rec"
     PARAM["rollout_dataset"] = args.data
@@ -579,7 +579,7 @@ def main ():
     AGENT.restore(best_checkpoint)
 
     if PARAM["rollout_dataset"]:
-        config["env_config"]["dataset"] = Path.cwd() / Path(PARAM["rollout_dataset"])
+        CONFIG["env_config"]["dataset"] = Path.cwd() / Path(PARAM["rollout_dataset"])
 
     JokeRec.run_rollout(
         AGENT,
