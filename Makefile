@@ -48,6 +48,7 @@ $(IMAGE_NAMES:%=%-image): echo
 	docker build \
 		$(DOCKER_TAGS:%=--tag $(ORGANIZATION)/${@:%-image=%}:%) \
 		--build-arg VERSION=$(ACADEMY_VERSION) \
+		--build-arg ORGANIZATION=$(ORGANIZATION) \
 		-f $(DOCKERFILE_BASE)-${@:%-image=%} stage
 
 stage-base: stage/academy-base

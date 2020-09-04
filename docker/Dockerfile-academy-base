@@ -1,5 +1,6 @@
 FROM anyscale/ray:0.8.7
 ARG VERSION
+ARG ORGANIZATION
 LABEL maintainer="Anyscale Academy <academy@anyscale.com>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

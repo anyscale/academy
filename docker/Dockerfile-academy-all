@@ -1,6 +1,8 @@
-FROM deanwampler/academy-base:latest
+ARG VERSION
+ARG ORGANIZATION
+FROM ${ORGANIZATION}/academy-base:${VERSION}
 ARG VERSION
 LABEL maintainer="Anyscale Academy <academy@anyscale.com>"
 
-ADD academy-all/academy-$VERSION       /root/academy-$VERSION
-RUN ls -al /root/academy-$VERSION
+ADD academy-all/academy-${VERSION}       /root/academy-${VERSION}
+RUN ls -al /root/academy-${VERSION}
