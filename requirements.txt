@@ -1,5 +1,6 @@
 gym >= 0.17.2
 numpy >= 1.18.5
+nodejs
 pandas
 requests
 torch
