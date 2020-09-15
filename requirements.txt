@@ -1,9 +1,8 @@
 gym >= 0.17.2
-paretoset >= 1.1.2
 numpy >= 1.18.5
 pandas
 requests
-pytorch
+torch
 torchvision
 tensorboard >= 2.3.0
 tensorflow >= 2.3.0
@@ -18,7 +17,6 @@ jupyterlab
 jupyter-server-proxy
 beautifulsoup4
 lxml
-setproctitle
 pytz
 ray[all]==0.8.7
 atoma
