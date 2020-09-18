@@ -9,7 +9,7 @@ dependencies:
   - numpy >= 1.18.5
   - pandas
   - requests
-  - torch
+  - pytorch
   - torchvision
   - tqdm >= 4.37.0
   - keras
