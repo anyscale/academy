@@ -104,7 +104,7 @@ def compute_pi_loop(N):
 
 @ray.remote
 class RayMonteCarloPi(MonteCarloPi):
-    @ray.method(num_return_vals=5)
+    @ray.method(num_returns=5)  
     def sample(self, num_samples):
         return super().sample(num_samples)
 
