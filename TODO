@@ -1,0 +1,60 @@
+advanced-ray/01-Ray-Tasks-Revisited.ipynb:    "from bokeh.layouts import gridplot\n",
+advanced-ray/01-Ray-Tasks-Revisited.ipynb:    "from bokeh.plotting import figure, output_file, show\n",
+advanced-ray/01-Ray-Tasks-Revisited.ipynb:    "import bokeh.io\n",
+advanced-ray/01-Ray-Tasks-Revisited.ipynb:    "bokeh.io.reset_output()\n",
+advanced-ray/01-Ray-Tasks-Revisited.ipynb:    "bokeh.io.output_notebook()\n",
+
+ray-crash-course/actor_lesson_util.py:import holoviews as hv
+ray-crash-course/actor_lesson_util.py:from holoviews import dim, opts
+ray-crash-course/actor_lesson_util.py:from holoviews.streams import Pipe, Buffer
+ray-crash-course/actor_lesson_util.py:from holoviews.plotting.util import process_cmap
+ray-crash-course/task_lesson_util.py:import holoviews as hv
+ray-crash-course/task_lesson_util.py:from holoviews import opts
+ray-crash-course/task_lesson_util.py:from holoviews.streams import Counter, Tap
+
+ray-crash-course/bokeh_util.py:from bokeh.layouts import gridplot
+ray-crash-course/bokeh_util.py:from bokeh.plotting import figure, output_file, show
+ray-crash-course/bokeh_util.py:import bokeh.io
+ray-crash-course/bokeh_util.py:bokeh.io.reset_output()
+ray-crash-course/bokeh_util.py:bokeh.io.output_notebook()
+ray-crash-course/bokeh_util.py:		from bokeh.plotting import show
+ray-crash-course/solutions/Ray-Crash-Course-Solutions.ipynb:    "from bokeh_util import two_lines_plot, means_stddevs_plot  # Some plotting utilities in `./bokeh_util.py`.\n",
+ray-crash-course/solutions/Ray-Crash-Course-Solutions.ipynb:    "from bokeh.plotting import show, figure\n",
+ray-crash-course/solutions/Ray-Crash-Course-Solutions.ipynb:    "from bokeh.layouts import gridplot"
+
+ray-crash-course/actor_lesson_util.py:hv.extension('bokeh')
+ray-crash-course/task_lesson_util.py:from bokeh_util import square_circle_plot, two_lines_plot, means_stddevs_plot
+ray-crash-course/task_lesson_util.py:hv.extension('bokeh')
+ray-crash-course/task_lesson_util.py:from bokeh.layouts import gridplot, layout
+ray-crash-course/task_lesson_util.py:from bokeh.models import Slider, Button
+ray-crash-course/task_lesson_util.py:from bokeh.plotting import figure, output_file, show
+ray-crash-course/02-Ray-Actors.ipynb:    "from bokeh_util import two_lines_plot  # utility we used in the previous lesson\n",
+ray-crash-course/02-Ray-Actors.ipynb:    "from bokeh.plotting import show, figure\n",
+ray-crash-course/02-Ray-Actors.ipynb:    "from bokeh.layouts import gridplot"
+ray-crash-course/01-Ray-Tasks.ipynb:    "from bokeh_util import two_lines_plot, means_stddevs_plot  # Some plotting utilities in `./bokeh_util.py`.\n",
+ray-crash-course/01-Ray-Tasks.ipynb:    "from bokeh.plotting import show, figure\n",
+ray-crash-course/01-Ray-Tasks.ipynb:    "from bokeh.layouts import gridplot"
+
+ray-project/requirements.txt:bokeh==2.1.1
+
+ray-rllib/explore-rllib/solutions/Explore-RLlib-Solutions.ipynb:    "import bokeh.io\n",
+ray-rllib/explore-rllib/solutions/Explore-RLlib-Solutions.ipynb:    "bokeh.io.reset_output()\n",
+ray-rllib/explore-rllib/solutions/Explore-RLlib-Solutions.ipynb:    "bokeh.io.output_notebook()"
+ray-rllib/explore-rllib/01-Application-Cart-Pole.ipynb:    "import bokeh.io\n",
+ray-rllib/explore-rllib/01-Application-Cart-Pole.ipynb:    "bokeh.io.reset_output()\n",
+ray-rllib/explore-rllib/01-Application-Cart-Pole.ipynb:    "bokeh.io.output_notebook()"
+ray-rllib/explore-rllib/02-Bipedal-Walker.ipynb:    "import bokeh.io\n",
+ray-rllib/explore-rllib/02-Bipedal-Walker.ipynb:    "bokeh.io.reset_output()\n",
+ray-rllib/explore-rllib/02-Bipedal-Walker.ipynb:    "bokeh.io.output_notebook()"
+ray-rllib/solutions/Ray-RLlib-Solutions.ipynb:    "import bokeh.io\n",
+ray-rllib/solutions/Ray-RLlib-Solutions.ipynb:    "bokeh.io.reset_output()\n",
+ray-rllib/solutions/Ray-RLlib-Solutions.ipynb:    "bokeh.io.output_notebook()"
+
+ray-rllib/01-Introduction-to-Reinforcement-Learning.ipynb:    "import bokeh.io\n",
+ray-rllib/01-Introduction-to-Reinforcement-Learning.ipynb:    "bokeh.io.reset_output()\n",
+ray-rllib/01-Introduction-to-Reinforcement-Learning.ipynb:    "bokeh.io.output_notebook()"
+
+util/line_plots.py:from bokeh.plotting import figure, show, output_file
+util/line_plots.py:from bokeh.models import Band, ColumnDataSource, Range1d
+util/line_plots.py:from bokeh.models.tools import HoverTool
+util/line_plots.py:import bokeh.io
