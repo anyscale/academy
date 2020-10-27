@@ -1,6 +1,5 @@
 gym >= 0.17.2
 numpy >= 1.18.5
-nodejs
 pandas
 requests
 torch
@@ -10,8 +9,6 @@ tensorflow >= 2.3.0
 tqdm >= 4.37.0
 keras
 scikit-learn
-holoviews
-bokeh==2.1.1
 ipywidgets
 psutil
 jupyterlab
@@ -19,6 +16,5 @@ jupyter-server-proxy
 beautifulsoup4
 lxml
 pytz
-ray[all]==0.8.7
-atoma
+ray
 box2d-py
