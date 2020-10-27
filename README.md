@@ -16,6 +16,14 @@ This README tells you how to set up the tutorials, decide which content is best 
 > 3. If you are attending a live tutorial event, **please** follow the setup instructions provided in advance. It will take too long to do these instructions during the event.
 > 4. For troubleshooting help, see the [Troubleshooting, Tips, and Tricks](reference/Troubleshooting-Tips-Tricks.ipynb) notebook.
 
+## Dependencies
+
+For a few of the examples here, you may need to add some additional dependencies:
+
+  * `nodejs`
+  * `holoviews`
+  * `bokeh`
+
 ## Join Us at Ray Summit 2020!
 
 Join us for the [_free_ Ray Summit 2020 virtual conference](https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy), September 30 - October 1, 2020. We have an amazing lineup of luminar keynote speakers and breakout sessions on the Ray ecosystem, third-party Ray libraries, and applications of Ray in the real world.
