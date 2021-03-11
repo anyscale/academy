@@ -1,6 +1,6 @@
 # Anyscale Academy - Tutorials on Ray and Ray-based Libraries
 
-© 2018-2020, Anyscale. All Rights Reserved
+© 2018-2021, Anyscale. All Rights Reserved
 
 Welcome to the [Anyscale Academy](https://anyscale.com/academy) tutorials on [Ray](https://ray.io), the system for scaling your applications from a laptop to a cluster.
 
@@ -24,13 +24,11 @@ For a few of the examples here, you may need to add some additional dependencies
   * `holoviews`
   * `bokeh`
 
-## Join Us at Ray Summit 2020!
+## Join Us at Ray Summit 2021!
 
-Join us for the [_free_ Ray Summit 2020 virtual conference](https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy), September 30 - October 1, 2020. We have an amazing lineup of luminar keynote speakers and breakout sessions on the Ray ecosystem, third-party Ray libraries, and applications of Ray in the real world.
+Join us for the [_free_ Ray Summit 2021 virtual conference](https://www.anyscale.com/ray-summit-2021) on June 22-24, 2021. We have an amazing lineup of luminar keynote speakers and breakout sessions on the Ray ecosystem, third-party Ray libraries, and applications of Ray in the real world.
 
-<a href="https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy">
-<img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2020"/>
-</a>
+<a href="https://www.anyscale.com/ray-summit-2021"><img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2021"/></a>
 
 For information about other online events, see [anyscale.com/events](https://anyscale.com/events).
 
@@ -224,5 +222,5 @@ There are other options you can try to customize what happens. Use the `--help` 
 > **WARNING:** It took over a week for me to successfully create the first versions of these Docker images. JupyterLab configurations, in particular, are very fragile with regards to some of the animated graphics in _Ray Crash Course_. So, only modify the builds with great caution and test everything carefully!! Also, note that `environment-docker.yml` hard-codes Python 3.7.7. Using 3.7 causes runtime failures in the Anyscale platform!!!
 
 <a href="https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy">
-<img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2020"/>
+<img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2021"/>
 </a>
