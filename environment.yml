@@ -14,7 +14,7 @@ dependencies:
   - tqdm >= 4.37.0
   - keras
   - scikit-learn
-  - holoviews
+  - holoviews >= 1.14
   - bokeh
   - ipywidgets
   - psutil
