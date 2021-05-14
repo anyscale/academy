@@ -105,6 +105,8 @@ If you don't use Anaconda, you'll have to install these prerequisites first:
 	* Installation instructions are at [pip.pypa.io](https://pip.pypa.io/en/stable/installing/).
 * Node.js: Required for some of the Jupyter Lab graphics extensions we use.
 	* Installation instructions are [here](https://nodejs.org/en/).
+* SWIG: Required for building dependencies.
+	* Use the package manager of  your system (e.g. `apt` on Ubuntu, `brew` on MacOS) to install, or download [here](http://www.swig.org/download.html).
 
 Next, run the following commands in the root directory of this project to complete the setup. First, run the `pip` command to install the rest of the libraries required for these tutorials, including Ray. Then, run the provided script to install a graphing library extension in Jupyter Lab and perform other tasks.
 
