@@ -80,6 +80,7 @@ Run the following commands in the root directory of this project. First, use `co
 ```shell
 conda env create -f environment.yml
 conda activate anyscale-academy
+pip install typing-extensions --upgrade
 tools/fix-jupyter.sh
 ```
 
