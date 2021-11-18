@@ -17,4 +17,8 @@ beautifulsoup4
 lxml
 pytz
 ray
+ray[tune]
+tune-sklearn
 box2d-py
+bayesian-optimization
+scikit-optimize
