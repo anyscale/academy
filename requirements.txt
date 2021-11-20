@@ -16,9 +16,7 @@ jupyter-server-proxy
 beautifulsoup4
 lxml
 pytz
-ray
-ray[tune]
-tune-sklearn
+ray[all]
 box2d-py
 bayesian-optimization
 scikit-optimize

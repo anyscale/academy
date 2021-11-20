@@ -118,7 +118,7 @@ def train_mnist(config):
 # tracking of timesteps, following this example:
 # https://github.com/ray-project/ray/blob/releases/0.8.6/python/ray/tune/examples/bohb_example.py
 class TrainMNIST(tune.Trainable):
-    def _setup(self, config):
+    def setup(self, config):
         self.timestep = 0
         self.config = config
         self.train_loader, self.test_loader = get_data_loaders()
@@ -127,20 +127,20 @@ class TrainMNIST(tune.Trainable):
         self.train_step = make_train_step(EPOCH_SIZE)
         self.test_step  = make_test_step(TEST_SIZE)
 
-    def _train(self):
+    def step(self):
         self.timestep += 1
         self.train_step(self.model, self.optimizer, self.train_loader)
         acc = self.test_step(self.model, self.test_loader)
         return {"mean_accuracy": acc}
 
 
-    def _save(self, checkpoint_dir):
+    def save_checkpoint(self, checkpoint_dir):
         path = os.path.join(checkpoint_dir, "checkpoint")
         with open(path, "w") as f:
             f.write(json.dumps({"timestep": self.timestep}))
         return path
 
-    def _restore(self, checkpoint_path):
+    def load_checkpoint(self, checkpoint_path):
         with open(checkpoint_path) as f:
             self.timestep = json.loads(f.read())["timestep"]
 
@@ -162,6 +162,6 @@ if __name__ == '__main__':
     stats = analysis.stats()
     secs = stats["timestamp"] - stats["start_time"]
     print(f'Duration: {secs:7.2f} seconds, {secs/60.0:7.2f} minutes')
-    print("Best config: ", analysis.get_best_config(metric="mean_accuracy"))
+    print("Best config: ", analysis.get_best_config(metric="mean_accuracy", mode="max"))
     print("Best performing trials:")
     print(analysis.dataframe().sort_values('mean_accuracy', ascending=False).head())
