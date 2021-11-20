@@ -24,9 +24,10 @@ For a few of the examples here, you may need to add some additional dependencies
   * `holoviews`
   * `bokeh`
 
-## Join Us at Ray Summit 2021!
+## Watch Sessions from Ray Summit 2021!
 
-Join us for the [_free_ Ray Summit 2021 virtual conference](https://www.anyscale.com/ray-summit-2021) on June 22-24, 2021. We have an amazing lineup of luminar keynote speakers and breakout sessions on the Ray ecosystem, third-party Ray libraries, and applications of Ray in the real world.
+We had an amazing lineup of luminar keynote speakers and breakout sessions on the Ray ecosystem, third-party Ray libraries, and applications of Ray in the real world.
+
 
 <a href="https://www.anyscale.com/ray-summit-2021"><img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2021"/></a>
 
@@ -148,7 +149,7 @@ If you use Jupyter a lot, consider installing [Kite](https://www.kite.com/) on y
 
 When you have finished working through the tutorials, run the script `tools/cleanup.sh`, which prints temporary files, checkpoint directories, etc. that were created during the lessons. You might want to remove these as they can add up to 100s of MBs.
 
-> **Note:** A Windows version of this script is TBD.
+> **Note:** A Windows and Mac M1 version are experimental in Ray 1.8.
 
 ## Launching the Tutorials
 
@@ -169,10 +170,10 @@ Here is a recommended reading list, based on your interests:
 | You Are... | Best Tutorials |
 | :--------- | :------------- |
 | A developer who is new to Ray | First, [_Ray Crash Course_](ray-crash-course/00-Ray-Crash-Course-Overview.ipynb), then [_Advanced Ray_](advanced-ray/00-Advanced-Ray-Overview.ipynb) |
-| A developer who is experienced with Ray | [_Advanced Ray_](advanced-ray/00-Advanced-Ray-Overview.ipynb) (_alpha_ release) |
+| A developer who is experienced with Ray | [_Advanced Ray_](advanced-ray/00-Advanced-Ray-Overview.ipynb) |
 | A developer or data scientist interested in Reinforcement Learning | [_Ray RLlib_](ray-rllib/00-Ray-RLlib-Overview.ipynb) |
 | A developer or data scientist interested in Hyperparameter Tuning  | [_Ray Tune_](ray-tune/00-Ray-Tune-Overview.ipynb) |
-| A developer or data scientist interested in accelerated model training with PyTorch  |See the [_Ray SGD_](ray-tune/04-Ray-SGD.ipynb) lesson in the [_Ray Tune_](ray-tune/00-Ray-Tune-Overview.ipynb) tutorial |
+| A developer or data scientist interested in distributed training models in PyTorch or TensorFlow | [_Ray Train ](ray-tune/00-Ray-Train-Overview.ipynb)(renamed from Ray SGD)|
 | A developer or data scientist interested in model serving | [_Ray Serve_](ray-serve/00-Ray-Serve-Overview.ipynb) |
 | A _DevOps_ engineer interested in managing Ray clusters | _Ray Cluster Launcher_ (forthcoming) |
 

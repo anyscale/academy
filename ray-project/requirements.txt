@@ -20,6 +20,8 @@ beautifulsoup4
 lxml
 setproctitle
 pytz
-ray[all]==0.8.7
+ray[all]
 atoma
 box2d-py
+bayesian-optimization
+scikit-optimize
