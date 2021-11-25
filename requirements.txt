@@ -15,8 +15,9 @@ jupyterlab
 jupyter-server-proxy
 beautifulsoup4
 lxml
+dm_tree
+lz4
 pytz
-ray[all]
+ray
+ray[default]
 box2d-py
-bayesian-optimization
-scikit-optimize

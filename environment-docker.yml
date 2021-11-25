@@ -22,10 +22,14 @@ dependencies:
   - jupyter-server-proxy
   - beautifulsoup4
   - lxml
+  - dm_tree
+  - scikit-image
+  - lz4
   - pytz
   - nodejs
   - pip:
-    - ray[all]==0.8.7
+    - ray
+    - ray[default]
     - tensorboard >= 2.3.0
     - tensorflow >= 2.3.0
     - atoma
