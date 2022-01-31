@@ -32,15 +32,30 @@ gcloud auth login
 gcloud auth configure-docker
 
 # push to google container registry
-docker tag your-repo/container-name gcr.io/project-name/container-name
-docker push gcr.io/project-name/container-name
+$ docker tag your-repo/container-name gcr.io/project-name/container-name
+$ docker push gcr.io/project-name/container-name
 
-gcloud run deploy serve-demo \
-  --image=gcr.io/project-name/container-name \
-  --allow-unauthenticated \
-  --platform=managed \
-  --region=us-central1 \
-  --project=project-name
+$ gcloud run deploy sample-demo \
+    --image=gcr.io/project-name/container-name \
+    --allow-unauthenticated \
+    --port=8000 \
+    --concurrency=80 \
+    --cpu=4 \
+    --memory=8192Mi \
+    --platform=managed \
+    --region=us-central1 \
+    --project=project-name
+
+Deploying container to Cloud Run service [sample-demo] in project [simon-sandbox-329822] region [us-central1]
+✓ Deploying... Done.
+  ✓ Creating Revision...
+  ✓ Routing traffic...
+Done.
+Service [sample-demo] revision [sample-demo-00010-mog] has been deployed and is serving 100 percent of traffic.
+Service URL: https://sample-demo-qosxokjdva-uc.a.run.app
+
+$ SERVE_HOST=https://sample-demo-qosxokjdva-uc.a.run.app python test-query.py
+"two astronauts steered their fragile lunar"
 ```
 
 

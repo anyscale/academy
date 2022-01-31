@@ -34,7 +34,7 @@ class Summarizer:
         summary = summary_list[0]["summary_text"]
         return summary
 
-ray.init(address="auto")
+ray.init(_node_ip_address="0.0.0.0") # needed for gcloud container compatibility
 serve.start(
     http_options={"host": "0.0.0.0", "port": int(os.environ.get("PORT", "8000"))}
 )

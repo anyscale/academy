@@ -1,4 +1,5 @@
 import requests
+import os
 
 article_text = (
     "HOUSTON -- Men have landed and walked on the moon. "
@@ -19,8 +20,9 @@ article_text = (
     "of millions of people on earth."
 )
 
+host = os.environ.get("SERVE_HOST", "http://127.0.0.1:8000")
 response = requests.post(
-    "http://127.0.0.1:8000/Summarizer", json={"text": article_text, "max_length": 10}
+    f"{host}/Summarizer/", json={"text": article_text, "max_length": 10}
 )
 response.raise_for_status()
 print(response.text)
