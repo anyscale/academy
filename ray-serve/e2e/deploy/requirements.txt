@@ -1,0 +1,3 @@
+ray[serve]
+transformers
+torch
