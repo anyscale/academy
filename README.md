@@ -87,7 +87,7 @@ tools/fix-jupyter.sh
 
 If you are using Windows, see the [**Fixing Jupyter Lab on Windows**](#user-content-fixing-jupyter-lab-on-windows) below for an alternative to using `tools/fix-jupyter.sh`.
 
-Note that Python 3.7 is used. Ignore the similar-looking `environment-docker.yml` file. It is used to build Docker images.
+Note that Python 3.8.is used. Ignore the similar-looking `environment-docker.yml` file. It is used to build Docker images.
 
 You can delete the environment later with the following command:
 
