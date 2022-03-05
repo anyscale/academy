@@ -24,18 +24,18 @@ For a few of the examples here, you may need to add some additional dependencies
   * `holoviews`
   * `bokeh`
 
-## Watch Sessions from Ray Summit 2021!
+## Watch Sessions on demand from Ray Summit 2021!
 
-We had an amazing lineup of luminar keynote speakers and breakout sessions on the Ray ecosystem, third-party Ray libraries, and applications of Ray in the real world.
-
-
-<a href="https://www.anyscale.com/ray-summit-2021"><img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2021"/></a>
+Ray Summit 2021 [virtual conference](https://www.anyscale.com/ray-summit-2021) was on June 22-24, 2021. We had an amazing lineup of luminar keynote speakers and breakout sessions on the Ray ecosystem, third-party Ray libraries, and applications of Ray in the real world.
 
 For information about other online events, see [anyscale.com/events](https://anyscale.com/events).
 
 ## Videos of Previous Live Sessions
 
 To see videos of live sessions covering most of this material, see the [Anyscale Academy](https://anyscale.com/academy/) page or visit the [Anyscale YouTube! channel](https://www.youtube.com/channel/UC7L1tZw52rtgmIB4fr_f40w/playlists).
+
+> **NOTE**: Some the video materal content may not match with notebooks here because we have
+updated the material to the lasted Ray version, with many changes to the APIs.
 
 ## Tutorial Setup
 
