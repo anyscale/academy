@@ -61,7 +61,7 @@ Now install the dependencies using either [Anaconda](https://www.anaconda.com/) 
 
 ### Which Python Version?
 
-Python 3.7 is recommended. While Ray supports Python 3.6, there are known problem using _locales_ in that version and these tutorials. Specifically, the following code throws an error:
+Python 3.7+ is recommended. While Ray supports Python 3.6, there are known problem using _locales_ in that version and these tutorials. Specifically, the following code throws an error:
 
 ```python
 import locale
@@ -224,7 +224,3 @@ There are other options you can try to customize what happens. Use the `--help` 
 > 3. If the Docker build errors out with code 137, first try cleaning old images and containers (`docker ps -a; docker rm ...` and `docker images; docker rmi ...`). Next try restarting Docker. What's most likely to work is to increase the memory allocated to the Docker process. On MacOS, use the _Preferences_ to do this. If that doesn't work, try increasing the swap and disk image sizes.
 
 > **WARNING:** It took over a week for me to successfully create the first versions of these Docker images. JupyterLab configurations, in particular, are very fragile with regards to some of the animated graphics in _Ray Crash Course_. So, only modify the builds with great caution and test everything carefully!! Also, note that `environment-docker.yml` hard-codes Python 3.7.7. Using 3.7 causes runtime failures in the Anyscale platform!!!
-
-<a href="https://events.linuxfoundation.org/ray-summit/?utm_source=dean&utm_medium=embed&utm_campaign=ray_summit&utm_content=anyscale_academy">
-<img src="images/raysummit-horizontal-white-banner-full.png" alt="Ray Summit 2021"/>
-</a>
