@@ -26,3 +26,4 @@ jupyter
 jupyterlab
 mlflow
 vaderSentiment
+gputil
