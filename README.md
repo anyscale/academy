@@ -2,10 +2,16 @@
 
 © 2018-2022, Anyscale. All Rights Reserved
 
-Welcome to the [Anyscale Academy](https://anyscale.com/academy) tutorials on [Ray](https://ray.io), the system for scaling your applications from a laptop to a cluster.
+Welcome to the [Anyscale Academy](https://anyscale.com/academy) tutorials on [Ray](https://ray.io), the system for scaling your Python and ML applications from a 
+laptop to a cluster.
 
-This README tells you how to set up the tutorials, decide which content is best for your interests, and find videos of previous 
-Academy live events.
+This README tells you how to set up the tutorials and decide which content is best for your interests.
+
+**IMPORTANT NOTE**: Modules and materials in this Academy have been updated and tested with `Ray release 1.11` and supported `Python 3.8`. Older 
+modules and tutorials have been retired into their respective `retired` directories. Hence, current material content will not match
+the Ray Summit 2020 tutorial. 
+
+Also, the setup process has been streamlined and Python dependencies and packages reduced.
 
 > **Tips:**
 >
@@ -122,7 +128,8 @@ jupyter labextension list
 
 ## Launching the Tutorials
 
-The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. To start run the following command in the project root directory:
+The previous steps installed [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/), the notebook-based environment we'll use for all the lessons. 
+To start run the following command in the project root directory:
 
 ```shell
 jupyter lab
