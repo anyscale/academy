@@ -8,7 +8,7 @@ error() {
 default_pattern='CartPole.*checkpoint-20$'
 help() {
     cat <<EOF
-$script: Run rllib rollout on a checkpoint.
+$script: Run rllib evaluate on a checkpoint.
 Usage: $script [-h|--help] [-c|--checkpoint-pattern c] [other_rllib_options]
 
 Where:
@@ -49,5 +49,5 @@ then
 fi
 
 checkpoint_dir="${checkpoint_dirs[${#checkpoint_dirs[@]}-1]}"
-echo "running: rllib rollout $checkpoint_dir --run PPO $@"
-$NOOP rllib rollout $checkpoint_dir --run PPO "$@"
+echo "running: rllib evaluate $checkpoint_dir --run PPO $@"
+$NOOP rllib evaluate $checkpoint_dir --run PPO "$@"
