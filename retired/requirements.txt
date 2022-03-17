@@ -1,0 +1,23 @@
+gym >= 0.17.2
+numpy >= 1.18.5
+pandas >= 1.1.1
+requests
+torch
+torchvision
+tensorboard >= 2.3.0
+tensorflow >= 2.3.0
+tqdm >= 4.37.0
+keras
+scikit-learn
+ipywidgets
+psutil
+jupyterlab
+jupyter-server-proxy
+beautifulsoup4
+lxml
+dm_tree
+lz4
+pytz
+ray
+ray[default]
+box2d-py
