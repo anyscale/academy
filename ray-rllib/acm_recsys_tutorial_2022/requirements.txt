@@ -1,0 +1,11 @@
+ray  # Note for Anyscale users: install ray from latest nightly wheel
+dm-tree
+gym==0.21
+pyglet
+tabulate
+lz4
+tensorboardX
+tensorflow_probability
+recsim --no-deps
+gin-config
+git+https://github.com/google/dopamine --no-deps
