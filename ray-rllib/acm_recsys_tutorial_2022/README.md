@@ -13,7 +13,7 @@ Python and AI/ML applications from a laptop to a cluster.
 |:-----|:-----------|:----------------------------------------------------------|
 | 0  | [Optional Intro](intro_gym_and_rllib_optional.ipynb)|Introduction to OpenAI Gym and RLlib|
 | 1  | [Tutorial notebook](01_anyscale_acm_recsys_tutorial.ipynb) |Tutorial notebook|
-| ex1 | [Exercises](r01_anyscale_acm_recsys_tutorial_exercises.ipynb) |Tutorial notebook with exercises |
+| ex1 | [Exercises](01_anyscale_acm_recsys_tutorial_exercises.ipynb) |Tutorial notebook with exercises |
 
 **NOTE**: Modules and materials in these tutorials have been tested with 
 Ray version `2.0`, OpenAI Gym `0.21`, and supported Python `3.7, 3.8, and 3.9`.
