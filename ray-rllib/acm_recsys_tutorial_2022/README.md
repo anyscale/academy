@@ -27,7 +27,7 @@ all notebooks, data files, and all relevant python packages will be installed on
 the cluster.
 
 However, consider cloning or downloading a release of the tutorial notebooks and 
-supporting software from my [Public github](https://github.com/christy/acm_recsys_tutorial), 
+supporting software from the [Public github](https://github.com/anyscale/academy), 
 so you have a local copy of everything.
 <br>
 <br>
