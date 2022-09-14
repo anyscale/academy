@@ -1,3 +1,4 @@
+tensorflow==2.8
 ray  # Note for Anyscale users: install ray from latest nightly wheel
 dm-tree
 gym==0.21
@@ -6,6 +7,6 @@ tabulate
 lz4
 tensorboardX
 tensorflow_probability
-recsim --no-deps
+#recsim --no-deps
 gin-config
-git+https://github.com/google/dopamine --no-deps
+#git+https://github.com/google/dopamine --no-deps
