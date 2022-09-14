@@ -20,7 +20,7 @@ from ray.rllib.policy.sample_batch import SampleBatch
 def parse_args():
     parser = argparse.ArgumentParser()
     # example results/dqn_recsim_20_v2/DQN/DQN_modified-lts_9e376_00000_0_2022-09-08_14-31-36/checkpoint_000278
-    parser.add_argument("--ckpt", type=str, required=True)
+    parser.add_argument("--ckpt", type=str)
     parser.add_argument("--seed", type=int, default=100, help="random seed")
 
     parser.add_argument("--x", type=int, default=0, help="Expert ratio")
@@ -93,7 +93,10 @@ def main(pargs):
 
     dqn_algo = dqn_config.build()
     checkpoint_path = pargs.ckpt
-    dqn_algo.restore(checkpoint_path)
+    if checkpoint_path:
+        dqn_algo.restore(checkpoint_path)
+    elif pargs.x > 0:
+        raise ValueError("Must provide a checkpoint path for expert ratio > 0")
 
 
     env = dqn_algo.workers.local_worker().env
@@ -132,7 +135,7 @@ def main(pargs):
     if pargs.x > 0:
         output_name = f"sampled_data_train_random_expert_{pargs.x}_percent_transitions"
     else:
-        output_name = f"sampled_data_train_random_transitions"
+        output_name = f"sampled_data_train_random_transitions_small"
 
     path = os.path.join(pargs.output, output_name)
     writer = JsonWriter(path)
