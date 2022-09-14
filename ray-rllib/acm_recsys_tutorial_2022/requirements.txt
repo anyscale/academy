@@ -2,7 +2,8 @@ tensorflow==2.8
 torch==1.12.1
 pyarrow==6.0.1
 matplotlib==3.5.3
-ray  # Note for Anyscale users: install ray from latest nightly wheel
+# Note for Anyscale users: install ray from latest nightly wheel
+ray
 dm-tree
 gym==0.21
 pyglet
@@ -11,7 +12,9 @@ tqdm
 lz4
 tensorboardX
 tensorflow_probability
-#recsim --no-deps
+# Note move this to post-processing due to install flags
+#recsim --no-deps  
 gin-config
-#git+https://github.com/google/dopamine --no-deps
+# Note move this to post-processing due to install flags
+#git+https://github.com/google/dopamine --no-deps 
 seaborn
