@@ -76,7 +76,7 @@ If you already have Anaconda installed, consider running conda `upgrade --all.`
 4. `python3 -m pip install -r requirements.txt`
 5. `pip install recsim --no-deps`
 6. `pip install git+https://github.com/google/dopamine --no-deps`
-7. `python3 -m pip install ipykernel python3 -m pip install ipykernel jupyterlab`
+7. `python3 -m pip install ipykernel jupyterlab`
 8. `jupyter lab`
 
 <br>
