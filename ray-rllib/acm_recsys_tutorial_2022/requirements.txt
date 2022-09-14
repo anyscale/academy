@@ -1,10 +1,12 @@
 tensorflow==2.8
 torch==1.12.1
+pyarrow==6.0.1
 ray  # Note for Anyscale users: install ray from latest nightly wheel
 dm-tree
 gym==0.21
 pyglet
 tabulate
+tqdm
 lz4
 tensorboardX
 tensorflow_probability
