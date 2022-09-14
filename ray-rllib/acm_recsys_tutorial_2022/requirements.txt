@@ -6,6 +6,7 @@ dm-tree
 gym==0.21
 pyglet
 tabulate
+tqdm
 lz4
 tensorboardX
 tensorflow_probability
