@@ -1,4 +1,4 @@
-tensorflow==2.8
+tensorflow==2.8.1
 torch==1.12.1
 pyarrow==6.0.1
 matplotlib==3.5.3
