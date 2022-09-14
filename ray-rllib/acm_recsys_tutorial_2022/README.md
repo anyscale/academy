@@ -41,34 +41,43 @@ after training is over.
 If you need to install Anaconda, follow the instructions [here](https://www.anaconda.com/products/distribution).
 If you already have Anaconda installed, consider running conda `upgrade --all.`
 
-1. `conda create -n rllib-recsys-tutorial python=3.8`
+1. `conda create -y -n rllib-recsys-tutorial python=3.8`
 2. `conda activate rllib-recsys-tutorial`
-3. `git clone https://github.com/christy/acm_recsys_tutorial.git`
-4. `cd to <cloned_dir>`
-5. `python3 -m pip install -r requirements.txt`
-6. `python3 -m ipykernel install`
-7. `jupyter lab`
+3. `cd to dir above where you want <cloned_dir>`
+4. `git clone https://github.com/anyscale/academy.git`
+5. `cd academy/ray-rllib/acm_recsys_tutorial_2022`
+6. `python3 -m pip install -r requirements.txt`
+7. `pip install recsim --no-deps`
+8. `pip install git+https://github.com/google/dopamine --no-deps`
+9. `python3 -m pip install ipykernel jupyterlab`
+10. `jupyter lab`
 
 
 #### If you are using Apple M1 🍎 follow these instructions:
 
-1. `conda create -n rllib-recsys-tutorial python=3.8`
-2. `conda activate rllib-recsys-tutorial python`
-3. `conda install grpcio`
-4. `git clone https://github.com/christy/acm_recsys_tutorial.git`
-5. `cd to <cloned_dir>`
-6. `python3 -m pip install -r requirements.txt`
-7. `python3 -m ipykernel install`
-8. `conda install jupyterlab`
-9. `jupyter lab`
+1. `conda create -y -n rllib-recsys-tutorial python=3.8`
+2. `conda activate rllib-recsys-tutorial`
+3. `conda install -y grpcio=1.43.0`
+4. `conda install -y tensorflow=2.8`
+5. `cd to dir above where you want <cloned_dir>`
+6. `git clone https://github.com/anyscale/academy.git`
+7. `cd academy/ray-rllib/acm_recsys_tutorial_2022`
+8. `python3 -m pip install -r requirements.txt`
+9. `pip install recsim --no-deps`
+10. `pip install git+https://github.com/google/dopamine --no-deps`
+11. `python3 -m pip install ipykernel jupyterlab`
+12. `jupyter lab`
 
 
 ### Using only pip
-1. `git clone https://github.com/christy/acm_recsys_tutorial.git`
-2. `cd to <cloned_dir>`
-3. `python3 -m pip install -r requirements.txt`
-4. `python3 -m ipykernel install`
-5. `jupyter lab`
+1. `cd to dir above where you want <cloned_dir>`
+2. `git clone https://github.com/anyscale/academy.git`
+3. `cd academy/ray-rllib/acm_recsys_tutorial_2022`
+4. `python3 -m pip install -r requirements.txt`
+5. `pip install recsim --no-deps`
+6. `pip install git+https://github.com/google/dopamine --no-deps`
+7. `python3 -m pip install ipykernel jupyterlab`
+8. `jupyter lab`
 
 <br>
 
