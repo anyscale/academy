@@ -93,6 +93,20 @@ class ModifiedLongTermSatisfactionRecSimEnv(gym.Wrapper):
 
     def __init__(self, config: Optional[EnvContext] = None):
 
+        # Override with default values, in case they are not set by the user.
+        default_config = {
+            "num_candidates": 20,
+            "slate_size": 1,
+            "resample_documents": True,
+            "seed": 0,
+            "convert_to_discrete_action_space": True,
+            "wrap_for_bandits": False,
+            "reward_scale": 1.0,
+        }
+        if config is None or isinstance(config, dict):
+            config = EnvContext(config or default_config, worker_index=0)
+        config.set_defaults(default_config)
+        
         reward_aggregator = lts.clicked_engagement_reward
         # Create the RecSim user model instance.
         recsim_user_model = ModifiedLTSUserModel(
@@ -103,20 +117,6 @@ class ModifiedLongTermSatisfactionRecSimEnv(gym.Wrapper):
         )
         # Create the RecSim document sampler instance.
         recsim_document_sampler = ModifiedLTSDocumentSampler(seed=config.get("seed", 0))
-
-
-        # Override with default values, in case they are not set by the user.
-        default_config = {
-            "num_candidates": 20,
-            "slate_size": 1,
-            "resample_documents": True,
-            "seed": 0,
-            "convert_to_discrete_action_space": True,
-            "wrap_for_bandits": False,
-        }
-        if config is None or isinstance(config, dict):
-            config = EnvContext(config or default_config, worker_index=0)
-        config.set_defaults(default_config)
 
         # Create a raw RecSim environment (not yet a gym.Env!).
         raw_recsim_env = environment.SingleUserEnvironment(
@@ -141,3 +141,6 @@ class ModifiedLongTermSatisfactionRecSimEnv(gym.Wrapper):
         # Call the super (Wrapper constructor) passing it the created env.
         super().__init__(env=env)
 
+    
+    def get_user_state(self):
+        return self.environment._user_model._user_state.__dict__
