@@ -1,23 +1,23 @@
-# Welcome to ACM RecSys 2022 Tutorial 
+# Welcome to the Anyscale ACM RecSys 2022 Tutorial 
 
-© 2019-2022, Anyscale. All Rights Reserved'
+© 2019-2022, Anyscale. All Rights Reserved
+
+![Anyscale Academy](../../images/AnyscaleAcademyLogo.png)
 
 Welcome to the ACM RecSys 2022 training tutorial on Ray, the system for scaling your 
 Python and AI/ML applications from a laptop to a cluster.
 <br>
 <br>
 
-## 📖 Outline for the tutorial
+## 📖 Tutorial Lessons
 
-| Lesson| Notebook | Description
-|:-----|:-----------|:----------------------------------------------------------|
-| 0  | [Optional Intro](intro_gym_and_rllib_optional.ipynb)|Introduction to OpenAI Gym and RLlib|
-| 1  | [Tutorial notebook](01_anyscale_acm_recsys_tutorial.ipynb) |Tutorial notebook|
-| ex1 | [Exercises](01_anyscale_acm_recsys_tutorial_exercises.ipynb) |Tutorial notebook with exercises |
+## [Let's get Started Learning!](00_anyscale_acm_recsys_tutorial_table_of_contents.ipynb)
 
-**NOTE**: Modules and materials in these tutorials have been tested with 
-Ray version `2.0`, OpenAI Gym `0.21`, and supported Python `3.7, 3.8, and 3.9`.
 <br>
+
+**NOTE**: Materials in these tutorials have been tested with 
+Ray version `2.0`, OpenAI Gym `0.21`, and supported Python `3.7, 3.8, and 3.9`.
+
 <br>
 
 ## 👩 Set up instructions for Anyscale 
@@ -84,13 +84,4 @@ If you already have Anaconda installed, consider running conda `upgrade --all.`
 Let's have 😜 fun @ Anyscale RLlib RecSys Tutorial 2022!
 
 Thank you 🙏
-
-
-
-
-
-
-
-
-
 
