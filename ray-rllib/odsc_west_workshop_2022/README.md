@@ -80,7 +80,7 @@ If you already have Anaconda installed, consider running conda `upgrade --all.`
 
 <br>
 
-Let's have 😜 fun @ Anyscale RLlib RecSys Tutorial 2022!
+Let's have 😜 fun @ Anyscale RLlib ODSC West Workshop 2022!
 
 Thank you 🙏
 
