@@ -1,3 +1,5 @@
+> ⚠️ This repository is no longer maintained (last updated for Ray 1.11). For current Ray tutorials and examples, see the Ray documentation: https://docs.ray.io/en/latest/ray-overview/examples.html
+
 # Anyscale Academy - Tutorials on Ray and Ray-based Libraries
 
 © 2018-2022, Anyscale. All Rights Reserved
